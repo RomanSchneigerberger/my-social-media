@@ -3,6 +3,6 @@ import userReducer from '../features/features'
 
 export const store = configureStore({
 	reducer: {
-		auth: userReducer, // pomenqtj
+		user: userReducer, // pomenqtj
 	}
 });

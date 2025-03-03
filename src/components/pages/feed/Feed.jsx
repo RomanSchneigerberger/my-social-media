@@ -1,11 +1,13 @@
 import React from 'react';
 
-const Contact = () => {
+
+const Feed = () => {
+	
 	return (
 		<div>
-			Contact
+			Feed
 		</div>
 	);
 };
 
-export default Contact;
+export default Feed;

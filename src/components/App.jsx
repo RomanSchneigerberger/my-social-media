@@ -1,11 +1,12 @@
 import React from 'react';
 import {BrowserRouter, Routes, Route} from "react-router-dom";
-import Home from "./pages/home/Home";
-import About from "./pages/about/About";
-import Contact from "./pages/contact/Contact";
-import Products from "./pages/products/Products";
+import Feed from "./pages/feed/Feed";
+import Profile from "./pages/profile/Profile";
+import SignIn from "./pages/signIn/SignIn";
+import SignUp from "./pages/signUp/SignUp";
 import Nav from "./elements/nav/Nav";
 import './app.scss';
+import Search from "./pages/search/Search";
 
 
 const App = () => {
@@ -14,10 +15,12 @@ const App = () => {
 			<BrowserRouter>
 				<Nav/>
 				<Routes>
-					<Route path='/' index element={<Home />} />
-					<Route path='/about' element={<About />} />
-					<Route path='/contact'  element={<Contact />} />
-					<Route path='/products'  element={<Products />} />
+					<Route path='/'  element={<SignIn />} />
+					<Route path='/signUp'  element={<SignUp />} />
+					<Route path='/profile' index element={<Profile />} />
+					<Route path='/feed' element={<Feed />} />
+					<Route path='/search' element={<Search />} />
+					
 				</Routes>
 			</BrowserRouter>
 		</div>

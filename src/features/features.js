@@ -7,8 +7,8 @@ const initialState = {
 	token: localStorage.getItem("token") || null, // pomenqtj
 };
 
-const authSlice = createSlice({
-	name: "auth",
+const userSlice = createSlice({
+	name: "user",
 	initialState,
 	reducers: {
 		setToken: (state, action) => { // pomenqtj
@@ -18,5 +18,5 @@ const authSlice = createSlice({
 	},
 });
 
-export const { setToken } = authSlice.actions;
-export default authSlice.reducer;
+export const { setToken } = userSlice.actions;
+export default userSlice.reducer;
