@@ -40,7 +40,7 @@ function SignUp() {
 			<form className="signup-form" onSubmit={handleSubmit(onSubmit)}>
 				<h2 className="signup-header">Registrierung</h2>
 				<p>Sie haben bereits Acount?</p>
-				<button className="signup-switch-button" onClick={() => navigate("/")}>
+				<button className="signup-switch-button" onClick={() => navigate("/signIn")}>
 					Zu Login
 				</button>
 				<br/>

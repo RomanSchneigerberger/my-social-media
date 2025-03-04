@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { logoutUser, setUser } from "../../../features/features";
 import { useNavigate } from "react-router-dom";
-import "./profile.scss";
+import "./myProfile.scss";
 
-const Profile = () => {
+const MyProfile = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const { token } = useSelector((state) => state.user);
@@ -66,11 +66,11 @@ const Profile = () => {
 				<div><strong>{profileData.following}</strong> Following</div>
 			</div>
 			<div className="profile-menu">
-				<button onClick={() => navigate("/myProfile")}>🤴 Profile</button>
-				<button onClick={() => navigate("/feed")}>🏠 Feed</button>
-				<button onClick={() => navigate("/followers")}>💙 Followers</button>
-				<button onClick={() => navigate("/following")}>❤️️ Following</button>
-				<button onClick={() => navigate("/settings")}>⚙️ Settings</button>
+				<button onClick={() => navigate("/profile")}>Profile</button>
+				<button onClick={() => navigate("/feed")}>Feed</button>
+				<button onClick={() => navigate("/followers")}>Followers</button>
+				<button onClick={() => navigate("/following")}>Following</button>
+				<button onClick={() => navigate("/settings")}>Settings</button>
 			</div>
 			<button className="profile-view-btn" onClick={() => navigate("/profile")}>View Profile</button>
 			<button className="logout-btn" onClick={handleLogout}>Logout</button>
@@ -79,4 +79,4 @@ const Profile = () => {
 	);
 };
 
-export default Profile;
+export default MyProfile;

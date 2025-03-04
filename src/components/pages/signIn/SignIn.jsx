@@ -28,7 +28,7 @@ function SignIn() {
 				console.log(" Erfolgreiche Anmeldung:", result);
 				localStorage.setItem("token", result.token);
 				dispatch(setToken({ token: result.token }));
-				navigate("/profile");
+				navigate("/");
 			} else {
 				console.error(" Anmeldefehler:", result);
 				alert(result.message || "Autorisierungsfehler!");
