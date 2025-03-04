@@ -25,26 +25,30 @@ function SignIn() {
 			
 			const result = await response.json();
 			if (response.ok) {
-				console.log(" Успешный вход:", result);
+				console.log(" Erfolgreiche Anmeldung:", result);
 				localStorage.setItem("token", result.token);
 				dispatch(setToken({ token: result.token }));
 				navigate("/profile");
 			} else {
-				console.error(" Ошибка входа:", result);
-				alert(result.message || "Ошибка авторизации!");
+				console.error(" Anmeldefehler:", result);
+				alert(result.message || "Autorisierungsfehler!");
 			}
 		} catch (error) {
-			console.error("⚠️ Ошибка запроса:", error);
-			alert("Ошибка соединения с сервером!");
+			console.error("⚠️ Anforderungsfehler:", error);
+			alert("Fehler beim Verbinden mit dem Server!");
 		}
 	};
 	
 	return (
 		<div className="signin-page">
 			<form className="signin-form" onSubmit={handleSubmit(onSubmit)}>
-				<h2 className="signin-header">Вход в <br/> VромансK</h2>
+				<h2 className="signin-header">Login</h2>
+				<p>Sie haben noch kein Acount?</p>
+				<button className="signin-switch-button" onClick={() => navigate("/signUp")}>
+					Zum Registrierung
+				</button> <br/>
 				<label className="signin-label">
-					<span className="signin-label-text">Логин</span>
+					<span className="signin-label-text">Benutzername</span>
 					<input
 						className="signin-input"
 						{...register("username", { required: "Введите логин", minLength: 4 })}
@@ -52,7 +56,7 @@ function SignIn() {
 					{errors.username && <p className="signin-error">{errors.username.message}</p>}
 				</label>
 				<label className="signin-label">
-					<span className="signin-label-text">Пароль</span>
+					<span className="signin-label-text">Password</span>
 					<input
 						type="password"
 						className="signin-input"
@@ -61,12 +65,10 @@ function SignIn() {
 					{errors.password && <p className="signin-error">{errors.password.message}</p>}
 				</label>
 				<button type="submit" className="signin-button">
-					Войти
+					Login
 				</button>
+				<p className="signup-footer">© {new Date().getFullYear()}. All rights reserved</p>
 			</form>
-			<button className="signin-switch-button" onClick={() => navigate("/signUp")}>
-				Registrieren
-			</button>
 		</div>
 	);
 }

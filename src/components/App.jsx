@@ -4,7 +4,7 @@ import Feed from "./pages/feed/Feed";
 import Profile from "./pages/profile/Profile";
 import SignIn from "./pages/signIn/SignIn";
 import SignUp from "./pages/signUp/SignUp";
-import Nav from "./elements/nav/Nav";
+
 import './app.scss';
 import Search from "./pages/search/Search";
 
@@ -13,7 +13,7 @@ const App = () => {
 	return (
 		<div>
 			<BrowserRouter>
-				<Nav/>
+				
 				<Routes>
 					<Route path='/'  element={<SignIn />} />
 					<Route path='/signUp'  element={<SignUp />} />
