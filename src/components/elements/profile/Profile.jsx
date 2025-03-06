@@ -57,23 +57,23 @@ const Profile = () => {
 			<div className="profile-header">
 				<img src={profileData.avatar} alt="Avatar" className="profile-avatar" />
 				<h2>{profileData.fullName}</h2>
-				<p className="profile-job">Web Developer at Stackbros</p>
+				<p className="profile-job">Alter {profileData.age}</p>
 				<p className="profile-bio">{profileData.bio}</p>
 			</div>
 			<div className="profile-stats">
 				<div><strong>{profileData.posts_count}</strong> Posts</div>
-				<div><strong>{profileData.followers}</strong> Followers</div>
-				<div><strong>{profileData.following}</strong> Following</div>
+				<div><strong>{profileData.followers}</strong> Follgen mir</div>
+				<div><strong>{profileData.following}</strong> Follge ich</div>
 			</div>
 			<div className="profile-menu">
-				<button onClick={() => navigate("/myProfile")}>🤴 Profile</button>
-				<button onClick={() => navigate("/feed")}>🏠 Feed</button>
-				<button onClick={() => navigate("/followers")}>💙 Followers</button>
-				<button onClick={() => navigate("/following")}>❤️️ Following</button>
-				<button onClick={() => navigate("/settings")}>⚙️ Settings</button>
+				<button onClick={() => navigate("/myProfile")}>🤴 Profil</button>
+				<button onClick={() => navigate("/feed")}>🏠 Übersicht</button>
+				<button onClick={() => navigate("/followers")}>💙 Follgen mir</button>
+				<button onClick={() => navigate("/following")}>❤️️ Follge ich</button>
+				<button onClick={() => navigate("/settings")}>⚙️ Einstellungen</button>
 			</div>
-			<button className="profile-view-btn" onClick={() => navigate("/profile")}>View Profile</button>
-			<button className="logout-btn" onClick={handleLogout}>Logout</button>
+			{/*<button className="profile-view-btn" onClick={() => navigate("/profile")}>View Profile</button>*/}
+			<button className="logout-btn" onClick={handleLogout}>Verlassen</button>
 			<p className="profile-footer">© {new Date().getFullYear()}. All rights reserved</p>
 		</div>
 	);

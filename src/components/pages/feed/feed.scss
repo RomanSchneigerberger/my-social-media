@@ -1,0 +1,189 @@
+// feed.scss
+
+// Определяем переменные для цветовой схемы
+$primary-color: #1877f2;
+$light-gray: #f0f2f5;
+$text-color: #050505;
+$secondary-text-color: #65676b;
+$border-color: #ddd;
+$background-white: rgb(255, 255, 255);
+
+// Контейнер всей ленты
+.feed-container {
+  max-width: 700px;
+  margin: 20px auto;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+// Заголовок ленты с кнопкой возврата
+.feed-header {
+  display: flex;
+  position: fixed;
+  z-index: 2;
+  width: 600px;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 8px;margin-bottom: 15px;
+
+  h1 {
+    font-size: 24px;
+    color: $text-color;
+    margin: 0;
+    -webkit-text-stroke-width: 0.4px;
+    -webkit-text-stroke-color: #ffffff;
+  }
+
+  .back-to-profile-btn {
+    background: $primary-color;
+    color: $background-white;
+    border: none;
+    border-radius: 4px;
+    padding: 6px 12px;
+    cursor: pointer;
+    font-size: 14px;
+
+    &:hover {
+      background: darken($primary-color, 10%);
+    }
+  }
+}
+
+// Элементы управления (сортировка и фильтр)
+.feed-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+
+  label {
+    margin-right: 5px;
+    font-size: 14px;
+    color: $secondary-text-color;
+  }
+
+  select {
+    padding: 4px 8px;
+    border: 1px solid $border-color;
+    border-radius: 4px;
+    font-size: 14px;
+    background: $background-white;
+    color: $text-color;
+  }
+}
+
+// Секция постов
+.feed-posts {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+// Карточка поста
+.feed-post {
+  background: $background-white;
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+
+  .post-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: $text-color;
+  }
+
+  .post-description {
+    font-size: 16px;
+    color: $text-color;
+    margin-bottom: 10px;
+  }
+
+  .post-media {
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 10px;
+  }
+
+  // Информация об авторе
+  .post-author {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+
+    .author-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-right: 10px;
+    }
+
+    .author-name {
+      font-size: 16px;
+      color: $text-color;
+    }
+  }
+
+  .post-likes {
+    font-size: 14px;
+    color: $secondary-text-color;
+    margin-top: 10px;
+  }
+}
+
+.scroll-to-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: $primary-color;
+  color: $background-white;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 20px;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  transition: background 0.3s ease;
+
+  &:hover {
+    background: darken($primary-color, 10%);
+  }
+}
+.post-likes{
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  align-items: center;
+}
+
+.like-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  transition: transform 0.2s ease-in-out;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+  &.liked {
+    color: #ff4f92; // Розовый цвет для активного лайка
+  }
+
+  &.not-liked {
+    display: none;
+
+  }
+}
+.delete_btn{
+  WIDTH: 30px;
+  height: 30px;
+  background: none;
+  font-size: 20px;
+  border: none;
+  cursor: pointer;
+  &:hover {
+    transform: scale(2.2);
+  }
+}
