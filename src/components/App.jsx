@@ -7,6 +7,7 @@ import SignUp from "./pages/signUp/SignUp";
 import Home from "./pages/home/Home";
 import './app.scss';
 import Search from "./pages/search/Search";
+import CreateProfile from "./elements/createProfile/CreateProfile";
 
 
 const App = () => {
@@ -21,6 +22,7 @@ const App = () => {
 					<Route path='/myProfile' element={<MyProfile />} />
 					<Route path='/feed' element={<Feed />} />
 					<Route path='/search' element={<Search />} />
+					<Route path='/createProfile' element={<CreateProfile />} />
 					
 				</Routes>
 			</BrowserRouter>

@@ -70,7 +70,7 @@ const Profile = () => {
 				<button onClick={() => navigate("/feed")}>🏠 Übersicht</button>
 				<button onClick={() => navigate("/followers")}>💙 Follgen mir</button>
 				<button onClick={() => navigate("/following")}>❤️️ Follge ich</button>
-				<button onClick={() => navigate("/settings")}>⚙️ Einstellungen</button>
+				<button onClick={() => navigate("/createProfile")}>⚙️ Einstellungen</button>
 			</div>
 			{/*<button className="profile-view-btn" onClick={() => navigate("/profile")}>View Profile</button>*/}
 			<button className="logout-btn" onClick={handleLogout}>Verlassen</button>
