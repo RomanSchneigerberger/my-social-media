@@ -67,7 +67,7 @@ const Profile = () => {
 			</div>
 			<div className="profile-menu">
 				<button onClick={() => navigate("/myProfile")}>🤴 Profil</button>
-				<button onClick={() => navigate("/feed")}>🏠 Übersicht</button>
+				<button onClick={() => navigate("/")}>🏠 Übersicht</button>
 				<button onClick={() => navigate("/followers")}>💙 Follgen mir</button>
 				<button onClick={() => navigate("/following")}>❤️️ Follge ich</button>
 				<button onClick={() => navigate("/editProfile")}>⚙️ Einstellungen</button>

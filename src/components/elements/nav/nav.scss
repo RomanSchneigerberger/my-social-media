@@ -1,24 +1,58 @@
-.nav-el{
-  height: 30px;
+.nav-container {
+  width: 100%;
+  height: 50px; /* Увеличил высоту */
+  background-color: #ffffff;
+  display: flex;
+  justify-content: center; /* Центрируем */
+  align-items: center;
+  top: 0;
+  left: 0;
+  padding: 0 20px;
+  margin-bottom: 30px;
 }
 
-.nav{
+.nav {
   display: flex;
-  height: 30px;
-  text-align: center;
   align-items: center;
-  justify-content: space-around;
-  flex-direction: row;
-  text-decoration: none;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.1);
-  border-radius: 18px;
-  &:active{
-    color: #007bff;
-  }
-Link{
-  text-decoration: none;
-  &:active{
-    color: #007bff;
-  }
+  gap: 40px; /* Увеличил расстояние между ссылками */
 }
+
+.nav-link {
+  color: #0e0e0e;
+  text-decoration: none;
+  font-size: 16px; /* Чуть увеличил размер */
+  padding: 8px 15px;
+  transition: 0.3s;
+  font-weight: 500;
+}
+
+.nav-link:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 5px;
+}
+
+/* Поисковая форма */
+.search-form {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Увеличил расстояние */
+}
+
+.search-input {
+  background-color: #e5e3e3;
+  height: 30px;
+  width: 200px; /* Чуть увеличил ширину */
+  padding: 5px 10px;
+  font-size: 14px;
+  border: none;
+  border-radius: 5px;
+  outline: none;
+}
+
+.search-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  color: white;
 }
