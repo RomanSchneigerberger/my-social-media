@@ -53,7 +53,7 @@ const Profile = () => {
 	if (!profileData) return <div className="error-msg">Нет данных профиля</div>;
 	
 	return (
-		<div className="profile-card">
+		<div className="profile-card col-3">
 			<div className="profile-header">
 				<img src={profileData.avatar} alt="Avatar" className="profile-avatar" />
 				<h2>{profileData.fullName}</h2>
@@ -70,7 +70,7 @@ const Profile = () => {
 				<button onClick={() => navigate("/feed")}>🏠 Übersicht</button>
 				<button onClick={() => navigate("/followers")}>💙 Follgen mir</button>
 				<button onClick={() => navigate("/following")}>❤️️ Follge ich</button>
-				<button onClick={() => navigate("/createProfile")}>⚙️ Einstellungen</button>
+				<button onClick={() => navigate("/editProfile")}>⚙️ Einstellungen</button>
 			</div>
 			{/*<button className="profile-view-btn" onClick={() => navigate("/profile")}>View Profile</button>*/}
 			<button className="logout-btn" onClick={handleLogout}>Verlassen</button>

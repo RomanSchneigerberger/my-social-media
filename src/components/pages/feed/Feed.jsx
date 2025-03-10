@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import "./feed.scss";
 import avatar from '../../images/png-transparent-default-avatar-thumbnail.png';
+import NewPost from "../../elements/newPost/NewPost";
 
 const Feed = () => {
 	const { token, user } = useSelector((state) => state.user);
@@ -118,58 +119,62 @@ const Feed = () => {
 	if (!feedData.length) return <div className="error-msg">Нет постов</div>;
 	
 	return (
-		<div className="feed-container">
-			<div className="feed-posts">
-				{feedData.map((post) => {
-					const likesCount = post.likes.length;
-					
-					return (
-						<div key={post._id} className="feed-post">
-							{/* Верхняя часть: Автор */}
-							<div className="post-header">
-								<img
-									src={post.user[0].avatar || avatar}
-									alt="Аватар автора"
-									className="author-avatar"
-								/>
-								<div>
+		<div className="col-6">
+			<NewPost/>
+			<div className="feed-container">
+				<div className="feed-posts">
+					{feedData.map((post) => {
+						const likesCount = post.likes.length;
+						
+						return (
+							<div key={post._id} className="feed-post">
+								{/* Верхняя часть: Автор */}
+								<div className="post-header">
+									<img
+										src={post.user[0].avatar || avatar}
+										alt="Аватар автора"
+										className="author-avatar"
+									/>
+									<div>
                                     <span className="author-name">
                                         {post.user[0].fullName || post.user[0].username}
                                     </span>
+									</div>
+								</div>
+								
+								{/* Контент поста */}
+								{post.title && <h3 className="post-title">{post.title}</h3>}
+								{post.description && <p className="post-description">{post.description}</p>}
+								{post.image && <img src={post.image} alt="Фото поста" className="post-media" />}
+								{post.video && (
+									<iframe
+										title="Видео поста"
+										src={post.video}
+										className="post-video"
+									></iframe>
+								)}
+								
+								{/* ✅ Лайки + Кнопки в одной строке */}
+								<div className="post-actions">
+									<button
+										className="like-button"
+										onClick={() =>
+											post.likes.some((like) => like.fromUser === user)
+												? deleteLike(post._id)
+												: handleLike(post._id)
+										}
+									>
+										{post.likes.some((like) => like.fromUser === user) ? "❤️ Like" : "🤍 Like"} ({likesCount})
+									</button>
+									<button className="delete-button" onClick={() => deletePost(post._id)}>🗑</button>
 								</div>
 							</div>
-							
-							{/* Контент поста */}
-							{post.title && <h3 className="post-title">{post.title}</h3>}
-							{post.description && <p className="post-description">{post.description}</p>}
-							{post.image && <img src={post.image} alt="Фото поста" className="post-media" />}
-							{post.video && (
-								<iframe
-									title="Видео поста"
-									src={post.video}
-									className="post-video"
-								></iframe>
-							)}
-							
-							{/* ✅ Лайки + Кнопки в одной строке */}
-							<div className="post-actions">
-								<button
-									className="like-button"
-									onClick={() =>
-										post.likes.some((like) => like.fromUser === user)
-											? deleteLike(post._id)
-											: handleLike(post._id)
-									}
-								>
-									{post.likes.some((like) => like.fromUser === user) ? "❤️ Like" : "🤍 Like"} ({likesCount})
-								</button>
-								<button className="delete-button" onClick={() => deletePost(post._id)}>🗑</button>
-							</div>
-						</div>
-					);
-				})}
+						);
+					})}
+				</div>
 			</div>
 		</div>
+		
 	);
 };
 

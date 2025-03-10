@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import "./createProfile.scss";
+import "./editProfile.scss";
 
-const CreateProfile = () => {
+const EditProfile = () => {
 	const { token } = useSelector((state) => state.user);
 	const navigate = useNavigate();
 	const [postData, setPostData] = useState({
@@ -190,4 +190,4 @@ const CreateProfile = () => {
 	);
 };
 
-export default CreateProfile;
+export default EditProfile;

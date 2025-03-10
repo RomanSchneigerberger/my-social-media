@@ -7,14 +7,17 @@ import NewPost from "../../elements/newPost/NewPost";
 const Home = () => {
 	return (
 		<div className="Home">
-			<Nav/>
-			<div>
+			<header>
+				<Nav/>
+			</header>
+			<section className="row">
 				<Profile/>
-			</div>
-			<div>
-				<NewPost/>
 				<Feed/>
-			</div>
+			</section>
+			<footer>
+			
+			</footer>
+		
 		</div>
 	);
 };
