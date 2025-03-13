@@ -1,25 +1,46 @@
 import React, { useState, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import "./search.scss";
 
 const Search = () => {
-	const [results, setResults] = useState([]); // Список найденных пользователей
-	const [selectedUser, setSelectedUser] = useState(null); // Выбранный пользователь
+	const [results, setResults] = useState([]); // Найденные пользователи
+	const [selectedUser, setSelectedUser] = useState(null); // Карточка выбранного пользователя
+	const [following, setFollowing] = useState(new Set()); // Подписки пользователя
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState(null);
-	const {token} = useSelector((state) => state.user);
+	
+	const { token, username } = useSelector((state) => state.user);
 	const location = useLocation();
-	const navigate = useNavigate();
 	
 	// ✅ Получаем query-параметр из URL
 	const params = new URLSearchParams(location.search);
-	const query = params.get("query");
+	const query = params.get("query")?.toLowerCase() || ""; // Игнорируем регистр
 	
+	// 📌 Загружаем подписки пользователя
 	useEffect(() => {
-		if (!query || query.trim() === "") {
-			setResults([]); // Очищаем список при пустом запросе
+		if (!token) return;
+		
+		const fetchFollowing = async () => {
+			try {
+				const response = await axios.get(`http://49.13.31.246:9191/followings/${username}`, {
+					headers: { "x-access-token": token },
+				});
+				const followingSet = new Set(response.data.following.map((u) => u.username));
+				setFollowing(followingSet);
+			} catch (err) {
+				console.error("Ошибка загрузки подписок:", err);
+			}
+		};
+		
+		fetchFollowing();
+	}, [token, username]);
+	
+	// 📌 Поиск пользователей (по части имени)
+	useEffect(() => {
+		if (!query) {
+			setResults([]);
 			setSelectedUser(null);
 			return;
 		}
@@ -27,21 +48,19 @@ const Search = () => {
 		const fetchUsers = async () => {
 			setLoading(true);
 			try {
-				const response = await axios.get(`http://49.13.31.246:9191/user/${query}`, {
+				// 🔹 Загружаем **всех пользователей**
+				const response = await axios.get(`http://49.13.31.246:9191/users`, {
 					headers: { "x-access-token": token },
 				});
 				
-				// ✅ Проверяем, является ли ответ массивом или объектом
-				if (Array.isArray(response.data)) {
-					setResults(response.data);
-				} else if (typeof response.data === "object" && response.data !== null) {
-					setResults([response.data]);
-				} else {
-					console.error("Ошибка: Сервер вернул неожиданный формат", response.data);
-					setResults([]);
-				}
-			} catch (error) {
-				console.error("Ошибка поиска:", error);
+				// 🔹 Фильтруем по части `fullName` или `username`
+				const filteredUsers = response.data.filter((user) =>
+					user.fullName.toLowerCase().includes(query) || user.username.toLowerCase().includes(query)
+				);
+				
+				setResults(filteredUsers);
+			} catch (err) {
+				console.error("Ошибка поиска:", err);
 				setResults([]);
 			} finally {
 				setLoading(false);
@@ -51,14 +70,36 @@ const Search = () => {
 		fetchUsers();
 	}, [query, token]);
 	
-	// 📌 Показываем данные пользователя в карточке
+	// 📌 Подписка / Отписка
+	const toggleFollow = async (username) => {
+		const isFollowing = following.has(username);
+		const url = `http://49.13.31.246:9191/${isFollowing ? "unfollow" : "follow"}`;
+		
+		try {
+			await axios.post(url, { username }, { headers: { "x-access-token": token } });
+			
+			setFollowing((prev) => {
+				const updatedSet = new Set(prev);
+				if (isFollowing) {
+					updatedSet.delete(username);
+				} else {
+					updatedSet.add(username);
+				}
+				return updatedSet;
+			});
+		} catch (err) {
+			console.error(`Ошибка ${isFollowing ? "отписки" : "подписки"}:`, err);
+		}
+	};
+	
+	// 📌 Открываем карточку пользователя
 	const handleUserClick = (user) => {
 		setSelectedUser(user);
 	};
 	
 	return (
 		<div className="search-container">
-			<h2>Результаты поиска: {query}</h2>
+			<h2>🔍 Результаты поиска: {query}</h2>
 			{loading && <p>⏳ Загрузка...</p>}
 			{error && <p className="error-msg">{error}</p>}
 			{!loading && results.length === 0 && <p>⚠️ Ничего не найдено</p>}
@@ -84,6 +125,12 @@ const Search = () => {
 					<p><strong>Постов:</strong> {selectedUser.posts_count}</p>
 					<p><strong>Подписчики:</strong> {selectedUser.followers}</p>
 					<p><strong>Подписки:</strong> {selectedUser.following}</p>
+					<button
+						className={`follow-btn ${following.has(selectedUser.username) ? "following" : ""}`}
+						onClick={() => toggleFollow(selectedUser.username)}
+					>
+						{following.has(selectedUser.username) ? "✅ Отписаться" : "➕ Подписаться"}
+					</button>
 					<button onClick={() => setSelectedUser(null)}>❌ Закрыть</button>
 				</div>
 			)}

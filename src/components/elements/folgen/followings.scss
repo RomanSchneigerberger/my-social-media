@@ -29,6 +29,9 @@ h2 {
   align-items: center;
   gap: 10px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  &:hover {
+    background: #eaeaea;
+  }
 }
 
 .follower-avatar {

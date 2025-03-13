@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import "./editProfile.scss";
@@ -18,6 +18,36 @@ const EditProfile = () => {
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState(null);
 	const [photoInputType, setPhotoInputType] = useState("url");
+	
+	// ✅ Загружаем текущие данные профиля
+	useEffect(() => {
+		const fetchProfileData = async () => {
+			try {
+				const response = await fetch("http://49.13.31.246:9191/me", {
+					method: "GET",
+					headers: {
+						"Content-Type": "application/json",
+						"x-access-token": token,
+					},
+				});
+				if (!response.ok) throw new Error(`Ошибка загрузки данных: ${response.status}`);
+				
+				const data = await response.json();
+				setPostData({
+					username: data.username || "",
+					avatar: data.avatar || "",
+					age: data.age || "",
+					bio: data.bio || "",
+					fullName: data.fullName || "",
+					balance: data.balance || "",
+				});
+			} catch (err) {
+				setError(err.message);
+			}
+		};
+		
+		fetchProfileData();
+	}, [token]);
 	
 	const handleChange = (e) => {
 		setPostData({
@@ -42,20 +72,12 @@ const EditProfile = () => {
 			if (!response.ok) {
 				throw new Error(`Ошибка: ${response.status}`);
 			}
-			setPostData({
-				username: "",
-				avatar: "",
-				age: "",
-				bio: "",
-				fullName: "",
-				balance: "",
-			});
 		} catch (err) {
 			setError(err.message);
 		} finally {
 			setLoading(false);
+			navigate("/feed");
 		}
-		navigate("/home")
 	};
 	
 	const deleteProfile = async () => {
@@ -81,115 +103,115 @@ const EditProfile = () => {
 	return (
 		<div>
 			<Nav />
-		<div className="createProfile">
-			<button className="delete-profile-btn" onClick={()=> deleteProfile()}>
-				Удолить профиль
-			</button>
-			<h1>Редактировать профиль</h1>
-			<form onSubmit={handleSubmit} className="new-post-form">
-				<div className="form-group">
-					<label htmlFor="username">Новый Ник:</label>
-					<input
-						type="text"
-						id="username"
-						name="username"
-						value={postData.username}
-						onChange={handleChange}
-						placeholder="Введите ваш Ник"
-					/>
-				</div>
-				<div className="form-group">
-					<label htmlFor="age">Новый возраст:</label>
-					<input
-						type="number"
-						id="age"
-						name="age"
-						value={postData.age}
-						onChange={handleChange}
-						placeholder="Введите возраст"
-					/>
-				</div>
-				<div className="form-group">
-					<label htmlFor="bio">Инфо о себе:</label>
-					<input
-						type="text"
-						id="bio"
-						name="bio"
-						value={postData.bio}
-						onChange={handleChange}
-						placeholder="Введите информацию о себе"
-					/>
-				</div>
-				<div className="form-group">
-					<label htmlFor="fullName">Новое Имя:</label>
-					<input
-						type="text"
-						id="fullName"
-						name="fullName"
-						value={postData.fullName}
-						onChange={handleChange}
-						placeholder="Введите полное имя"
-					/>
-				</div>
-				<div className="form-group">
-					<label htmlFor="balance">Новый Баланс:</label>
-					<input
-						type="number"
-						id="balance"
-						name="balance"
-						value={postData.balance}
-						onChange={handleChange}
-						placeholder="Введите баланс"
-					/>
-				</div>
-				<div className="form-group">
-					<label>Аватар:</label>
-					<div className="media-choice">
-						<label>
-							<input
-								type="radio"
-								name="photoInputType"
-								value="upload"
-								checked={photoInputType === "upload"}
-								onChange={() => setPhotoInputType("upload")}
-							/>
-							Загрузить файл
-						</label>
-						<label>
-							<input
-								type="radio"
-								name="photoInputType"
-								value="url"
-								checked={photoInputType === "url"}
-								onChange={() => setPhotoInputType("url")}
-							/>
-							Ввести URL
-						</label>
-					</div>
-					{photoInputType === "upload" ? (
-						<input type="file" accept="image/*" />
-					) : (
+			<div className="editProfile">
+				<button className="delete-profile-btn" onClick={deleteProfile}>
+					🗑 Удалить профиль
+				</button>
+				<h1>Редактировать профиль</h1>
+				<form onSubmit={handleSubmit} className="edit-profile-form">
+					<div className="form-group">
+						<label htmlFor="username">Никнейм:</label>
 						<input
 							type="text"
-							name="avatar"
-							value={postData.avatar}
+							id="username"
+							name="username"
+							value={postData.username}
 							onChange={handleChange}
-							placeholder="Введите URL изображения"
+							placeholder="Введите новый ник"
 						/>
-					)}
-				</div>
+					</div>
+					<div className="form-group">
+						<label htmlFor="age">Возраст:</label>
+						<input
+							type="number"
+							id="age"
+							name="age"
+							value={postData.age}
+							onChange={handleChange}
+							placeholder="Введите возраст"
+						/>
+					</div>
+					<div className="form-group">
+						<label htmlFor="bio">Инфо о себе:</label>
+						<input
+							type="text"
+							id="bio"
+							name="bio"
+							value={postData.bio}
+							onChange={handleChange}
+							placeholder="Введите информацию о себе"
+						/>
+					</div>
+					<div className="form-group">
+						<label htmlFor="fullName">Полное имя:</label>
+						<input
+							type="text"
+							id="fullName"
+							name="fullName"
+							value={postData.fullName}
+							onChange={handleChange}
+							placeholder="Введите полное имя"
+						/>
+					</div>
+					<div className="form-group">
+						<label htmlFor="balance">Баланс:</label>
+						<input
+							type="number"
+							id="balance"
+							name="balance"
+							value={postData.balance}
+							onChange={handleChange}
+							placeholder="Введите баланс"
+						/>
+					</div>
+					<div className="form-group">
+						<label>Аватар:</label>
+						<div className="media-choice">
+							<label>
+								<input
+									type="radio"
+									name="photoInputType"
+									value="upload"
+									checked={photoInputType === "upload"}
+									onChange={() => setPhotoInputType("upload")}
+								/>
+								Загрузить файл
+							</label>
+							<label>
+								<input
+									type="radio"
+									name="photoInputType"
+									value="url"
+									checked={photoInputType === "url"}
+									onChange={() => setPhotoInputType("url")}
+								/>
+								Ввести URL
+							</label>
+						</div>
+						{photoInputType === "upload" ? (
+							<input type="file" accept="image/*" />
+						) : (
+							<input
+								type="text"
+								name="avatar"
+								value={postData.avatar}
+								onChange={handleChange}
+								placeholder="Введите URL изображения"
+							/>
+						)}
+					</div>
+					
+					<button type="submit" disabled={loading}>
+						{loading ? "Отправка..." : "Сохранить изменения"}
+					</button>
+				</form>
 				
-				<button type="submit" disabled={loading}>
-					{loading ? "Отправка..." : "Сохранить изменения"}
+				<button className="back-to-profile-btn" onClick={() => navigate("/feed")}>
+					🔙 Вернуться в профиль
 				</button>
-			</form>
-			
-			<button className="back-to-profile-btn" onClick={() => navigate("/home")}>
-				Вернуться в профиль
-			</button>
-			
-			{error && <div className="error-msg">Ошибка: {error}</div>}
-		</div>
+				
+				{error && <div className="error-msg">❌ Ошибка: {error}</div>}
+			</div>
 		</div>
 	);
 };

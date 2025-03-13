@@ -1,126 +1,58 @@
-// newPost.scss
-
-$primary-color: #1877f2;
-$light-gray: #f0f2f5;
-$text-color: #050505;
-$secondary-text-color: #65676b;
-$border-color: #ddd;
-$background-white: #ffffff;
-
-.createProfile{
-  max-width: 600px;
-  margin: 20px auto;
+.editProfile {
+  max-width: 500px;
+  margin: 0 auto;
   padding: 20px;
-  background: $background-white;
-  border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-
-
-  h1 {
-    margin-bottom: 20px;
-    font-size: 24px;
-    color: $text-color;
-    text-align: center;
-  }
-
-  .new-post-form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-
-    .form-group {
-      display: flex;
-      flex-direction: column;
-
-      label {
-        margin-bottom: 5px;
-        font-size: 14px;
-        color: $secondary-text-color;
-      }
-
-      input,
-      textarea {
-        padding: 8px 10px;
-        border: 1px solid $border-color;
-        border-radius: 4px;
-        font-size: 14px;
-        color: $text-color;
-        background: $light-gray;
-        transition: border 0.3s ease;
-
-        &:focus {
-          outline: none;
-          border-color: $primary-color;
-        }
-      }
-
-      textarea {
-        resize: vertical;
-        min-height: 80px;
-      }
-    }
-
-    button {
-      background: $primary-color;
-      color: $background-white;
-      padding: 10px 15px;
-      font-size: 16px;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: background 0.3s ease;
-
-      &:hover {
-        background: darken($primary-color, 10%);
-      }
-
-      &:disabled {
-        background: lighten($primary-color, 20%);
-        cursor: not-allowed;
-      }
-    }
-  }
-
-  .error-msg {
-    margin-top: 10px;
-    font-size: 14px;
-    color: red;
-    text-align: center;
-  }
-
-  .success-msg {
-    margin-top: 10px;
-    font-size: 14px;
-    color: green;
-    text-align: center;
-  }
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
 }
 
-.back-to-profile-btn{
-  margin: 10px 0 0 200px ;
-  background: $primary-color;
-  color: $background-white;
-  padding: 10px 15px;
-  font-size: 16px;
+.edit-profile-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.form-group input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.media-choice {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+button {
+  padding: 10px;
   border: none;
-  border-radius: 4px;
+  border-radius: 5px;
   cursor: pointer;
-  transition: background 0.3s ease;
-
-  &:hover {
-    background: darken($primary-color, 10%);
-  }
+  transition: background 0.3s;
 }
-.delete-profile-btn{
 
-  WIDTH: 150px;
-  height: 20px;
+.delete-profile-btn {
   background: red;
   color: white;
-  border: none;
-  cursor: pointer;
-  &:hover {
-    transform: scale(1.1);
-  }
+}
+
+.delete-profile-btn:hover {
+  background: darkred;
+}
+
+.back-to-profile-btn {
+  background: #ddd;
+}
+
+.back-to-profile-btn:hover {
+  background: #ccc;
 }

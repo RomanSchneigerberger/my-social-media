@@ -1,0 +1,112 @@
+/* ✅ Контейнер страницы профиля */
+.one-user-container {
+  max-width: 800px;
+  margin: 50px auto;
+  padding: 20px;
+  text-align: center;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* ✅ Карточка пользователя */
+.one-user-card {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 30px;
+  margin-top: 30px;
+  background: #fff;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ✅ Фиксированное фото 100x100px, с отступами */
+.one-user-avatar {
+  width: 300px;
+  height: 300px;
+  border-radius: 10px; /* Квадратная форма */
+  object-fit: cover;
+  margin-top: 20px;
+  margin-bottom: 15px;
+  border: 3px solid #ddd;
+}
+
+/* ✅ Заголовок */
+.one-user-name {
+  margin-bottom: 10px;
+  font-size: 24px;
+  color: #333;
+}
+
+/* ✅ Информация о пользователе */
+.one-user-card p {
+  margin: 5px 0;
+  font-size: 16px;
+  color: #666;
+}
+
+/* ✅ Блок статистики */
+.one-user-stats {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  margin-top: 20px;
+  padding: 15px;
+  border-top: 1px solid #ddd;
+}
+
+.one-user-stats div {
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* ✅ Кнопка подписки */
+.one-user-follow-btn {
+  width: 50%;
+  padding: 12px;
+  margin-top: 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.one-user-follow {
+  background: rgba(72, 173, 31, 0.97);
+  color: white;
+}
+
+.one-user-follow:hover {
+  background: #395e29;
+}
+
+.one-user-unfollow {
+  background: red;
+  color: white;
+}
+
+.one-user-unfollow:hover {
+  background: darkred;
+}
+
+/* ✅ Кнопка назад */
+.one-user-back-btn {
+  background: #ddd;
+  color: #333;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+  font-size: 16px;
+  margin-top: 20px;
+}
+
+.one-user-back-btn:hover {
+  background: #ccc;
+}

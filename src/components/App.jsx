@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 // import { jwtDecode } from "jwt-decode";
 // import { useNavigate } from "react-router-dom";
-
+import UserProfile from "../components/elements/userProfile/UserProfile";
 import Feed from "./pages/feed/Feed";
 import MyProfile from "./pages/myProfile/MyProfile";
 import SignIn from "./pages/signIn/SignIn";
@@ -63,6 +63,7 @@ const App = () => {
 					<Route path='/feed'  element={<Feed/>} />
 					<Route path='/followings'  element={<Followings />} />
 					<Route path='/followers'  element={<Followers />} />
+					<Route path="/user/:username" element={<UserProfile />} />
 					<Route path='/signUp'  element={<SignUp />} />
 					<Route path='/myProfile' element={<MyProfile />} />
 					<Route path='/search' element={<Search />} />

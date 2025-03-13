@@ -1,87 +1,102 @@
 .user-list-container {
   width: 25%;
   display: flex;
-  overflow: hidden;
   flex-direction: column;
   height: 500px;
   background: white;
   border-radius: 10px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   padding: 10px;
-  overflow-y: auto; /* Скролл, если пользователей много */
+  overflow-y: auto; /* Скролл при большом количестве пользователей */
 }
 
 .uberschrift_user {
   text-align: center;
-  font-size: 18px;
-  margin-bottom: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 8px;
 }
 
 /* Список пользователей */
 .user-list {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 5px; /* Отступ между элементами */
 }
 
 /* Элемент списка */
 .user-item {
   display: flex;
   align-items: center;
+  justify-content: space-between; /* Выравнивание по ширине */
   gap: 10px;
-  padding: 8px;
-  background: #f8f8f8;
-  border-radius: 5px;
+  padding: 6px;
+  background: #f9f9f9;
+  border-radius: 6px;
   transition: 0.3s;
+  min-height: 45px; /* Компактный размер */
 }
 
 .user-item:hover {
-  background: #e6e6e6;
+  background: #eaeaea;
 }
 
 /* Аватар */
 .user-avatar {
-  width: 40px;
-  height: 40px;
+  width: 35px;
+  height: 35px;
   border-radius: 50%;
   object-fit: cover;
 }
 
-/* Информация о пользователе */
+/* Информация о пользователе (РЯДОМ с аватаром) */
 .user-info {
   flex-grow: 1;
+  display: flex;
+  align-items: center;
+  gap: 6px; /* Добавляем отступ между именем и username */
 }
 
-h4 {
+.user-info h4 {
   margin: 0;
   font-size: 14px;
   font-weight: bold;
 }
 
-p {
+.user-info p {
   margin: 0;
   font-size: 12px;
   color: gray;
 }
 
-/* Кнопка подписки */
+/* Кнопка подписки (компактная) */
 .follow-btn {
-  background: #007bff;
+  background: rgba(72, 173, 31, 0.97);
   color: white;
   border: none;
-  padding: 5px 10px;
-  font-size: 12px;
+  padding: 5px 8px;
+  font-size: 11px;
   border-radius: 5px;
   cursor: pointer;
   transition: 0.3s;
 }
 
 .follow-btn:hover {
-  background: #0056b3;
+  background: #395e29;
 }
 
-/* Состояние "подписан" */
+/* Кнопка подписки (если подписан) */
 .following {
-  background: #28a745 !important;
+  background: #f13c3c !important;
   cursor: pointer;
+}
+
+/* Скролл-бар (улучшенный) */
+.user-list-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.user-list-container::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 10px;
 }

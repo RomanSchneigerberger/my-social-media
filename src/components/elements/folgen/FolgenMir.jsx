@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import "./followings.scss";
-import avatar from '../../images/png-transparent-default-avatar-thumbnail.png'
+import avatar from '../../images/png-transparent-default-avatar-thumbnail.png';
+
 const FolgenMir = () => {
 	const { token, username } = useSelector((state) => state.user);
 	const [followers, setFollowers] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
+	const navigate = useNavigate(); // ✅ Для перехода на страницу профиля
 	
 	useEffect(() => {
 		if (!token || !username) {
@@ -45,8 +48,6 @@ const FolgenMir = () => {
 				setLoading(false);
 			}
 		};
-
-		
 		
 		fetchFollowers();
 	}, [token, username]);
@@ -63,10 +64,9 @@ const FolgenMir = () => {
 			<h2>👥 Подписчики</h2>
 			<div className="followers-list">
 				{followers.map((follower) => (
-					<div key={follower._id} className="follower-card">
+					<div key={follower._id} className="follower-card" onClick={() => navigate(`/user/${follower.username}`)}>
 						<img src={follower.avatar || avatar} alt="Аватар" className="follower-avatar" />
 						<div className="follower-info">
-							{/*<h4>{follower.fullName || "Без имени"}</h4>*/}
 							<p>@{follower.username}</p>
 						</div>
 					</div>
