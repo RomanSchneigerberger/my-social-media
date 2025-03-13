@@ -1,0 +1,114 @@
+.followers-container {
+  width: 70%;
+  margin: 20px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+h2 {
+  font-size: 24px;
+  margin-bottom: 15px;
+}
+
+.followers-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+}
+
+.follower-card {
+  width: 45%;
+  background: #f9f9f9;
+  padding: 15px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.follower-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.follower-info h4 {
+  margin: 0;
+  font-size: 16px;
+}
+
+.follower-info p {
+  margin: 0;
+  color: #666;
+  font-size: 14px;
+}
+
+.followers-loading, .followers-error, .followers-empty {
+  text-align: center;
+  font-size: 18px;
+  color: #555;
+  padding: 20px;
+}
+
+
+
+
+.following-list-container {
+  width: 70%;
+  margin: 20px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.following-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+
+
+.following-item {
+  width: 45%;
+  background: #f9f9f9;
+  padding: 15px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+}
+
+.following-item:hover {
+  background: #eaeaea;
+}
+
+.following-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.following-info {
+  text-align: left;
+}
+
+.following-info h4 {
+  margin: 0;
+  font-size: 16px;
+}
+
+.no-followings {
+  font-size: 14px;
+  color: #888;
+  margin-top: 10px;
+}

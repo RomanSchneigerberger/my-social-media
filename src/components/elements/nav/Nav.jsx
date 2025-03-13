@@ -6,21 +6,22 @@ const Nav = () => {
 	const [searchQuery, setSearchQuery] = useState("");
 	const navigate = useNavigate();
 	
+	// ✅ Обработчик поиска (редирект в `Search.jsx`)
 	const handleSearch = (e) => {
 		e.preventDefault();
 		if (searchQuery.trim()) {
-			navigate(`/search?query=${searchQuery}`);
+			navigate(`/search?query=${encodeURIComponent(searchQuery)}`);
+			setSearchQuery(""); // Очистка поля ввода после редиректа
 		}
 	};
 	
 	return (
 		<div className="nav-container">
 			<nav className="nav">
-				<Link to="/" className="nav-link">🏠 Home</Link>
-				<Link to="/profile" className="nav-link">👤 Profile</Link>
-				<Link to="/signUp" className="nav-link">🔑 SignUp</Link>
+				<Link to="/feed" className="nav-link">🏠 Home</Link>
+				<Link to="/MyProfile" className="nav-link">👤 Profile</Link>
 				
-				{/* Поисковая форма */}
+				{/* ✅ Форма поиска */}
 				<form className="search-form" onSubmit={handleSearch}>
 					<input
 						type="text"

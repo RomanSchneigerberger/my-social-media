@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { logoutUser, setUser } from "../../../features/features";
 import { useNavigate } from "react-router-dom";
 import "./myProfile.scss";
+import Nav from "../../elements/nav/Nav";
 
 const MyProfile = () => {
 	const navigate = useNavigate();
@@ -47,34 +48,37 @@ const MyProfile = () => {
 		navigate("/signIn");
 	};
 	
-	if (!token) return <div className="error-msg">Пользователь не авторизован</div>;
-	if (loading) return <div className="loading">Загрузка...</div>;
-	if (error) return <div className="error-msg">Ошибка: {error}</div>;
-	if (!profileData) return <div className="error-msg">Нет данных профиля</div>;
+	if (!token) return <div className="myprofile-error-msg">Пользователь не авторизован</div>;
+	if (loading) return <div className="myprofile-loading">Загрузка...</div>;
+	if (error) return <div className="myprofile-error-msg">Ошибка: {error}</div>;
+	if (!profileData) return <div className="myprofile-error-msg">Нет данных профиля</div>;
 	
 	return (
-		<div className="profile-card">
-			<div className="profile-header">
-				<img src={profileData.avatar} alt="Avatar" className="profile-avatar" />
-				<h2>{profileData.fullName}</h2>
-				<p className="profile-job">Web Developer at Stackbros</p>
-				<p className="profile-bio">{profileData.bio}</p>
+		<div>
+			<Nav />
+			<div className="myprofile-container">
+				<div className="myprofile-card">
+					<div className="myprofile-header">
+						<img src={profileData.avatar} alt="Avatar" className="myprofile-avatar" />
+						<h2>{profileData.fullName}</h2>
+						<p className="myprofile-username">@{profileData.username}</p>
+						<p className="myprofile-bio">{profileData.bio}</p>
+						<p>Alter: <strong>{profileData.age}</strong></p>
+					</div>
+					
+					<div className="myprofile-stats">
+						<div><strong>${profileData.balance}</strong> Баланс</div>
+						<div><strong>{profileData.posts_count}</strong> Постов</div>
+						<div><strong>{profileData.followers}</strong> Подписчиков</div>
+						<div><strong>{profileData.following}</strong> Подписок</div>
+					</div>
+					
+					<div className="myprofile-buttons">
+						<button className="myprofile-back-btn" onClick={() => navigate(-1)}>🔙 Назад</button>
+						<button className="myprofile-logout-btn" onClick={handleLogout}>🚪 Выйти</button>
+					</div>
+				</div>
 			</div>
-			<div className="profile-stats">
-				<div><strong>{profileData.posts_count}</strong> Posts</div>
-				<div><strong>{profileData.followers}</strong> Followers</div>
-				<div><strong>{profileData.following}</strong> Following</div>
-			</div>
-			<div className="profile-menu">
-				<button onClick={() => navigate("/profile")}>Profile</button>
-				<button onClick={() => navigate("/feed")}>Feed</button>
-				<button onClick={() => navigate("/followers")}>Followers</button>
-				<button onClick={() => navigate("/following")}>Following</button>
-				<button onClick={() => navigate("/settings")}>Settings</button>
-			</div>
-			<button className="profile-view-btn" onClick={() => navigate("/profile")}>View Profile</button>
-			<button className="logout-btn" onClick={handleLogout}>Logout</button>
-			<p className="profile-footer">© {new Date().getFullYear()}. All rights reserved</p>
 		</div>
 	);
 };

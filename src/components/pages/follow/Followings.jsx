@@ -1,11 +1,9 @@
 import React from 'react';
 import Nav from "../../elements/nav/Nav";
 import Profile from "../../elements/profile/Profile";
-import Post from "../../elements/post/Post";
-import './feed.scss'
-import User from "../../elements/user/User";
+import FolgeIch from "../../elements/folgen/FolgeIch";
 
-const Feed = () => {
+const Followings = () => {
 	return (
 		<div className="Home">
 			<header>
@@ -13,14 +11,13 @@ const Feed = () => {
 			</header>
 			<section className="row">
 				<Profile/>
-				<Post/>
-				<User />
+				<FolgeIch/>
 			</section>
 			<footer>
 			
 			</footer>
 		</div>
-			);
+	);
 };
 
-export default Feed;
+export default Followings;

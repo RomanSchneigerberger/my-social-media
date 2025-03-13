@@ -10,11 +10,12 @@ body, html {
 .row {
   display: flex;
   flex-wrap: wrap;
+  flex-direction: row;
   margin: 0 15px 0 15px;
 
   .col-3 {
     flex: 0 0 auto;
-    width: 25%;
+    width: 23%;
   }
 
   .col-6 {

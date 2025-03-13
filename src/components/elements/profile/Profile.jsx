@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { logoutUser, setUser } from "../../../features/features";
-import { useNavigate } from "react-router-dom";
+import React, {useEffect, useState} from "react";
+import {useSelector, useDispatch} from "react-redux";
+import {logoutUser, setUser} from "../../../features/features";
+import {useNavigate} from "react-router-dom";
 import "./profile.scss";
 
 const Profile = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
-	const { token } = useSelector((state) => state.user);
+	const {token} = useSelector((state) => state.user);
 	const [profileData, setProfileData] = useState(null);
 	const [error, setError] = useState(null);
 	const [loading, setLoading] = useState(false);
@@ -31,7 +31,10 @@ const Profile = () => {
 				if (!response.ok) throw new Error(`Ошибка: ${response.status}`);
 				const data = await response.json();
 				setProfileData(data);
-				dispatch(setUser({ user: data._id }));
+				dispatch(setUser({
+					user: data._id,
+					username: data.username,
+				}));
 			} catch (err) {
 				setError(err.message);
 			} finally {
@@ -55,7 +58,7 @@ const Profile = () => {
 	return (
 		<div className="profile-card col-3">
 			<div className="profile-header">
-				<img src={profileData.avatar} alt="Avatar" className="profile-avatar" />
+				<img src={profileData.avatar} alt="Avatar" className="profile-avatar"/>
 				<h2>{profileData.fullName}</h2>
 				<p className="profile-job">Alter {profileData.age}</p>
 				<p className="profile-bio">{profileData.bio}</p>
@@ -67,9 +70,9 @@ const Profile = () => {
 			</div>
 			<div className="profile-menu">
 				<button onClick={() => navigate("/myProfile")}>🤴 Profil</button>
-				<button onClick={() => navigate("/")}>🏠 Übersicht</button>
+				<button onClick={() => navigate("/feed")}>🏠 Übersicht</button>
 				<button onClick={() => navigate("/followers")}>💙 Follgen mir</button>
-				<button onClick={() => navigate("/following")}>❤️️ Follge ich</button>
+				<button onClick={() => navigate("/followings")}>❤️️ Follge ich</button>
 				<button onClick={() => navigate("/editProfile")}>⚙️ Einstellungen</button>
 			</div>
 			{/*<button className="profile-view-btn" onClick={() => navigate("/profile")}>View Profile</button>*/}

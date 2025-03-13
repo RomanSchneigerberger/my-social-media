@@ -1,0 +1,87 @@
+.user-list-container {
+  width: 25%;
+  display: flex;
+  overflow: hidden;
+  flex-direction: column;
+  height: 500px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  overflow-y: auto; /* Скролл, если пользователей много */
+}
+
+.uberschrift_user {
+  text-align: center;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+/* Список пользователей */
+.user-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Элемент списка */
+.user-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px;
+  background: #f8f8f8;
+  border-radius: 5px;
+  transition: 0.3s;
+}
+
+.user-item:hover {
+  background: #e6e6e6;
+}
+
+/* Аватар */
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* Информация о пользователе */
+.user-info {
+  flex-grow: 1;
+}
+
+h4 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+p {
+  margin: 0;
+  font-size: 12px;
+  color: gray;
+}
+
+/* Кнопка подписки */
+.follow-btn {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  font-size: 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.follow-btn:hover {
+  background: #0056b3;
+}
+
+/* Состояние "подписан" */
+.following {
+  background: #28a745 !important;
+  cursor: pointer;
+}

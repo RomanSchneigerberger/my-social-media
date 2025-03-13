@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import "./editProfile.scss";
+import Nav from "../nav/Nav";
 
 const EditProfile = () => {
 	const { token } = useSelector((state) => state.user);
@@ -78,6 +79,8 @@ const EditProfile = () => {
 	};
 	
 	return (
+		<div>
+			<Nav />
 		<div className="createProfile">
 			<button className="delete-profile-btn" onClick={()=> deleteProfile()}>
 				Удолить профиль
@@ -186,6 +189,7 @@ const EditProfile = () => {
 			</button>
 			
 			{error && <div className="error-msg">Ошибка: {error}</div>}
+		</div>
 		</div>
 	);
 };
