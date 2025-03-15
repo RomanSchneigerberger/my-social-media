@@ -110,3 +110,15 @@
 .delete-button:hover {
   color: #ff4d4d;
 }
+.post-video-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.post-video {
+  width: 100%;  /* Занимает всю ширину блока */
+  height: 315px; /* Высота, как у YouTube */
+  border-radius: 10px; /* Округляем углы */
+}

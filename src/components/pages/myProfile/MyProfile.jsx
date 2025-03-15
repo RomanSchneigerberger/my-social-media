@@ -35,6 +35,7 @@ const MyProfile = () => {
 				dispatch(setUser({ user: data._id }));
 			} catch (err) {
 				setError(err.message);
+				navigate("/");
 			} finally {
 				setLoading(false);
 			}
@@ -74,7 +75,7 @@ const MyProfile = () => {
 					</div>
 					
 					<div className="myprofile-buttons">
-						<button className="myprofile-back-btn" onClick={() => navigate(-1)}>🔙 Назад</button>
+						{/*<button className="myprofile-back-btn" onClick={() => navigate(-1)}>🔙 Назад</button>*/}
 						<button className="myprofile-logout-btn" onClick={handleLogout}>🚪 Выйти</button>
 					</div>
 				</div>

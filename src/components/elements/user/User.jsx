@@ -119,7 +119,7 @@ const User = () => {
 							className={`follow-btn ${following.has(userItem.username) ? "following" : ""}`}
 							onClick={() => toggleFollow(userItem.username)}
 						>
-							{following.has(userItem.username) ? " Отписаться" : "Подписаться"}
+							{following.has(userItem.username) ? "Löschen" : "Folgen"}
 						</button>
 					</div>
 				))}

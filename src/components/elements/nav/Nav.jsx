@@ -30,7 +30,6 @@ const Nav = () => {
 						onChange={(e) => setSearchQuery(e.target.value)}
 						className="search-input"
 					/>
-					<button type="submit" className="search-button">🔎</button>
 				</form>
 			</nav>
 		</div>

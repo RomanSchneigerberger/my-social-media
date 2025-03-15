@@ -106,6 +106,13 @@ const Post = () => {
 		}
 	};
 	
+	// 🔥 Функция для получения YouTube embed-ссылки
+	const getYouTubeEmbedUrl = (url) => {
+		const regExp = /^.*(youtu.be\/|youtube.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([^#&?]*).*/;
+		const match = url.match(regExp);
+		return match && match[2].length === 11 ? `https://www.youtube.com/embed/${match[2]}` : null;
+	};
+	
 	return (
 		<div className="col-6">
 			<NewPost />
@@ -123,7 +130,9 @@ const Post = () => {
 							
 							{/* ✅ Контент поста */}
 							{post.title && <h3 className="post-title">{post.title}</h3>}
-							{post.description && <p className="post-description">{post.description}</p>}
+							{post.description && <p style={{whiteSpace: "pre-wrap"}} className="post-description">{post.description}</p>}
+							
+							{/* ✅ Отображение фото и видео */}
 							{post.image && (
 								<img
 									src={post.image}
@@ -133,6 +142,23 @@ const Post = () => {
 								/>
 							)}
 							
+							{/* ✅ Вставка YouTube-видео, если ссылка на YouTube */}
+							{post.video && getYouTubeEmbedUrl(post.video) ? (
+								<div className="post-video-container">
+									<iframe
+										className="post-video"
+										src={getYouTubeEmbedUrl(post.video)}
+										frameBorder="0"
+										allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+										allowFullScreen
+										title="YouTube video"
+									></iframe>
+								</div>
+							) : post.video ? (
+								<a href={post.video} target="_blank" rel="noopener noreferrer">
+									📺 Смотреть видео
+								</a>
+							) : null}
 							{/* ✅ Лайки + Кнопки */}
 							<div className="post-actions">
 								<button

@@ -126,9 +126,9 @@ const UserProfile = () => {
 			<div className="one-user-card">
 				<img src={userData.avatar || avatar} alt="Аватар" className="one-user-avatar" />
 				<h2 className="one-user-name">{userData.fullName}</h2>
-				<p><strong>Имя пользователя:</strong> @{userData.username}</p>
+				<p><strong>Имя пользователя:</strong> <br/>@{userData.username}</p>
 				<p><strong>Возраст:</strong> {userData.age}</p>
-				<p><strong>О себе:</strong> {userData.bio}</p>
+				<p style={{whiteSpace: "pre-wrap"}}><strong>О себе:</strong> <br/>{userData.bio}</p>
 				{/*<p><strong>Баланс:</strong> {userData.balance} 💰</p>*/}
 				<p><strong>Постов:</strong> {userData.posts_count}</p>
 				{/*<p><strong>Подписчики:</strong> {userData.followers?.length || 0}</p>*/}

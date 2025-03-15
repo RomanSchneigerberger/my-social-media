@@ -50,9 +50,15 @@ button {
 }
 
 .back-to-profile-btn {
+ margin-top: 10px;
   background: #ddd;
 }
 
 .back-to-profile-btn:hover {
   background: #ccc;
+}
+
+.save_profile {
+  background: #395e29;
+  color: white;
 }

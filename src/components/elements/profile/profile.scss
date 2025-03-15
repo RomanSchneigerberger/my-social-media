@@ -74,7 +74,7 @@
 //}
 
 .logout-btn {
-  background: #dc3545;
+  background: #f13c3c;
   color: white;
   border: none;
   padding: 10px;
@@ -82,6 +82,9 @@
   width: 85%;
   font-size: 16px;
   cursor: pointer;
+  &:hover {
+    background: #941d1d !important;
+  }
 }
 
 .profile-footer {

@@ -37,6 +37,7 @@ const Profile = () => {
 				}));
 			} catch (err) {
 				setError(err.message);
+				navigate("/");
 			} finally {
 				setLoading(false);
 			}
@@ -47,7 +48,7 @@ const Profile = () => {
 	
 	const handleLogout = () => {
 		dispatch(logoutUser());
-		navigate("/signIn");
+		navigate("/");
 	};
 	
 	if (!token) return <div className="error-msg">Пользователь не авторизован</div>;
@@ -71,8 +72,8 @@ const Profile = () => {
 			<div className="profile-menu">
 				<button onClick={() => navigate("/myProfile")}>🤴 Profil</button>
 				<button onClick={() => navigate("/feed")}>🏠 Übersicht</button>
-				<button onClick={() => navigate("/followers")}>💙 Follgen mir</button>
-				<button onClick={() => navigate("/followings")}>❤️️ Follge ich</button>
+				<button onClick={() => navigate("/followers")}>💙 Follgen mir </button>
+				<button onClick={() => navigate("/followings")}>❤️ Follge ich</button>
 				<button onClick={() => navigate("/editProfile")}>⚙️ Einstellungen</button>
 			</div>
 			{/*<button className="profile-view-btn" onClick={() => navigate("/profile")}>View Profile</button>*/}

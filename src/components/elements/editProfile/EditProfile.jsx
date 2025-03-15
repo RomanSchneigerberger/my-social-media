@@ -201,7 +201,7 @@ const EditProfile = () => {
 						)}
 					</div>
 					
-					<button type="submit" disabled={loading}>
+					<button className='save_profile' type="submit" disabled={loading}>
 						{loading ? "Отправка..." : "Сохранить изменения"}
 					</button>
 				</form>
