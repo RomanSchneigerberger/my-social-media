@@ -48,14 +48,14 @@ const UserProfile = () => {
 		
 		const fetchUserPosts = async (userId) => {
 			try {
-				const response = await fetch(`http://49.13.31.246:9191/post/${userId}`, { // ✅ Новый эндпоинт
+				const response = await fetch(`http://49.13.31.246:9191/posts?user_id=${userId}`, {
 					method: "GET",
 					headers: {
 						"Content-Type": "application/json",
 						"x-access-token": token,
 					},
 				});
-				if (!response.ok) throw new Error(`Ошибка загрузки постов: ${response.status}`);
+				if (!response.ok) new Error(`Ошибка загрузки постов: ${response.status}`);
 				
 				const data = await response.json();
 				setUserPosts(data.reverse());

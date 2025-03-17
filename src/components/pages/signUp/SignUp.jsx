@@ -26,7 +26,7 @@ function SignUp() {
 			if (response.ok) {
 				console.log("Erfolgreiche Registrierung", result);
 				localStorage.setItem("token", result.token);
-				navigate(`/signIn`);
+				navigate(`/`);
 			} else {
 				console.error("Fehler bei Registrierung", result);
 			}

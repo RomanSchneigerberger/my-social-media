@@ -94,7 +94,7 @@ const EditProfile = () => {
 				},
 			});
 			
-			navigate("/signIn");
+			navigate("/");
 		} catch (err) {
 			setError(err.message);
 		}
@@ -112,6 +112,7 @@ const EditProfile = () => {
 					<div className="form-group">
 						<label htmlFor="username">Никнейм:</label>
 						<input
+							required
 							type="text"
 							id="username"
 							name="username"
@@ -123,6 +124,7 @@ const EditProfile = () => {
 					<div className="form-group">
 						<label htmlFor="age">Возраст:</label>
 						<input
+							required
 							type="number"
 							id="age"
 							name="age"
@@ -134,6 +136,7 @@ const EditProfile = () => {
 					<div className="form-group">
 						<label htmlFor="bio">Инфо о себе:</label>
 						<input
+							required
 							type="text"
 							id="bio"
 							name="bio"
@@ -145,6 +148,7 @@ const EditProfile = () => {
 					<div className="form-group">
 						<label htmlFor="fullName">Полное имя:</label>
 						<input
+							required
 							type="text"
 							id="fullName"
 							name="fullName"

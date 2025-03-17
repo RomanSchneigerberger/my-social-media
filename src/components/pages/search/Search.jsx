@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import avatar from "../../images/png-transparent-default-avatar-thumbnail.png";
 import "./search.scss";
 import Nav from "../../elements/nav/Nav";
 
@@ -109,7 +110,7 @@ const Search = () => {
 				<ul className="search-results">
 					{results.map((user) => (
 						<li key={user._id} onClick={() => handleUserClick(user)}>
-							<img src={user.avatar || "https://via.placeholder.com/40"} alt="Avatar" />
+							<img src={user.avatar || avatar} alt="Avatar" />
 							{user.fullName} (@{user.username})
 						</li>
 					))}

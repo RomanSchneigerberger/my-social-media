@@ -72,8 +72,8 @@ const Profile = () => {
 			<div className="profile-menu">
 				<button onClick={() => navigate("/myProfile")}>🤴 Profil</button>
 				<button onClick={() => navigate("/feed")}>🏠 Übersicht</button>
-				<button onClick={() => navigate("/followers")}>💙 Follgen mir </button>
-				<button onClick={() => navigate("/followings")}>❤️ Follge ich</button>
+				<button onClick={() => navigate("/followers")}>💙 {profileData.followers} Follgen mir </button>
+				<button onClick={() => navigate("/followings")}>❤️ {profileData.following} Follge ich</button>
 				<button onClick={() => navigate("/editProfile")}>⚙️ Einstellungen</button>
 			</div>
 			{/*<button className="profile-view-btn" onClick={() => navigate("/profile")}>View Profile</button>*/}

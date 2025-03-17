@@ -55,6 +55,9 @@
   display: flex;
   align-items: center;
   gap: 6px; /* Добавляем отступ между именем и username */
+  &:hover{
+    cursor: pointer;
+  }
 }
 
 .user-info h4 {
