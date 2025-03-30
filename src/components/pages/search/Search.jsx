@@ -7,20 +7,20 @@ import "./search.scss";
 import Nav from "../../elements/nav/Nav";
 
 const Search = () => {
-	const [results, setResults] = useState([]); // Найденные пользователи
-	const [following, setFollowing] = useState(new Set()); // Подписки пользователя
+	const [results, setResults] = useState([]); // Gefundene Benutzer
+	const [following, setFollowing] = useState(new Set()); // Gefolgte Benutzer
 	const [loading, setLoading] = useState(false);
-	const [error, setError] = useState(null);
+	const [error] = useState(null);
 	
 	const { token, username } = useSelector((state) => state.user);
 	const location = useLocation();
 	const navigate = useNavigate();
 	
-	// ✅ Получаем query-параметр из URL
+	// ✅ Erhalten des query-Parameters aus der URL
 	const params = new URLSearchParams(location.search);
-	const query = params.get("query")?.toLowerCase() || ""; // Игнорируем регистр
+	const query = params.get("query")?.toLowerCase() || ""; // Ignoriere Groß- und Kleinschreibung
 	
-	// 📌 Загружаем подписки пользователя
+	// 📌 Laden der Abonnements des Benutzers
 	useEffect(() => {
 		if (!token) return;
 		
@@ -32,14 +32,14 @@ const Search = () => {
 				const followingSet = new Set(response.data.following.map((u) => u.username));
 				setFollowing(followingSet);
 			} catch (err) {
-				console.error("Ошибка загрузки подписок:", err);
+				console.error("Fehler beim Laden der Abonnements:", err);
 			}
 		};
 		
 		fetchFollowing();
 	}, [token, username]);
 	
-	// 📌 Поиск пользователей (по части имени)
+	// 📌 Suche nach Benutzern (nach Namen oder Benutzernamen)
 	useEffect(() => {
 		if (!query) {
 			setResults([]);
@@ -53,14 +53,14 @@ const Search = () => {
 					headers: { "x-access-token": token },
 				});
 				
-				// 🔹 Фильтруем по части `fullName` или `username`
+				// 🔹 Filtern nach `fullName` oder `username`
 				const filteredUsers = response.data.filter((user) =>
 					user.fullName.toLowerCase().includes(query) || user.username.toLowerCase().includes(query)
 				);
 				
 				setResults(filteredUsers);
 			} catch (err) {
-				console.error("Ошибка поиска:", err);
+				console.error("Fehler bei der Suche:", err);
 				setResults([]);
 			} finally {
 				setLoading(false);
@@ -70,43 +70,43 @@ const Search = () => {
 		fetchUsers();
 	}, [query, token]);
 	
-	// 📌 Подписка / Отписка
-	const toggleFollow = async (username) => {
-		const isFollowing = following.has(username);
-		const url = `http://49.13.31.246:9191/${isFollowing ? "unfollow" : "follow"}`;
-		
-		try {
-			await axios.post(url, { username }, { headers: { "x-access-token": token } });
-			
-			setFollowing((prev) => {
-				const updatedSet = new Set(prev);
-				if (isFollowing) {
-					updatedSet.delete(username);
-				} else {
-					updatedSet.add(username);
-				}
-				return updatedSet;
-			});
-		} catch (err) {
-			console.error(`Ошибка ${isFollowing ? "отписки" : "подписки"}:`, err);
-		}
-	};
+	// 📌 Folgen / Entfolgen
+	// const toggleFollow = async (username) => {
+	// 	const isFollowing = following.has(username);
+	// 	const url = `http://49.13.31.246:9191/${isFollowing ? "unfollow" : "follow"}`;
+	//
+	// 	try {
+	// 		await axios.post(url, { username }, { headers: { "x-access-token": token } });
+	//
+	// 		setFollowing((prev) => {
+	// 			const updatedSet = new Set(prev);
+	// 			if (isFollowing) {
+	// 				updatedSet.delete(username);
+	// 			} else {
+	// 				updatedSet.add(username);
+	// 			}
+	// 			return updatedSet;
+	// 		});
+	// 	} catch (err) {
+	// 		console.error(`Fehler beim ${isFollowing ? "Entfolgen" : "Folgen"}:`, err);
+	// 	}
+	// };
 	
-	// 📌 Переход в профиль пользователя
+	// 📌 Benutzerprofil aufrufen
 	const handleUserClick = (user) => {
-		navigate(`/user/${user.username}`); // Переход в профиль пользователя
+		navigate(`/user/${user.username}`); // Weiterleitung zum Benutzerprofil
 	};
 	
 	return (
 		<div>
 			<Nav />
 			<div className="search-container">
-				<h2>🔍 Результаты поиска: {query}</h2>
-				{loading && <p>⏳ Загрузка...</p>}
+				<h2>🔍 Suchergebnisse: {query}</h2>
+				{loading && <p>⏳ Laden...</p>}
 				{error && <p className="error-msg">{error}</p>}
-				{!loading && results.length === 0 && <p>⚠️ Ничего не найдено</p>}
+				{!loading && results.length === 0 && <p>⚠️ Keine Ergebnisse gefunden</p>}
 				
-				{/* ✅ Список найденных пользователей */}
+				{/* ✅ Liste der gefundenen Benutzer */}
 				<ul className="search-results">
 					{results.map((user) => (
 						<li key={user._id} onClick={() => handleUserClick(user)}>
@@ -116,8 +116,8 @@ const Search = () => {
 					))}
 				</ul>
 				
-				{/* ✅ Кнопка "Вернуться назад" */}
-				<button className="back-to-feed-btn" onClick={() => navigate("/feed")}>⬅ Вернуться в ленту</button>
+				{/* ✅ Zurück zur Übersicht */}
+				<button className="back-to-feed-btn" onClick={() => navigate("/feed")}>⬅ Zurück zur Übersicht</button>
 			</div>
 		</div>
 	);

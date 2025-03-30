@@ -14,7 +14,7 @@ const Profile = () => {
 	
 	useEffect(() => {
 		if (!token) {
-			console.warn("Нет токена для авторизации");
+			console.warn("Kein Token zur Authentifizierung gefunden");
 			return;
 		}
 		
@@ -28,7 +28,7 @@ const Profile = () => {
 						"x-access-token": token,
 					},
 				});
-				if (!response.ok) throw new Error(`Ошибка: ${response.status}`);
+				if (!response.ok) throw new Error(`Fehler: ${response.status}`);
 				const data = await response.json();
 				setProfileData(data);
 				dispatch(setUser({
@@ -51,34 +51,33 @@ const Profile = () => {
 		navigate("/");
 	};
 	
-	if (!token) return <div className="error-msg">Пользователь не авторизован</div>;
-	if (loading) return <div className="loading">Загрузка...</div>;
-	if (error) return <div className="error-msg">Ошибка: {error}</div>;
-	if (!profileData) return <div className="error-msg">Нет данных профиля</div>;
+	if (!token) return <div className="error-msg">Benutzer ist nicht autorisiert</div>;
+	if (loading) return <div className="loading">Laden...</div>;
+	if (error) return <div className="error-msg">Fehler: {error}</div>;
+	if (!profileData) return <div className="error-msg">Keine Profildaten verfügbar</div>;
 	
 	return (
 		<div className="profile-card col-3">
 			<div className="profile-header">
 				<img src={profileData.avatar} alt="Avatar" className="profile-avatar"/>
 				<h2>{profileData.fullName}</h2>
-				<p className="profile-job">Alter {profileData.age}</p>
-				<p className="profile-bio">{profileData.bio}</p>
+				<p className="profile-job">Alter: {profileData.age}</p>
+				<p style={{whiteSpace: "pre-wrap"}} className="profile-bio">{profileData.bio}</p>
 			</div>
 			<div className="profile-stats">
-				<div><strong>{profileData.posts_count}</strong> Posts</div>
-				<div><strong>{profileData.followers}</strong> Follgen mir</div>
-				<div><strong>{profileData.following}</strong> Follge ich</div>
+				<div><strong>{profileData.posts_count}</strong> Beiträge</div>
+				<div><strong>{profileData.followers}</strong> Follower</div>
+				<div><strong>{profileData.following}</strong> Folgt</div>
 			</div>
 			<div className="profile-menu">
 				<button onClick={() => navigate("/myProfile")}>🤴 Profil</button>
 				<button onClick={() => navigate("/feed")}>🏠 Übersicht</button>
-				<button onClick={() => navigate("/followers")}>💙 {profileData.followers} Follgen mir </button>
-				<button onClick={() => navigate("/followings")}>❤️ {profileData.following} Follge ich</button>
+				<button onClick={() => navigate("/followers")}>💙 {profileData.followers} Follower </button>
+				<button onClick={() => navigate("/followings")}>❤️ {profileData.following} Gefolgt</button>
 				<button onClick={() => navigate("/editProfile")}>⚙️ Einstellungen</button>
 			</div>
-			{/*<button className="profile-view-btn" onClick={() => navigate("/profile")}>View Profile</button>*/}
-			<button className="logout-btn" onClick={handleLogout}>Verlassen</button>
-			<p className="profile-footer">© {new Date().getFullYear()}. All rights reserved</p>
+			<button className="logout-btn" onClick={handleLogout}>Abmelden</button>
+			<p className="profile-footer">© {new Date().getFullYear()}. Alle Rechte vorbehalten</p>
 		</div>
 	);
 };

@@ -13,6 +13,7 @@ function SignIn() {
 		handleSubmit,
 		formState: { errors },
 	} = useForm();
+	
 	const onSubmit = async (data) => {
 		try {
 			const response = await fetch("http://49.13.31.246:9191/signin", {
@@ -25,49 +26,52 @@ function SignIn() {
 			
 			const result = await response.json();
 			if (response.ok) {
-				console.log(" Erfolgreiche Anmeldung:", result);
+				console.log("✅ Erfolgreiche Anmeldung:", result);
 				localStorage.setItem("token", result.token);
 				dispatch(setToken({ token: result.token }));
 				navigate("/feed");
 			} else {
-				console.error(" Anmeldefehler:", result);
-				alert(result.message || "Autorisierungsfehler!");
+				console.error("❌ Anmeldefehler:", result);
+				alert(result.message || "Fehler bei der Anmeldung!");
 			}
 		} catch (error) {
-			console.error("⚠️ Anforderungsfehler:", error);
-			alert("Fehler beim Verbinden mit dem Server!");
+			console.error("⚠️ Verbindungsfehler:", error);
+			alert("Fehler bei der Verbindung mit dem Server!");
 		}
 	};
 	
 	return (
 		<div className="signin-page">
 			<form className="signin-form" onSubmit={handleSubmit(onSubmit)}>
-				<h2 className="signin-header">Login</h2>
-				<p>Sie haben noch kein Acount?</p>
+				<h2 className="signin-header">Anmeldung</h2>
+				<p>Sie haben noch keinen Account?</p>
 				<button className="signin-switch-button" onClick={() => navigate("/signUp")}>
-					Zum Registrierung
+					Zur Registrierung
 				</button> <br/>
+				
 				<label className="signin-label">
 					<span className="signin-label-text">Benutzername</span>
 					<input
 						className="signin-input"
-						{...register("username", { required: "Введите логин", minLength: 4 })}
+						{...register("username", { required: "Bitte geben Sie Ihren Benutzernamen ein", minLength: 4 })}
 					/>
 					{errors.username && <p className="signin-error">{errors.username.message}</p>}
 				</label>
+				
 				<label className="signin-label">
-					<span className="signin-label-text">Password</span>
+					<span className="signin-label-text">Passwort</span>
 					<input
 						type="password"
 						className="signin-input"
-						{...register("password", { required: "Введите пароль", minLength: 4 })}
+						{...register("password", { required: "Bitte geben Sie Ihr Passwort ein", minLength: 4 })}
 					/>
 					{errors.password && <p className="signin-error">{errors.password.message}</p>}
 				</label>
+				
 				<button type="submit" className="signin-button">
-					Login
+					Anmelden
 				</button>
-				<p className="signup-footer">© {new Date().getFullYear()}. All rights reserved</p>
+				<p className="signup-footer">© {new Date().getFullYear()}. Alle Rechte vorbehalten</p>
 			</form>
 		</div>
 	);

@@ -19,7 +19,6 @@ const EditProfile = () => {
 	const [error, setError] = useState(null);
 	const [photoInputType, setPhotoInputType] = useState("url");
 	
-	// ✅ Загружаем текущие данные профиля
 	useEffect(() => {
 		const fetchProfileData = async () => {
 			try {
@@ -30,7 +29,7 @@ const EditProfile = () => {
 						"x-access-token": token,
 					},
 				});
-				if (!response.ok) throw new Error(`Ошибка загрузки данных: ${response.status}`);
+				if (!response.ok) throw new Error(`Fehler beim Laden der Daten: ${response.status}`);
 				
 				const data = await response.json();
 				setPostData({
@@ -70,7 +69,7 @@ const EditProfile = () => {
 				body: JSON.stringify(postData),
 			});
 			if (!response.ok) {
-				throw new Error(`Ошибка: ${response.status}`);
+				throw new Error(`Fehler: ${response.status}`);
 			}
 		} catch (err) {
 			setError(err.message);
@@ -81,9 +80,9 @@ const EditProfile = () => {
 	};
 	
 	const deleteProfile = async () => {
-		const isConfirmed = window.confirm("Вы уверены, что хотите удалить профиль? Это действие нельзя отменить!");
+		const isConfirmed = window.confirm("Sind Sie sicher, dass Sie Ihr Profil löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden!");
 		
-		if (!isConfirmed) return; // Если нажали "Отмена", просто выходим из функции
+		if (!isConfirmed) return;
 		
 		try {
 			await fetch("http://49.13.31.246:9191/me", {
@@ -105,12 +104,12 @@ const EditProfile = () => {
 			<Nav />
 			<div className="editProfile">
 				<button className="delete-profile-btn" onClick={deleteProfile}>
-					🗑 Удалить профиль
+					🗑 Profil löschen
 				</button>
-				<h1>Редактировать профиль</h1>
+				<h1>Profil bearbeiten</h1>
 				<form onSubmit={handleSubmit} className="edit-profile-form">
 					<div className="form-group">
-						<label htmlFor="username">Никнейм:</label>
+						<label htmlFor="username">Benutzername:</label>
 						<input
 							required
 							type="text"
@@ -118,11 +117,11 @@ const EditProfile = () => {
 							name="username"
 							value={postData.username}
 							onChange={handleChange}
-							placeholder="Введите новый ник"
+							placeholder="Neuen Benutzernamen eingeben"
 						/>
 					</div>
 					<div className="form-group">
-						<label htmlFor="age">Возраст:</label>
+						<label htmlFor="age">Alter:</label>
 						<input
 							required
 							type="number"
@@ -130,23 +129,23 @@ const EditProfile = () => {
 							name="age"
 							value={postData.age}
 							onChange={handleChange}
-							placeholder="Введите возраст"
+							placeholder="Alter eingeben"
 						/>
 					</div>
 					<div className="form-group">
-						<label htmlFor="bio">Инфо о себе:</label>
-						<input
+						<label htmlFor="bio">Über mich:</label>
+						<textarea
 							required
 							type="text"
 							id="bio"
 							name="bio"
 							value={postData.bio}
 							onChange={handleChange}
-							placeholder="Введите информацию о себе"
-						/>
+							placeholder="Informationen über sich eingeben"
+						></textarea>
 					</div>
 					<div className="form-group">
-						<label htmlFor="fullName">Полное имя:</label>
+						<label htmlFor="fullName">Vollständiger Name:</label>
 						<input
 							required
 							type="text"
@@ -154,67 +153,39 @@ const EditProfile = () => {
 							name="fullName"
 							value={postData.fullName}
 							onChange={handleChange}
-							placeholder="Введите полное имя"
+							placeholder="Vollständigen Namen eingeben"
 						/>
 					</div>
 					<div className="form-group">
-						<label htmlFor="balance">Баланс:</label>
+						<label htmlFor="balance">Guthaben:</label>
 						<input
 							type="number"
 							id="balance"
 							name="balance"
 							value={postData.balance}
 							onChange={handleChange}
-							placeholder="Введите баланс"
+							placeholder="Guthaben eingeben"
 						/>
 					</div>
 					<div className="form-group">
-						<label>Аватар:</label>
-						<div className="media-choice">
-							<label>
-								<input
-									type="radio"
-									name="photoInputType"
-									value="upload"
-									checked={photoInputType === "upload"}
-									onChange={() => setPhotoInputType("upload")}
-								/>
-								Загрузить файл
-							</label>
-							<label>
-								<input
-									type="radio"
-									name="photoInputType"
-									value="url"
-									checked={photoInputType === "url"}
-									onChange={() => setPhotoInputType("url")}
-								/>
-								Ввести URL
-							</label>
-						</div>
-						{photoInputType === "upload" ? (
-							<input type="file" accept="image/*" />
-						) : (
-							<input
-								type="text"
-								name="avatar"
-								value={postData.avatar}
-								onChange={handleChange}
-								placeholder="Введите URL изображения"
-							/>
-						)}
+						<label>Avatar:</label>
+						<input
+							type="text"
+							name="avatar"
+							value={postData.avatar}
+							onChange={handleChange}
+							placeholder="URL des Bildes eingeben"
+						/>
 					</div>
 					
 					<button className='save_profile' type="submit" disabled={loading}>
-						{loading ? "Отправка..." : "Сохранить изменения"}
+						{loading ? "Senden..." : "Änderungen speichern"}
 					</button>
 				</form>
 				
-				<button className="back-to-profile-btn" onClick={() => navigate("/feed")}>
-					🔙 Вернуться в профиль
-				</button>
+				<button className="back-to-profile-btn" onClick={() => navigate("/feed")}>🔙 Zurück zum Profil</button>
 				
-				{error && <div className="error-msg">❌ Ошибка: {error}</div>}
+				{error && <div className="error-msg">❌ Fehler: {error}</div>}
 			</div>
 		</div>
 	);

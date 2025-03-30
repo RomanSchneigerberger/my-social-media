@@ -26,7 +26,7 @@ const Post = () => {
 						"x-access-token": token,
 					},
 				});
-				if (!response.ok) throw new Error(`Ошибка: ${response.status}`);
+				if (!response.ok) throw new Error(`Fehler: ${response.status}`);
 				const data = await response.json();
 				
 				setFeedData(data.reverse());
@@ -49,7 +49,7 @@ const Post = () => {
 				},
 				body: JSON.stringify({ post_id: postId }),
 			});
-			if (!response.ok) throw new Error("Ошибка при лайке");
+			if (!response.ok) throw new Error("Fehler beim Liken");
 			
 			setFeedData((prevFeedData) =>
 				prevFeedData.map((post) =>
@@ -59,7 +59,7 @@ const Post = () => {
 				)
 			);
 		} catch (error) {
-			console.error("Ошибка:", error);
+			console.error("Fehler:", error);
 		}
 	};
 	
@@ -72,7 +72,7 @@ const Post = () => {
 					"x-access-token": token,
 				},
 			});
-			if (!response.ok) throw new Error("Ошибка при удалении лайка");
+			if (!response.ok) throw new Error("Fehler beim Entfernen des Likes");
 			
 			setFeedData((prevFeedData) =>
 				prevFeedData.map((post) =>
@@ -82,12 +82,12 @@ const Post = () => {
 				)
 			);
 		} catch (error) {
-			console.error("Ошибка при удалении лайка:", error);
+			console.error("Fehler beim Entfernen des Likes:", error);
 		}
 	};
 	
 	const deletePost = async (postId) => {
-		const confirmDelete = window.confirm("Вы уверены, что хотите удалить пост?");
+		const confirmDelete = window.confirm("Sind Sie sicher, dass Sie diesen Beitrag löschen möchten?");
 		if (!confirmDelete) return;
 		
 		try {
@@ -98,15 +98,15 @@ const Post = () => {
 					"x-access-token": token,
 				},
 			});
-			if (!response.ok) throw new Error("Ошибка при удалении поста");
+			if (!response.ok) throw new Error("Fehler beim Löschen des Beitrags");
 			
 			setFeedData((prevFeedData) => prevFeedData.filter((post) => post._id !== postId));
 		} catch (error) {
-			console.error("Ошибка при удалении поста:", error);
+			console.error("Fehler beim Löschen des Beitrags:", error);
 		}
 	};
 	
-	// 🔥 Функция для получения YouTube embed-ссылки
+	// 🔥 Funktion zum Abrufen der YouTube-Einbettungs-URL
 	const getYouTubeEmbedUrl = (url) => {
 		const regExp = /^.*(youtu.be\/|youtube.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([^#&?]*).*/;
 		const match = url.match(regExp);
@@ -120,29 +120,29 @@ const Post = () => {
 				<div className="feed-posts">
 					{feedData.map((post) => (
 						<div key={post._id} className="feed-post">
-							{/* ✅ Верхняя часть: Автор */}
+							{/* ✅ Autor-Bereich */}
 							<div className="post-header">
 								<div className="author-info" onClick={() => navigate(`/user/${post.user[0].username}`)}>
-									<img src={post.user[0].avatar || avatar} alt="Аватар автора" className="author-avatar" />
+									<img src={post.user[0].avatar || avatar} alt="Avatar des Autors" className="author-avatar" />
 									<span className="author-name">{post.user[0].fullName || post.user[0].username}</span>
 								</div>
 							</div>
 							
-							{/* ✅ Контент поста */}
+							{/* ✅ Post-Inhalt */}
 							{post.title && <h3 className="post-title">{post.title}</h3>}
 							{post.description && <p style={{whiteSpace: "pre-wrap"}} className="post-description">{post.description}</p>}
 							
-							{/* ✅ Отображение фото и видео */}
+							{/* ✅ Anzeige von Fotos und Videos */}
 							{post.image && (
 								<img
 									src={post.image}
-									alt="Фото поста"
+									alt="Foto des Beitrags"
 									className="post-media"
 									onClick={() => setFullscreenImage(post.image)}
 								/>
 							)}
 							
-							{/* ✅ Вставка YouTube-видео, если ссылка на YouTube */}
+							{/* ✅ YouTube-Video Einbettung */}
 							{post.video && getYouTubeEmbedUrl(post.video) ? (
 								<div className="post-video-container">
 									<iframe
@@ -156,10 +156,11 @@ const Post = () => {
 								</div>
 							) : post.video ? (
 								<a href={post.video} target="_blank" rel="noopener noreferrer">
-									📺 Смотреть видео
+									📺 Video ansehen
 								</a>
 							) : null}
-							{/* ✅ Лайки + Кнопки */}
+							
+							{/* ✅ Likes + Aktionen */}
 							<div className="post-actions">
 								<button
 									className="like-button"
@@ -178,10 +179,10 @@ const Post = () => {
 				</div>
 			</div>
 			
-			{/* ✅ Окно увеличенного изображения */}
+			{/* ✅ Vollbild-Bildanzeige */}
 			{fullscreenImage && (
 				<div className="fullscreen-image" onClick={() => setFullscreenImage(null)}>
-					<img src={fullscreenImage} alt="Увеличенное изображение" />
+					<img src={fullscreenImage} alt="Vergrößertes Bild" />
 				</div>
 			)}
 		</div>

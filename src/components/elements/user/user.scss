@@ -1,109 +1,117 @@
 .user-list-container {
   width: 25%;
+  max-height: 500px;
   display: flex;
   flex-direction: column;
-  height: 100%;
   background: white;
   border-radius: 10px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   padding: 10px;
-  overflow-y: auto; /* Скролл при большом количестве пользователей */
+  overflow-y: auto;
 }
 
 .uberschrift_user {
-  text-align: center;
-  font-size: 16px;
+
+  font-size: 20px;
+  margin-bottom: 15px;
   font-weight: bold;
-  margin-bottom: 8px;
 }
 
 /* Список пользователей */
 .user-list {
   display: flex;
   flex-direction: column;
-  gap: 5px; /* Отступ между элементами */
+  gap: 10px;
 }
 
 /* Элемент списка */
 .user-item {
   display: flex;
   align-items: center;
-  justify-content: space-between; /* Выравнивание по ширине */
-  gap: 10px;
-  padding: 6px;
-  background: #f9f9f9;
-  border-radius: 6px;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 8px;
   transition: 0.3s;
-  min-height: 45px; /* Компактный размер */
+  justify-content: space-between;
 }
 
 .user-item:hover {
-  background: #eaeaea;
+  background: #eff2f6;
+  cursor: pointer;
 }
 
 /* Аватар */
 .user-avatar {
-  width: 35px;
-  height: 35px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   object-fit: cover;
+  transition: transform 0.3s;
 }
 
-/* Информация о пользователе (РЯДОМ с аватаром) */
+.user-avatar:hover {
+  transform: scale(1.1);
+}
+
+/* Информация о пользователе */
 .user-info {
-  flex-grow: 1;
   display: flex;
   align-items: center;
-  gap: 6px; /* Добавляем отступ между именем и username */
-  &:hover{
-    cursor: pointer;
-  }
+  flex-grow: 1;
+  gap: 10px;
 }
 
-.user-info h4 {
+.user-text {
+  display: flex;
+  flex-direction: column;
+}
+
+h4 {
   margin: 0;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: bold;
 }
 
-.user-info p {
+p {
   margin: 0;
-  font-size: 12px;
+  font-size: 14px;
   color: gray;
 }
 
-/* Кнопка подписки (компактная) */
+/* Кнопка подписки */
 .follow-btn {
-  width: 80px;
-  background: rgba(72, 173, 31, 0.97);
+  width: 70px;
+  height: 30px;
   color: white;
   border: none;
-  padding: 5px 8px;
-  font-size: 11px;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
-  transition: 0.3s;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s, transform 0.2s;
+
 }
 
 .follow-btn:hover {
-  background: #395e29;
+  transform: scale(1.1);
 }
 
-/* Кнопка подписки (если подписан) */
+/* Состояние "подписан" */
 .following {
-  background: #f13c3c !important;
-  cursor: pointer;
-  &:hover {
-    background: #941d1d !important;
+  background: #d59d1f!important;
+
+}
+
+.following::after {
+
+  font-size: 18px;
+  font-weight: bold;
+}
+.delete{
+  background: #28a745 !important;
+  &:hover{
+    background: #28a745 !important;
   }
-}
-
-/* Скролл-бар (улучшенный) */
-.user-list-container::-webkit-scrollbar {
-  width: 6px;
-}
-
-.user-list-container::-webkit-scrollbar-thumb {
-  background-color: #ccc;
-  border-radius: 10px;
 }

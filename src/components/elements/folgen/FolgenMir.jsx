@@ -9,11 +9,11 @@ const FolgenMir = () => {
 	const [followers, setFollowers] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
-	const navigate = useNavigate(); // ✅ Для перехода на страницу профиля
+	const navigate = useNavigate(); // ✅ Um zum Profil zu wechseln
 	
 	useEffect(() => {
 		if (!token || !username) {
-			setError("❌ Ошибка: Токен или имя пользователя отсутствуют.");
+			setError("❌ Fehler: Token oder Benutzername fehlen.");
 			setLoading(false);
 			return;
 		}
@@ -28,21 +28,21 @@ const FolgenMir = () => {
 					},
 				});
 				
-				if (!response.ok) throw new Error(`Ошибка: ${response.status}`);
+				if (!response.ok) throw new Error(`Fehler: ${response.status}`);
 				
 				let data = await response.json();
-				console.log("🔍 ОТВЕТ СЕРВЕРА (followers):", data);
+				console.log("🔍 SERVER ANTWORT (Followers):", data);
 				
-				// ✅ Теперь берём список подписчиков из `data.followers`
+				// ✅ Liste der Follower aus `data.followers` abrufen
 				if (data && Array.isArray(data.followers)) {
-					console.log("✅ Нашли подписчиков:", data.followers);
+					console.log("✅ Gefundene Follower:", data.followers);
 					setFollowers(data.followers);
 				} else {
-					console.warn("⚠️ Подписчиков нет или формат ответа изменился!");
-					setFollowers([]); // Если подписчиков нет
+					console.warn("⚠️ Keine Follower gefunden oder Datenformat hat sich geändert!");
+					setFollowers([]); // Wenn keine Follower vorhanden sind
 				}
 			} catch (err) {
-				console.error("❌ Ошибка при получении подписчиков:", err.message);
+				console.error("❌ Fehler beim Abrufen der Follower:", err.message);
 				setError(err.message);
 			} finally {
 				setLoading(false);
@@ -52,21 +52,22 @@ const FolgenMir = () => {
 		fetchFollowers();
 	}, [token, username]);
 	
-	if (loading) return <div className="followers-loading">⏳ Загрузка...</div>;
+	if (loading) return <div className="followers-loading">⏳ Wird geladen...</div>;
 	if (error) return <div className="followers-error">{error}</div>;
 	
-	console.log("✅ Итоговый список подписчиков:", followers);
+	console.log("✅ Endgültige Liste der Follower:", followers);
 	
-	if (!followers || followers.length === 0) return <div className="followers-empty">❌ Нет подписчиков</div>;
+	if (!followers || followers.length === 0) return <div className="followers-empty">❌ Keine Follower gefunden</div>;
 	
 	return (
 		<div className="followers-container">
-			<h2>👥 Подписчики</h2>
+			<h2>👥 Follower</h2>
 			<div className="followers-list">
 				{followers.map((follower) => (
 					<div key={follower._id} className="follower-card" onClick={() => navigate(`/user/${follower.username}`)}>
-						<img src={follower.avatar || avatar} alt="Аватар" className="follower-avatar" />
+						<img src={follower.avatar || avatar} alt="Avatar" className="follower-avatar" />
 						<div className="follower-info">
+							<h4>{follower.name}</h4>
 							<p>@{follower.username}</p>
 						</div>
 					</div>

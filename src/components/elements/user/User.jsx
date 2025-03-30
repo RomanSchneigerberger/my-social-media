@@ -3,19 +3,19 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import avatar from '../../images/png-transparent-default-avatar-thumbnail.png';
 import "./user.scss";
+import Weather from "../Weather/Weather";
 
 const User = () => {
 	const { token, username } = useSelector((state) => state.user);
 	const [users, setUsers] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
-	const [following, setFollowing] = useState(new Set()); // ✅ Подписки пользователя
-	const navigate = useNavigate(); // ✅ Для перехода на страницу профиля
+	const [following, setFollowing] = useState(new Set());
+	const navigate = useNavigate();
 	
-	// 📌 Загружаем всех пользователей и мои подписки
 	useEffect(() => {
 		if (!token) {
-			setError("❌ Ошибка: Токен не найден.");
+			setError("❌ Fehler: Token nicht gefunden.");
 			setLoading(false);
 			return;
 		}
@@ -29,11 +29,9 @@ const User = () => {
 						"x-access-token": token,
 					},
 				});
-				if (!response.ok) throw new Error(`Ошибка: ${response.status}`);
+				if (!response.ok) throw new Error(`Fehler: ${response.status}`);
 				
 				const data = await response.json();
-				
-				// ✅ Исключаем текущего пользователя из списка
 				const filteredUsers = data.filter(user => user.username !== username);
 				setUsers(filteredUsers);
 			} catch (err) {
@@ -50,13 +48,13 @@ const User = () => {
 						"x-access-token": token,
 					},
 				});
-				if (!response.ok) throw new Error("Ошибка загрузки подписок");
+				if (!response.ok) throw new Error("Fehler beim Laden der Abonnements");
 				
 				const data = await response.json();
-				const myFollowing = new Set(data.following.map((u) => u.username)); // ✅ Формируем Set из подписок
+				const myFollowing = new Set(data.following.map((u) => u.username));
 				setFollowing(myFollowing);
 			} catch (err) {
-				console.error("❌ Ошибка загрузки подписок:", err.message);
+				console.error("❌ Fehler beim Laden der Abonnements:", err.message);
 			} finally {
 				setLoading(false);
 			}
@@ -66,7 +64,6 @@ const User = () => {
 		fetchMyFollowing();
 	}, [token, username]);
 	
-	// 📌 Подписка / Отписка
 	const toggleFollow = async (userToFollow) => {
 		const isFollowing = following.has(userToFollow);
 		const url = `http://49.13.31.246:9191/${isFollowing ? "unfollow" : "follow"}`;
@@ -80,9 +77,8 @@ const User = () => {
 				},
 				body: JSON.stringify({ username: userToFollow }),
 			});
-			if (!response.ok) throw new Error(`Ошибка ${isFollowing ? "отписки" : "подписки"}`);
+			if (!response.ok) throw new Error(`Fehler bei ${isFollowing ? "Entfernen" : "Abonnieren"}`);
 			
-			// 📌 Обновляем UI мгновенно
 			setFollowing((prev) => {
 				const updatedSet = new Set(prev);
 				if (isFollowing) {
@@ -93,37 +89,38 @@ const User = () => {
 				return updatedSet;
 			});
 		} catch (err) {
-			console.error("❌ Ошибка при подписке/отписке:", err.message);
+			console.error("❌ Fehler beim Abonnieren/Entfernen:", err.message);
 		}
 	};
 	
-	// 📌 UI обработка ошибок и загрузки
-	if (loading) return <div className="loading">⏳ Загрузка...</div>;
+	if (loading) return <div className="loading">⏳ Laden...</div>;
 	if (error) return <div className="error-msg">{error}</div>;
 	
 	return (
+		
 		<div className="user-list-container">
-			<h2 className="uberschrift_user">👥 Все пользователи</h2>
+			<h2 className="uberschrift_user">Alle Benutzer</h2>
 			<div className="user-list">
 				{users.map((userItem) => (
 					<div key={userItem._id} className="user-item">
-						{/* ✅ Клик на аватар или имя перенаправляет в профиль */}
 						<div className="user-info" onClick={() => navigate(`/user/${userItem.username}`)}>
-							<img src={userItem.avatar || avatar} alt="Аватар" className="user-avatar" />
-							<h4>{userItem.fullName || "Без имени"}</h4>
-							<p>@{userItem.username}</p>
+							<img src={userItem.avatar || avatar} alt="Avatar" className="user-avatar" />
+							<div className="user-text">
+								<h4>{userItem.fullName || "Ohne Name"}</h4>
+								<p>@{userItem.username}</p>
+							</div>
 						</div>
 						
-						{/* ✅ Кнопка подписки / отписки */}
 						<button
-							className={`follow-btn ${following.has(userItem.username) ? "following" : ""}`}
+							className={`follow-btn ${following.has(userItem.username) ? "following" : "delete"}`}
 							onClick={() => toggleFollow(userItem.username)}
 						>
-							{following.has(userItem.username) ? "Löschen" : "Folgen"}
+							{following.has(userItem.username) ? "Entfernen" : "Folgen"}
 						</button>
 					</div>
 				))}
 			</div>
+			
 		</div>
 	);
 };

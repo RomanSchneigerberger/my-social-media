@@ -4,6 +4,7 @@ import Profile from "../../elements/profile/Profile";
 import Post from "../../elements/post/Post";
 import './feed.scss'
 import User from "../../elements/user/User";
+import Weather from "../../elements/Weather/Weather";
 
 const Feed = () => {
 	return (
@@ -15,6 +16,7 @@ const Feed = () => {
 				<Profile/>
 				<Post/>
 				<User />
+				
 			</section>
 			<footer>
 			

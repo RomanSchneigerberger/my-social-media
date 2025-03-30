@@ -1,13 +1,13 @@
 import React from "react";
-import {useForm} from "react-hook-form";
-import {useNavigate} from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import "./signUp.scss";
 
 function SignUp() {
 	const {
 		register,
 		handleSubmit,
-		formState: {errors},
+		formState: { errors },
 	} = useForm();
 	let navigate = useNavigate();
 	
@@ -24,14 +24,16 @@ function SignUp() {
 			const result = await response.json();
 			
 			if (response.ok) {
-				console.log("Erfolgreiche Registrierung", result);
+				console.log("✅ Erfolgreiche Registrierung", result);
 				localStorage.setItem("token", result.token);
 				navigate(`/`);
 			} else {
-				console.error("Fehler bei Registrierung", result);
+				console.error("❌ Fehler bei der Registrierung", result);
+				alert(result.message || "Registrierungsfehler!");
 			}
 		} catch (error) {
-			console.error("Anforderungsfehler", error);
+			console.error("⚠️ Fehler bei der Anfrage", error);
+			alert("Fehler bei der Verbindung mit dem Server!");
 		}
 	};
 	
@@ -39,50 +41,56 @@ function SignUp() {
 		<div className="signup-page">
 			<form className="signup-form" onSubmit={handleSubmit(onSubmit)}>
 				<h2 className="signup-header">Registrierung</h2>
-				<p>Sie haben bereits Acount?</p>
-				<button className="signup-switch-button" onClick={() => navigate("/")}>
-					Zu Login
+				<p>Haben Sie schon einen Account?</p>
+				<button
+					type="button"
+					className="signup-switch-button"
+					onClick={() => navigate("/")}
+				>
+					Zum Login
 				</button>
 				<br/>
+				
 				<label className="signup-label">
 					<span className="signup-label-text">Benutzername</span>
 					<input
 						className="signup-input"
-						name="username"
-						{...register("username", {required: true, minLength: 4})}
+						{...register("username", { required: "Benutzername ist ein Pflichtfeld", minLength: 4 })}
 					/>
 					{errors.username && (
-						<p className="signup-error">Benutzername ist Pflichtfeld</p>
+						<p className="signup-error">{errors.username.message}</p>
 					)}
 				</label>
+				
 				<label className="signup-label">
-					<span className="signup-label-text">Password</span>
+					<span className="signup-label-text">Passwort</span>
 					<input
 						type="password"
 						className="signup-input"
-						name="password"
-						{...register("password", {required: true, minLength: 4})}
+						{...register("password", { required: "Passwort ist ein Pflichtfeld", minLength: 4 })}
 					/>
 					{errors.password && (
-						<p className="signup-error">Password ist Pflichtfeld</p>
+						<p className="signup-error">{errors.password.message}</p>
 					)}
 				</label>
+				
 				<label className="signup-label">
-					<span className="signup-label-text">Password wiederholen</span>
+					<span className="signup-label-text">Passwort wiederholen</span>
 					<input
 						type="password"
 						className="signup-input"
-						name="confirm_password"
-						{...register("confirm_password", {required: true, minLength: 4})}
+						{...register("confirm_password", { required: "Passwort bestätigen ist ein Pflichtfeld", minLength: 4 })}
 					/>
 					{errors.confirm_password && (
-						<p className="signup-error">Password ist Pflichtfeld</p>
+						<p className="signup-error">{errors.confirm_password.message}</p>
 					)}
 				</label>
+				
 				<button type="submit" className="signup-button">
 					Registrieren
 				</button>
-				<p className="signup-footer">© {new Date().getFullYear()}. All rights reserved</p>
+				
+				<p className="signup-footer">© {new Date().getFullYear()}. Alle Rechte vorbehalten</p>
 			</form>
 		</div>
 	);

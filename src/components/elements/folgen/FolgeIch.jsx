@@ -8,21 +8,21 @@ import "./followings.scss";
 const FolgeIch = () => {
 	const { token, username } = useSelector((state) => state.user);
 	const [followings, setFollowings] = useState([]);
-	const [selectedUser, setSelectedUser] = useState(null); // Выбранный пользователь
+	const [selectedUser, setSelectedUser] = useState(null); // Gewählter Benutzer
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
 	const navigate = useNavigate();
 	
 	useEffect(() => {
 		if (!token || !username) {
-			setError("❌ Ошибка: Токен или пользователь не найден.");
+			setError("❌ Fehler: Token oder Benutzer nicht gefunden.");
 			setLoading(false);
 			return;
 		}
 		
 		const fetchFollowings = async () => {
 			try {
-				console.log(`🔍 Запрос подписок для пользователя: ${username}`);
+				console.log(`🔍 Abrufen von Abonnements für Benutzer: ${username}`);
 				
 				const response = await fetch(`http://49.13.31.246:9191/followings/${username}`, {
 					method: "GET",
@@ -32,20 +32,20 @@ const FolgeIch = () => {
 					},
 				});
 				
-				if (!response.ok) throw new Error(`Ошибка: ${response.status}`);
+				if (!response.ok) new Error(`Fehler: ${response.status}`);
 				
 				let data = await response.json();
-				console.log("📥 ОТВЕТ СЕРВЕРА (followings):", data);
+				console.log("📥 SERVER ANTWORT (Followings):", data);
 				
 				if (data && Array.isArray(data.following)) {
-					console.log("✅ Найденные подписки:", data.following);
+					console.log("✅ Gefundene Abonnements:", data.following);
 					setFollowings([...data.following]);
 				} else {
-					console.warn("⚠️ Сервер вернул некорректные данные или подписок нет.");
+					console.warn("⚠️ Der Server hat ungültige Daten zurückgegeben oder es gibt keine Abonnements.");
 					setFollowings([]);
 				}
 			} catch (err) {
-				console.error("❌ Ошибка при получении подписок:", err.message);
+				console.error("❌ Fehler beim Abrufen der Abonnements:", err.message);
 				setError(err.message);
 			} finally {
 				setLoading(false);
@@ -55,7 +55,7 @@ const FolgeIch = () => {
 		fetchFollowings();
 	}, [token, username]);
 	
-	// 📌 Получение данных пользователя
+	// 📌 Benutzerinformationen abrufen
 	const fetchUserDetails = async (user) => {
 		try {
 			const response = await fetch(`http://49.13.31.246:9191/user/${user.username}`, {
@@ -65,56 +65,43 @@ const FolgeIch = () => {
 					"x-access-token": token,
 				},
 			});
-			if (!response.ok) throw new Error("Ошибка загрузки профиля");
+			if (!response.ok)
+				new Error("Fehler beim Laden des Profils");
 			
 			const data = await response.json();
 			setSelectedUser(data);
 		} catch (error) {
-			console.error("Ошибка загрузки профиля:", error);
+			console.error("Fehler beim Laden des Profils:", error);
 		}
 	};
 	
-	// 📌 Переход к профилю
+	// 📌 Zum Profil weiterleiten
 	const handleUserClick = (user) => {
 		navigate(`/user/${user.username}`);
 		fetchUserDetails(user);
 	};
 	
-	if (loading) return <div className="loading">⏳ Загрузка...</div>;
+	if (loading) return <div className="loading">⏳ Laden...</div>;
 	if (error) return <div className="error-msg">{error}</div>;
 	
 	return (
 		<div className="following-list-container">
-			<h2>📌 Мои подписки</h2>
+			<h2>📌 Meine Abonnements</h2>
 			<div className="following-list">
 				{followings.length > 0 ? (
 					followings.map((follow) => (
 						<div key={follow._id} className="following-item" onClick={() => handleUserClick(follow)}>
-							<img src={follow.avatar || avatar} alt="Аватар" className="following-avatar" />
+							<img src={follow.avatar || avatar} alt="Avatar" className="following-avatar" />
 							<div className="follower-info">
+								<h4>{follow.name}</h4>
 								<p>@{follow.username}</p>
 							</div>
 						</div>
 					))
 				) : (
-					<p className="no-followings">Вы пока ни на кого не подписаны</p>
+					<p className="no-followings">Sie folgen niemandem</p>
 				)}
 			</div>
-			
-			{/* ✅ Карточка пользователя */}
-			{selectedUser && (
-				<div className="user-card">
-					<img src={selectedUser.avatar || "https://via.placeholder.com/100"} alt="Avatar" />
-					<h3>{selectedUser.fullName} (@{selectedUser.username})</h3>
-					<p><strong>Возраст:</strong> {selectedUser.age}</p>
-					<p><strong>О себе:</strong> {selectedUser.bio}</p>
-					<p><strong>Баланс:</strong> {selectedUser.balance} 💰</p>
-					<p><strong>Постов:</strong> {selectedUser.posts_count}</p>
-					<p><strong>Подписчики:</strong> {selectedUser.followers}</p>
-					<p><strong>Подписки:</strong> {selectedUser.following}</p>
-					<button onClick={() => setSelectedUser(null)}>❌ Закрыть</button>
-				</div>
-			)}
 		</div>
 	);
 };

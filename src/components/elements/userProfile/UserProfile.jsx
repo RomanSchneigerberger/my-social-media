@@ -18,7 +18,7 @@ const UserProfile = () => {
 	
 	useEffect(() => {
 		if (!token || !viewedUsername) {
-			setError("❌ Ошибка: Токен или имя пользователя отсутствует.");
+			setError("❌ Fehler: Token oder Benutzername fehlt.");
 			setLoading(false);
 			return;
 		}
@@ -32,12 +32,11 @@ const UserProfile = () => {
 						"x-access-token": token,
 					},
 				});
-				if (!response.ok) throw new Error(`Ошибка: ${response.status}`);
+				if (!response.ok) throw new Error(`Fehler: ${response.status}`);
 				const data = await response.json();
 				setUserData(data);
 				console.log(data);
 				
-				// 📌 После загрузки данных пользователя загружаем его посты (по `_id`)
 				if (data._id) {
 					fetchUserPosts(data._id);
 				}
@@ -55,15 +54,14 @@ const UserProfile = () => {
 						"x-access-token": token,
 					},
 				});
-				if (!response.ok) new Error(`Ошибка загрузки постов: ${response.status}`);
+				if (!response.ok) new Error(`Fehler beim Laden der Beiträge: ${response.status}`);
 				
 				const data = await response.json();
 				setUserPosts(data.reverse());
 			} catch (err) {
-				console.error("❌ Ошибка загрузки постов:", err.message);
+				console.error("❌ Fehler beim Laden der Beiträge:", err.message);
 			}
 		};
-		
 		
 		const fetchFollowing = async () => {
 			try {
@@ -74,7 +72,7 @@ const UserProfile = () => {
 						"x-access-token": token,
 					},
 				});
-				if (!response.ok) throw new Error("Ошибка загрузки подписок");
+				if (!response.ok) throw new Error("Fehler beim Laden der Abonnements");
 				
 				const data = await response.json();
 				if (Array.isArray(data.following)) {
@@ -84,7 +82,7 @@ const UserProfile = () => {
 					setIsFollowing(false);
 				}
 			} catch (err) {
-				console.error("❌ Ошибка при получении подписок:", err.message);
+				console.error("❌ Fehler beim Abrufen der Abonnements:", err.message);
 			} finally {
 				setLoading(false);
 			}
@@ -106,7 +104,7 @@ const UserProfile = () => {
 				},
 				body: JSON.stringify({ username: viewedUsername }),
 			});
-			if (!response.ok) throw new Error(`Ошибка ${isFollowing ? "отписки" : "подписки"}`);
+			if (!response.ok) throw new Error(`Fehler bei ${isFollowing ? "Entfernen" : "Folgen"}`);
 			
 			setIsFollowing(!isFollowing);
 		} catch (err) {
@@ -114,64 +112,60 @@ const UserProfile = () => {
 		}
 	};
 	
-	if (loading) return <div className="one-user-loading">⏳ Загрузка...</div>;
+	if (loading) return <div className="one-user-loading">⏳ Laden...</div>;
 	if (error) return <div className="one-user-error">{error}</div>;
-	if (!userData) return <div className="one-user-error">❌ Не удалось загрузить профиль</div>;
+	if (!userData) return <div className="one-user-error">❌ Benutzerprofil konnte nicht geladen werden</div>;
 	
 	return (
 		<div>
 			<Nav />
-		<div className="one-user-container">
-			<button className="one-user-back-btn" onClick={() => navigate(-1)}>⬅ Вернуться</button>
-			<div className="one-user-card">
-				<img src={userData.avatar || avatar} alt="Аватар" className="one-user-avatar" />
-				<h2 className="one-user-name">{userData.fullName}</h2>
-				<p><strong>Имя пользователя:</strong> <br/>@{userData.username}</p>
-				<p><strong>Возраст:</strong> {userData.age}</p>
-				<p style={{whiteSpace: "pre-wrap"}}><strong>О себе:</strong> <br/>{userData.bio}</p>
-				{/*<p><strong>Баланс:</strong> {userData.balance} 💰</p>*/}
-				<p><strong>Постов:</strong> {userData.posts_count}</p>
-				{/*<p><strong>Подписчики:</strong> {userData.followers?.length || 0}</p>*/}
-				{/*<p><strong>Подписки:</strong> {userData.following?.length || 0}</p>*/}
-				{viewedUsername !== myUsername && (
-					<button className={`one-user-follow-btn ${isFollowing ? "one-user-unfollow" : "one-user-follow"}`} onClick={toggleFollow}>
-						{isFollowing ? "Отписаться" : "Подписаться"}
-					</button>
-				)}
-			</div>
-			
-			{/* ✅ Список постов пользователя */}
-			<div className="one-user-posts">
-				<h3>📝 Посты пользователя</h3>
-				{userPosts.length > 0 ? (
-					userPosts.map((post) => (
-						<div key={post._id} className="feed-post">
-							<div className="post-header">
-								<img
-									src={userData.avatar || "/default-avatar.png"}
-									alt="Аватар"
-									className="author-avatar"
-								/>
-								<span className="author-name">{userData.fullName || userData.username}</span>
+			<div className="one-user-container">
+				<button className="one-user-back-btn" onClick={() => navigate(-1)}>⬅ Zurück</button>
+				<div className="one-user-card">
+					<img src={userData.avatar || avatar} alt="Avatar" className="one-user-avatar" />
+					<h2 className="one-user-name">{userData.fullName}</h2>
+					<p><strong>Benutzername:</strong> <br/>@{userData.username}</p>
+					<p><strong>Alter:</strong> {userData.age}</p>
+					<p style={{whiteSpace: "pre-wrap"}}><strong>Über mich:</strong> <br/>{userData.bio}</p>
+					<p><strong>Beiträge:</strong> {userData.posts_count}</p>
+					{viewedUsername !== myUsername && (
+						<button className={`one-user-follow-btn ${isFollowing ? "one-user-unfollow" : "one-user-follow"}`} onClick={toggleFollow}>
+							{isFollowing ? "Entfernen" : "Folgen"}
+						</button>
+					)}
+				</div>
+				
+				<div className="one-user-posts">
+					<h3>📝 Beiträge des Benutzers</h3>
+					{userPosts.length > 0 ? (
+						userPosts.map((post) => (
+							<div key={post._id} className="feed-post">
+								<div className="post-header">
+									<img
+										src={userData.avatar || "/default-avatar.png"}
+										alt="Avatar"
+										className="author-avatar"
+									/>
+									<span className="author-name">{userData.fullName || userData.username}</span>
+								</div>
+								{post.title && <h3 className="post-title">{post.title}</h3>}
+								{post.description && <p className="post-description">{post.description}</p>}
+								{post.image && <img src={post.image} alt="Beitragsbild" className="post-media" />}
+								{post.video && (
+									<iframe
+										title="Beitragsvideo"
+										src={post.video}
+										className="post-video"
+									></iframe>
+								)}
 							</div>
-							{post.title && <h3 className="post-title">{post.title}</h3>}
-							{post.description && <p className="post-description">{post.description}</p>}
-							{post.image && <img src={post.image} alt="Фото поста" className="post-media" />}
-							{post.video && (
-								<iframe
-									title="Видео поста"
-									src={post.video}
-									className="post-video"
-								></iframe>
-							)}
-						</div>
-					))
-				) : (
-					<p className="no-posts">❌ У этого пользователя пока нет постов.</p>
-				)}
+						))
+					) : (
+						<p className="no-posts">❌ Dieser Benutzer hat noch keine Beiträge.</p>
+					)}
+				</div>
 			</div>
 		</div>
-</div>
 	);
 };
 

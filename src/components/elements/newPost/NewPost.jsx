@@ -37,7 +37,7 @@ const NewPost = () => {
 				},
 				body: JSON.stringify(postData),
 			});
-			if (!response.ok) throw new Error(`Ошибка: ${response.status}`);
+			if (!response.ok) throw new Error(`Fehler: ${response.status}`);
 			setPostData({ title: "", description: "", image: "", video: "" });
 		} catch (err) {
 			setError(err.message);
@@ -105,10 +105,10 @@ const NewPost = () => {
 				)}
 				
 				<button className="post-submit" onClick={handleSubmit} disabled={loading}>
-					{loading ? "Laden..." : "Posten"}
+					{loading ? "Laden..." : "Veröffentlichen"}
 				</button>
 				
-				{error && <div className="error-msg">Ошибка: {error}</div>}
+				{error && <div className="error-msg">Fehler: {error}</div>}
 			</div>
 		</div>
 	);

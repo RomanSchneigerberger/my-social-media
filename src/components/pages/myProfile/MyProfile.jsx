@@ -8,14 +8,16 @@ import Nav from "../../elements/nav/Nav";
 const MyProfile = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
-	const { token } = useSelector((state) => state.user);
+	const { token, user } = useSelector((state) => state.user);
 	const [profileData, setProfileData] = useState(null);
+	const [userPosts, setUserPosts] = useState([]);
 	const [error, setError] = useState(null);
 	const [loading, setLoading] = useState(false);
+	const [fullscreenImage, setFullscreenImage] = useState(null);
 	
 	useEffect(() => {
 		if (!token) {
-			console.warn("Нет токена для авторизации");
+			console.warn("Kein Token zur Authentifizierung gefunden.");
 			return;
 		}
 		
@@ -29,10 +31,14 @@ const MyProfile = () => {
 						"x-access-token": token,
 					},
 				});
-				if (!response.ok) throw new Error(`Ошибка: ${response.status}`);
+				if (!response.ok) throw new Error(`Fehler: ${response.status}`);
 				const data = await response.json();
 				setProfileData(data);
 				dispatch(setUser({ user: data._id }));
+				
+				if (data._id) {
+					fetchUserPosts(data._id);
+				}
 			} catch (err) {
 				setError(err.message);
 				navigate("/");
@@ -41,18 +47,41 @@ const MyProfile = () => {
 			}
 		};
 		
+		const fetchUserPosts = async (userId) => {
+			try {
+				const response = await fetch(`http://49.13.31.246:9191/posts?user_id=${userId}`, {
+					method: "GET",
+					headers: {
+						"Content-Type": "application/json",
+						"x-access-token": token,
+					},
+				});
+				if (!response.ok) throw new Error("Fehler beim Laden der Beiträge");
+				const data = await response.json();
+				setUserPosts(data.reverse());
+			} catch (err) {
+				console.error("Fehler beim Laden der Beiträge:", err.message);
+			}
+		};
+		
 		fetchProfile();
 	}, [token]);
 	
 	const handleLogout = () => {
 		dispatch(logoutUser());
-		navigate("/signIn");
+		navigate("/");
 	};
 	
-	if (!token) return <div className="myprofile-error-msg">Пользователь не авторизован</div>;
-	if (loading) return <div className="myprofile-loading">Загрузка...</div>;
-	if (error) return <div className="myprofile-error-msg">Ошибка: {error}</div>;
-	if (!profileData) return <div className="myprofile-error-msg">Нет данных профиля</div>;
+	const getYouTubeEmbedUrl = (url) => {
+		const regExp = /^.*(youtu.be\/|youtube.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([^#&?]*).*/;
+		const match = url.match(regExp);
+		return match && match[2].length === 11 ? `https://www.youtube.com/embed/${match[2]}` : null;
+	};
+	
+	if (!token) return <div className="myprofile-error-msg">Benutzer ist nicht autorisiert</div>;
+	if (loading) return <div className="myprofile-loading">Laden...</div>;
+	if (error) return <div className="myprofile-error-msg">Fehler: {error}</div>;
+	if (!profileData) return <div className="myprofile-error-msg">Keine Profildaten gefunden</div>;
 	
 	return (
 		<div>
@@ -63,22 +92,50 @@ const MyProfile = () => {
 						<img src={profileData.avatar} alt="Avatar" className="myprofile-avatar" />
 						<h2>{profileData.fullName}</h2>
 						<p className="myprofile-username">@{profileData.username}</p>
-						<p className="myprofile-bio">{profileData.bio}</p>
+						<p style={{ whiteSpace: "pre-wrap" }} className="myprofile-bio">{profileData.bio}</p>
 						<p>Alter: <strong>{profileData.age}</strong></p>
 					</div>
-					
 					<div className="myprofile-stats">
-						<div><strong>${profileData.balance}</strong> Баланс</div>
-						<div><strong>{profileData.posts_count}</strong> Постов</div>
-						<div><strong>{profileData.followers}</strong> Подписчиков</div>
-						<div><strong>{profileData.following}</strong> Подписок</div>
+						<div><strong>${profileData.balance}</strong> Guthaben</div>
+						<div><strong>{profileData.posts_count}</strong> Beiträge</div>
+						<div><strong>{profileData.followers}</strong> Follower</div>
+						<div><strong>{profileData.following}</strong> Abonniert</div>
 					</div>
-					
 					<div className="myprofile-buttons">
-						{/*<button className="myprofile-back-btn" onClick={() => navigate(-1)}>🔙 Назад</button>*/}
-						<button className="myprofile-logout-btn" onClick={handleLogout}>🚪 Выйти</button>
+						<button className="myprofile-logout-btn" onClick={handleLogout}>🚪 Abmelden</button>
 					</div>
 				</div>
+				
+				<div className="myprofile-posts">
+					{userPosts.map((post) => (
+						<div key={post._id} className="post-card">
+							{post.title && <h4>{post.title}</h4>}
+							{post.description && <p>{post.description}</p>}
+							{post.image && (
+								<img
+									src={post.image}
+									alt="Bild"
+									className="post-image"
+									onClick={() => setFullscreenImage(post.image)}
+								/>
+							)}
+							{post.video && getYouTubeEmbedUrl(post.video) && (
+								<iframe
+									src={getYouTubeEmbedUrl(post.video)}
+									title="Video"
+									className="post-video"
+									allowFullScreen
+								/>
+							)}
+						</div>
+					))}
+				</div>
+				
+				{fullscreenImage && (
+					<div className="fullscreen-image" onClick={() => setFullscreenImage(null)}>
+						<img src={fullscreenImage} alt="Vollbild" />
+					</div>
+				)}
 			</div>
 		</div>
 	);
