@@ -86,25 +86,6 @@ const Post = () => {
 		}
 	};
 	
-	const deletePost = async (postId) => {
-		const confirmDelete = window.confirm("Sind Sie sicher, dass Sie diesen Beitrag löschen möchten?");
-		if (!confirmDelete) return;
-		
-		try {
-			const response = await fetch(`http://49.13.31.246:9191/post/${postId}`, {
-				method: "DELETE",
-				headers: {
-					"Content-Type": "application/json",
-					"x-access-token": token,
-				},
-			});
-			if (!response.ok) throw new Error("Fehler beim Löschen des Beitrags");
-			
-			setFeedData((prevFeedData) => prevFeedData.filter((post) => post._id !== postId));
-		} catch (error) {
-			console.error("Fehler beim Löschen des Beitrags:", error);
-		}
-	};
 	
 	// 🔥 Funktion zum Abrufen der YouTube-Einbettungs-URL
 	const getYouTubeEmbedUrl = (url) => {
@@ -172,7 +153,6 @@ const Post = () => {
 								>
 									{post.likes.some((like) => like.fromUser === user) ? "❤️" : "🤍"} {post.likes.length}
 								</button>
-								<button className="delete-button" onClick={() => deletePost(post._id)}>🗑</button>
 							</div>
 						</div>
 					))}

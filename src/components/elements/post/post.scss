@@ -1,5 +1,5 @@
 .feed-post {
-  width: 700px;
+  width: 90%;
   margin: 30px auto;
   background: white;
   padding: 15px;
@@ -16,7 +16,7 @@
   object-fit: cover;
   border-radius: 8px;
   margin-top: 10px;
-  cursor: pointer; /* 🔍 Курсор для увеличения */
+  cursor: pointer;
   transition: transform 0.3s ease-in-out;
 }
 
@@ -55,7 +55,7 @@
   height: 50px;
   border-radius: 50%;
   border: 2px solid #ddd;
-  cursor: pointer; /* 🖱️ Наведение */
+  cursor: pointer;
   transition: transform 0.2s ease-in-out;
 }
 
@@ -81,9 +81,23 @@
 
 /* 📅 Дата публикации */
 .post-date {
-  font-size: 12px;
+  font-size: 16px;
   color: gray;
   margin-top: 2px;
+}
+
+/* 🏆 Заголовок поста */
+.post-title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+/* 📝 Описание поста */
+.post-description {
+  font-size: 16px;
+  margin-top: 8px;
+  white-space: pre-wrap;
 }
 
 /* 🏆 Действия с постом */
@@ -94,12 +108,12 @@
   margin-top: 10px;
 }
 
-/* 🔘 Кнопки лайков и удаления */
+/* 🔘 Кнопки */
 .like-button, .delete-button {
   background: none;
   border: none;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 18px;
   transition: 0.2s;
 }
 
@@ -110,6 +124,8 @@
 .delete-button:hover {
   color: #ff4d4d;
 }
+
+/* 🎥 YouTube контейнер */
 .post-video-container {
   width: 100%;
   display: flex;
@@ -118,7 +134,7 @@
 }
 
 .post-video {
-  width: 100%;  /* Занимает всю ширину блока */
-  height: 315px; /* Высота, как у YouTube */
-  border-radius: 10px; /* Округляем углы */
+  width: 100%;
+  height: 315px;
+  border-radius: 10px;
 }

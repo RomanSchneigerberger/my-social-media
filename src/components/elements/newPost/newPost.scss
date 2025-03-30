@@ -1,11 +1,10 @@
 .new-post-container {
   display: flex;
   justify-content: center;
-
 }
 
 .post-box {
-  width: 700px;
+  width: 90%;
   background: #fff;
   border-radius: 10px;
   padding: 15px;
@@ -37,7 +36,7 @@
 
 .title-input {
   font-weight: bold;
-  font-size: 18px;
+  font-size: 24px;
 }
 
 .post-description {
@@ -49,7 +48,7 @@
   height: 60px;
   border: none;
   outline: none;
-  font-size: 14px;
+  font-size: 16px;
   background: transparent;
   resize: none;
 }
@@ -62,22 +61,23 @@
 
 .post-action {
   background: #f0f2f5;
+  width: 80px;
   border: none;
   padding: 10px 15px;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 12px;
   display: flex;
   align-items: center;
   gap: 5px;
 }
 
 .photo {
-  color: #45bd62;
+  color: #0e0e0e;
 }
 
 .video {
-  color: #1877f2;
+  color: #0e0e0e;
 }
 
 .extra-input {
@@ -89,24 +89,24 @@
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 5px;
-  font-size: 14px;
+  font-size: 16px;
 }
 
 .post-submit {
   width: 100%;
-  background: #1877f2;
-  color: white;
+  background: #6aa2ea;
+  color: #0e0e0e;
   padding: 10px;
   border-radius: 5px;
   border: none;
   font-size: 16px;
   cursor: pointer;
   margin-top: 10px;
-}
 
-.post-submit:disabled {
-  background: #ccc;
-  cursor: not-allowed;
+  &:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+  }
 }
 
 .error-msg {

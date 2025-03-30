@@ -12,6 +12,8 @@ import Search from "./pages/search/Search";
 import EditProfile from "./elements/editProfile/EditProfile";
 import Followings from "./pages/follow/Followings";
 import Followers from "./pages/follow/Followers";
+import Users from '../components/elements/user/User'
+import Transaktionen from "./pages/transaktionen/Transaktionen";
 
 // const RedirectHandler = () => {
 // 	const navigate = useNavigate();
@@ -68,7 +70,11 @@ const App = () => {
 					<Route path='/myProfile' element={<MyProfile />} />
 					<Route path='/search' element={<Search />} />
 					<Route path='/editProfile' element={<EditProfile />} />
-					
+					<Route path='/users' element={<Users />} />
+					<Route path='/transaktionen' element={<Transaktionen />} />
+				
+				
+				
 				</Routes>
 			</BrowserRouter>
 		</div>

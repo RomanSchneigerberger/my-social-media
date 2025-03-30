@@ -183,7 +183,7 @@ const EditProfile = () => {
 					</button>
 				</form>
 				
-				<button className="back-to-profile-btn" onClick={() => navigate("/feed")}>🔙 Zurück zum Profil</button>
+				<button className="back-to-profile-btn" onClick={() => navigate("/myProfile")}>🔙 Zurück zum Profil</button>
 				
 				{error && <div className="error-msg">❌ Fehler: {error}</div>}
 			</div>

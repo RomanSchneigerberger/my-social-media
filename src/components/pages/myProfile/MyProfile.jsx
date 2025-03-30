@@ -4,11 +4,13 @@ import { logoutUser, setUser } from "../../../features/features";
 import { useNavigate } from "react-router-dom";
 import "./myProfile.scss";
 import Nav from "../../elements/nav/Nav";
+import ScrollToTop from "../../../features/scrollToTop/ScrollToTop";
 
 const MyProfile = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
-	const { token, user } = useSelector((state) => state.user);
+	const { token } = useSelector((state) => state.user);
+	
 	const [profileData, setProfileData] = useState(null);
 	const [userPosts, setUserPosts] = useState([]);
 	const [error, setError] = useState(null);
@@ -16,29 +18,23 @@ const MyProfile = () => {
 	const [fullscreenImage, setFullscreenImage] = useState(null);
 	
 	useEffect(() => {
-		if (!token) {
-			console.warn("Kein Token zur Authentifizierung gefunden.");
-			return;
-		}
+		if (!token) return;
 		
 		const fetchProfile = async () => {
 			setLoading(true);
 			try {
-				const response = await fetch("http://49.13.31.246:9191/me", {
-					method: "GET",
+				const res = await fetch("http://49.13.31.246:9191/me", {
 					headers: {
 						"Content-Type": "application/json",
 						"x-access-token": token,
 					},
 				});
-				if (!response.ok) throw new Error(`Fehler: ${response.status}`);
-				const data = await response.json();
+				if (!res.ok) throw new Error(`Fehler: ${res.status}`);
+				const data = await res.json();
 				setProfileData(data);
 				dispatch(setUser({ user: data._id }));
 				
-				if (data._id) {
-					fetchUserPosts(data._id);
-				}
+				if (data._id) fetchUserPosts(data._id);
 			} catch (err) {
 				setError(err.message);
 				navigate("/");
@@ -49,15 +45,14 @@ const MyProfile = () => {
 		
 		const fetchUserPosts = async (userId) => {
 			try {
-				const response = await fetch(`http://49.13.31.246:9191/posts?user_id=${userId}`, {
-					method: "GET",
+				const res = await fetch(`http://49.13.31.246:9191/posts?user_id=${userId}`, {
 					headers: {
 						"Content-Type": "application/json",
 						"x-access-token": token,
 					},
 				});
-				if (!response.ok) throw new Error("Fehler beim Laden der Beiträge");
-				const data = await response.json();
+				if (!res.ok) throw new Error("Fehler beim Laden der Beiträge");
+				const data = await res.json();
 				setUserPosts(data.reverse());
 			} catch (err) {
 				console.error("Fehler beim Laden der Beiträge:", err.message);
@@ -65,7 +60,7 @@ const MyProfile = () => {
 		};
 		
 		fetchProfile();
-	}, [token]);
+	}, [token, dispatch, navigate]);
 	
 	const handleLogout = () => {
 		dispatch(logoutUser());
@@ -78,10 +73,28 @@ const MyProfile = () => {
 		return match && match[2].length === 11 ? `https://www.youtube.com/embed/${match[2]}` : null;
 	};
 	
-	if (!token) return <div className="myprofile-error-msg">Benutzer ist nicht autorisiert</div>;
-	if (loading) return <div className="myprofile-loading">Laden...</div>;
+	const deletePost = async (postId) => {
+		const confirm = window.confirm("Beitrag wirklich löschen?");
+		if (!confirm) return;
+		try {
+			const res = await fetch(`http://49.13.31.246:9191/post/${postId}`, {
+				method: "DELETE",
+				headers: {
+					"Content-Type": "application/json",
+					"x-access-token": token,
+				},
+			});
+			if (!res.ok) throw new Error("Fehler beim Löschen");
+			setUserPosts((prev) => prev.filter((post) => post._id !== postId));
+		} catch (err) {
+			console.error(err.message);
+		}
+	};
+	
+	if (!token) return <div className="myprofile-error-msg">Nicht autorisiert</div>;
+	if (loading) return <div className="myprofile-loading">Lädt...</div>;
 	if (error) return <div className="myprofile-error-msg">Fehler: {error}</div>;
-	if (!profileData) return <div className="myprofile-error-msg">Keine Profildaten gefunden</div>;
+	if (!profileData) return <div className="myprofile-error-msg">Keine Daten</div>;
 	
 	return (
 		<div>
@@ -92,7 +105,7 @@ const MyProfile = () => {
 						<img src={profileData.avatar} alt="Avatar" className="myprofile-avatar" />
 						<h2>{profileData.fullName}</h2>
 						<p className="myprofile-username">@{profileData.username}</p>
-						<p style={{ whiteSpace: "pre-wrap" }} className="myprofile-bio">{profileData.bio}</p>
+						<p className="myprofile-bio">{profileData.bio}</p>
 						<p>Alter: <strong>{profileData.age}</strong></p>
 					</div>
 					<div className="myprofile-stats">
@@ -103,14 +116,17 @@ const MyProfile = () => {
 					</div>
 					<div className="myprofile-buttons">
 						<button className="myprofile-logout-btn" onClick={handleLogout}>🚪 Abmelden</button>
+						<button className="myprofile-edit-btn" onClick={() => navigate("/editProfile")}>Bearbeiten</button>
 					</div>
+					<button className="one-user-back-btn" onClick={() => navigate("/feed")}>⬅ Zurück</button>
+				
 				</div>
 				
 				<div className="myprofile-posts">
 					{userPosts.map((post) => (
 						<div key={post._id} className="post-card">
-							{post.title && <h4>{post.title}</h4>}
-							{post.description && <p>{post.description}</p>}
+							{post.title && <h4 className="post-title">{post.title}</h4>}
+							{post.description && <p className="post-description">{post.description}</p>}
 							{post.image && (
 								<img
 									src={post.image}
@@ -127,6 +143,16 @@ const MyProfile = () => {
 									allowFullScreen
 								/>
 							)}
+							<div className="post-actions">
+								<button
+									className="delete-button"
+									onClick={() => deletePost(post._id)}
+									title="Beitrag löschen"
+								>
+									🗑 Beitrag löschen
+								</button>
+							</div>
+						
 						</div>
 					))}
 				</div>
@@ -137,6 +163,7 @@ const MyProfile = () => {
 					</div>
 				)}
 			</div>
+			<ScrollToTop />
 		</div>
 	);
 };

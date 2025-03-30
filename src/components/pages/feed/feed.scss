@@ -1,6 +1,77 @@
-.home{
-  display: flex;
-  flex-direction: row;
-  margin: 0;
-  padding: 0;
+
+
+.row-layout {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  padding: 1rem;
+
+  .left-column,
+  .center-column,
+  .right-column {
+    border-radius: 10px;
+  }
+}
+
+.toggle-buttons {
+  display: none;
+  text-align: center;
+  margin-top: 1rem;
+
+  button {
+    margin: 0.5rem;
+    padding: 0.5rem 1rem;
+    background-color: #1877f2;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+
+    &:hover {
+      background-color: #145ec4;
+    }
+  }
+}
+
+/* ✅ Планшет */
+@media (max-width: 1024px) {
+  .row-layout {
+    grid-template-columns: 1fr 2fr;
+
+    .right-column {
+      display: none;
+
+      &.show {
+        display: block;
+      }
+    }
+  }
+
+  .toggle-buttons {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+/* ✅ Мобильный */
+@media (max-width: 768px) {
+  .row-layout {
+    grid-template-columns: 1fr;
+
+    .left-column {
+      display: none;
+
+      &.show {
+        display: block;
+      }
+    }
+
+    .right-column {
+      display: none;
+
+      &.show {
+        display: block;
+      }
+    }
+  }
 }

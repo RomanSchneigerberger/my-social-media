@@ -6,11 +6,11 @@
   border-radius: 8px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
-}
 
-h2 {
-  font-size: 24px;
-  margin-bottom: 15px;
+  h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+  }
 }
 
 .followers-list {
@@ -21,47 +21,59 @@ h2 {
 }
 
 .follower-card {
-  width: 45%;
+  width: 280px;
   background: #f9f9f9;
   padding: 15px;
   border-radius: 10px;
   display: flex;
   align-items: center;
-  gap: 10px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  gap: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+  transition: 0.3s ease;
+
   &:hover {
     background: #eaeaea;
+    transform: translateY(-3px);
+  }
+
+  .follower-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #1877f2;
+  }
+
+  .follower-info {
+    text-align: left;
+
+    h4 {
+      margin: 0;
+      font-size: 24px;
+      font-weight: 600;
+    }
+
+    p {
+      margin: 2px 0 0;
+      color: #666;
+      font-size: 16px;
+    }
   }
 }
 
-.follower-avatar {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-.follower-info h4 {
-  margin: 0;
-  font-size: 16px;
-}
-
-.follower-info p {
-  margin: 0;
-  color: #666;
-  font-size: 14px;
-}
-
-.followers-loading, .followers-error, .followers-empty {
+.followers-loading,
+.followers-error,
+.followers-empty {
   text-align: center;
-  font-size: 18px;
+  font-size: 16px;
   color: #555;
   padding: 20px;
 }
 
 
 
-
+// 🔷 FOLLOWINGS (такие же карточки)
 .following-list-container {
   width: 70%;
   margin: 20px auto;
@@ -70,6 +82,11 @@ h2 {
   border-radius: 8px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
+
+  h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+  }
 }
 
 .following-list {
@@ -77,41 +94,68 @@ h2 {
   flex-wrap: wrap;
   justify-content: center;
   gap: 15px;
-
+}
 
 .following-item {
-  width: 45%;
+  width: 280px;
   background: #f9f9f9;
   padding: 15px;
   border-radius: 10px;
   display: flex;
   align-items: center;
-  gap: 10px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-}
+  gap: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+  transition: 0.3s ease;
 
-.following-item:hover {
-  background: #eaeaea;
-}
+  &:hover {
+    background: #eaeaea;
+    transform: translateY(-3px);
+  }
 
-.following-avatar {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-}
+  .following-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #1877f2;
+  }
 
-.following-info {
-  text-align: left;
-}
+  .follower-info {
+    text-align: left;
 
-.following-info h4 {
-  margin: 0;
-  font-size: 16px;
+    h4 {
+      margin: 0;
+      font-size: 24px;
+      font-weight: 600;
+    }
+
+    p {
+      margin: 2px 0 0;
+      color: #666;
+      font-size: 16px;
+    }
+  }
 }
 
 .no-followings {
-  font-size: 14px;
+  font-size: 16px;
   color: #888;
   margin-top: 10px;
+}
+
+
+
+// 📱 Адаптив
+@media (max-width: 768px) {
+  .followers-container,
+  .following-list-container {
+    width: 95%;
+    padding: 15px;
+  }
+
+  .follower-card,
+  .following-item {
+    width: 100%;
+  }
 }

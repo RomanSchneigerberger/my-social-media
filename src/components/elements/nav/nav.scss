@@ -1,64 +1,131 @@
-.nav-container {
-  width: 100%;
-  text-align: center;
-  height: 50px; /* Увеличил высоту */
-  background-color: #ffffff;
-  display: flex;
-  justify-content: center; /* Центрируем */
-  align-items: center;
+.nav-wrapper {
+  position: sticky;
   top: 0;
-  left: 0;
-  padding: 20px;
-  margin-bottom: 30px;
-}
-.logoStarta{
-  width: 80px;
- margin-right: 100px;
+  z-index: 10;
+  width: 100%;
+  background-color: #fff;
+  border-bottom: 1px solid #ddd;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
+.nav-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 1.5rem;
+}
+
+.logoStarta {
+  height: 40px;
+  width: auto;
+  object-fit: contain;
+}
 
 .nav {
   display: flex;
   align-items: center;
-  gap: 100px; /* Увеличил расстояние между ссылками */
+  gap: 1.5rem;
 }
 
 .nav-link {
-  color: #0e0e0e;
   text-decoration: none;
-  font-size: 16px; /* Чуть увеличил размер */
-  padding: 8px 15px;
-  transition: 0.3s;
+  color: #333;
   font-weight: 500;
+  font-size: 1rem;
+  transition: color 0.3s;
+
+  &:hover {
+    color: #1877f2;
+  }
 }
 
-.nav-link:hover {
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 5px;
-}
-
-/* Поисковая форма */
 .search-form {
   display: flex;
   align-items: center;
-  gap: 10px; /* Увеличил расстояние */
+  margin-left: 1rem;
 }
 
 .search-input {
-  background-color: #e5e3e3;
-  height: 30px;
-  width: 200px; /* Чуть увеличил ширину */
-  padding: 5px 10px;
-  font-size: 14px;
-  border: none;
-  border-radius: 5px;
-  outline: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+
+  &:focus {
+    outline: none;
+    border-color: #1877f2;
+    box-shadow: 0 0 0 2px rgba(24, 119, 242, 0.2);
+  }
 }
 
-.search-button {
-  background: none;
-  border: none;
+// 📱 Burger menu icon (hidden on desktop)
+.burger-menu {
+  display: none;
   cursor: pointer;
-  font-size: 18px;
-  color: white;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 24px;
+  height: 18px;
+  margin-left: 1rem;
+
+  .burger-line {
+    height: 3px;
+    background-color: #333;
+    border-radius: 2px;
+    transition: 0.3s;
+  }
+}
+
+// ✅ Opened burger menu styles
+.burger-dropdown {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  background: #fff;
+  padding: 1rem 1.5rem;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  border-top: 1px solid #eee;
+
+  a {
+    text-decoration: none;
+    color: #333;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: color 0.2s;
+
+    &:hover {
+      color: #1877f2;
+    }
+  }
+
+  form {
+    display: flex;
+    margin-top: 0.5rem;
+
+    input {
+      width: 100%;
+      padding: 0.4rem 0.8rem;
+      border-radius: 20px;
+      border: 1px solid #ccc;
+      font-size: 0.9rem;
+
+      &:focus {
+        outline: none;
+        border-color: #1877f2;
+        box-shadow: 0 0 0 2px rgba(24, 119, 242, 0.2);
+      }
+    }
+  }
+}
+
+// 📱 Responsive for tablets and mobile
+@media (max-width: 1024px) {
+  .nav {
+    display: none;
+  }
+
+  .burger-menu {
+    display: flex;
+  }
 }

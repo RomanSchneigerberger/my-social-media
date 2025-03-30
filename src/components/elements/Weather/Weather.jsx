@@ -3,7 +3,7 @@ import axios from "axios";
 import "./Weather.scss";
 
 const Weather = () => {
-    const [city, setCity] = useState("");
+    const [city, setCity] = useState("Saarbrücken");
     const [temperature, setTemperature] = useState(null);
     const [humidity, setHumidity] = useState(null);
     const [description, setDescription] = useState("");
@@ -66,7 +66,7 @@ const Weather = () => {
                 transition: "background-image 0.5s ease",
             }}
         >
-            <h1>Weather in {city}</h1>
+            <h1>Weather in <br/>{city}</h1>
             <input
                 type="text"
                 value={city}

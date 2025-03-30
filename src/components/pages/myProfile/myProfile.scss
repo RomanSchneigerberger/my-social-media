@@ -1,120 +1,256 @@
 .myprofile-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  max-width: 90%;
+  gap: 2rem;
+  background-color: #f0f2f5;
+  min-height: 100vh;
+  padding-top: 1rem;
 }
 
 .myprofile-card {
-  max-width: 70%;
-  width: 70%;
-  background: white;
-  border-radius: 12px;
-  padding: 30px;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 2rem;
+  width: 100%;
+  max-width: 700px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   text-align: center;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
+  position: relative;
+  overflow: hidden;
 
-.myprofile-header {
-  margin-bottom: 20px;
-}
+  // 🌸 Sakura Background
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    height: 180px;
+    background: url("https://themes.stackbros.in/social_n/assets/01-DFkpitQe.jpg") no-repeat center center;
+    background-size: cover;
+    z-index: 0;
+    opacity: 0.8;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
 
-.myprofile-avatar {
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 4px solid #e0e0e0;
-  margin-bottom: 15px;
-}
+  .myprofile-avatar {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10%;
+    margin-bottom: 1rem;
+    position: relative;
+    z-index: 1;
+    border: 3px solid #fff;
+    background-color: #fff;
+    margin-top: 40px;
+  }
 
-h2 {
-  font-size: 28px;
-  margin: 10px 0;
-}
+  .myprofile-username {
+    color: #555;
+    font-size: 16px;
+    margin-bottom: 0.5rem;
+    position: relative;
+    z-index: 1;
+  }
 
-.myprofile-username {
-  font-size: 18px;
-  color: #555;
-  margin-bottom: 10px;
-}
+  .myprofile-bio {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 1rem;
+    position: relative;
+    z-index: 1;
+  }
 
-.myprofile-bio {
-  font-size: 16px;
-  color: #777;
-  margin-bottom: 20px;
-}
+  .myprofile-stats {
+    display: flex;
+    justify-content: space-around;
+    margin: 1rem 0;
+    position: relative;
+    z-index: 1;
 
-.myprofile-stats {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  margin-bottom: 20px;
-}
+    div {
+      text-align: center;
+      font-size: 16px;
 
-.myprofile-stats div {
-  width: 48%;
-  background: #f8f9fa;
-  padding: 12px;
-  border-radius: 8px;
-  font-size: 16px;
-  font-weight: bold;
-  color: #333;
-  text-align: center;
-}
+      strong {
+        display: block;
+        font-size: 24px;
+      }
+    }
+  }
 
-.myprofile-buttons {
-  display: flex;
-  justify-content: space-between;
-  gap: 15px;
-}
+  .myprofile-buttons {
+    margin-top: 1.5rem;
+    position: relative;
+    z-index: 1;
 
-.myprofile-logout-btn, .myprofile-back-btn {
-  flex: 1;
-  padding: 14px;
-  font-size: 16px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background 0.3s;
-}
+    .myprofile-logout-btn {
+      background-color: #1877f2;
+      color: white;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: bold;
+      gap: 35px;
 
-.myprofile-logout-btn {
-  background: #dc3545;
-  color: white;
-}
-
-.myprofile-logout-btn:hover {
-  background: #c82333;
-}
-
-.myprofile-back-btn {
-  background: #007bff;
-  color: white;
-}
-
-.myprofile-back-btn:hover {
-  background: #0056b3;
-}
-
-.myprofile-error-msg, .myprofile-loading {
-  text-align: center;
-  font-size: 18px;
-  color: #555;
-  padding: 20px;
-}
-
-.myprofile-posts{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 25px;
-  max-width: 90%;
-  img{
-    max-width: 100%;
+      &:hover {
+        background-color: #145ec4;
+      }
+    }
   }
 }
-.post-card{
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+.myprofile-edit-btn {
+  background-color: #818080;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: bold;
+  gap: 35px;
+  margin-left: 15px;
+  margin-bottom: 15px;
+
+  &:hover {
+    background-color: #985252;
+  }
+}
+
+.myprofile-posts {
+  width: 100%;
+  max-width: 700px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  .post-card {
+    background-color: white;
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    h4 {
+      margin: 0 0 0.5rem;
+      font-size: 24px;
+    }
+
+    p {
+      margin: 0 0 1rem;
+      white-space: pre-wrap;
+      font-size: 16px;
+    }
+
+    .post-image {
+      width: 100%;
+      max-height: 400px;
+      object-fit: cover;
+      border-radius: 10px;
+      cursor: pointer;
+      margin-bottom: 1rem;
+    }
+
+    .post-video {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border: none;
+      border-radius: 10px;
+      margin-bottom: 1rem;
+    }
+
+    .delete-button {
+      background: none;
+      border: none;
+      color: #f02849;
+      cursor: pointer;
+      font-size: 16px;
+
+      &:hover {
+        color: #d21a3c;
+      }
+    }
+  }
+}
+
+.fullscreen-image {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+
+  img {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 10px;
+  }
+}
+
+.delete-button {
+  background: none;
+  border: none;
+  color: #f02849;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  transition: color 0.2s;
+
+  &:hover {
+    color: #d21a3c;
+  }
+}
+
+
+/* 📱 Mobile & Tablet */
+@media (max-width: 768px) {
+  .myprofile-container {
+    padding: 1rem;
+  }
+
+  .myprofile-card {
+    padding: 1rem;
+
+    .myprofile-stats {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .myprofile-avatar {
+      width: 150px;
+      height: 150px;
+      margin-top: 30px;
+    }
+  }
+
+  .myprofile-posts {
+    .post-card {
+      padding: 0.8rem;
+
+      .post-image,
+      .post-video {
+        max-height: 250px;
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .myprofile-card {
+    .myprofile-avatar {
+      width: 120px;
+      height: 120px;
+    }
+  }
 }

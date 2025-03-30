@@ -117,7 +117,7 @@ const Search = () => {
 				</ul>
 				
 				{/* ✅ Zurück zur Übersicht */}
-				<button className="back-to-feed-btn" onClick={() => navigate("/feed")}>⬅ Zurück zur Übersicht</button>
+				<button className="one-user-back-btn" onClick={() => navigate(-1)}>⬅ Zurück</button>
 			</div>
 		</div>
 	);

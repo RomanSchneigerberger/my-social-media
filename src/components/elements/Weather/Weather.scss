@@ -1,5 +1,6 @@
 .weather-container {
-    min-height: 100vh;
+    min-height: 50vh;
+    margin-top: 30px;
     padding: 20px;
     color: white;
     display: flex;
@@ -8,6 +9,10 @@
     justify-content: center;
     background-color: black;
     text-align: center;
+    border-radius: 10px;
+    h1{
+        font-size: 24px;
+    }
 
     .city-input {
         margin-top: 20px;
@@ -23,9 +28,14 @@
 
     .weather-info {
         margin-top: 20px;
-        background: rgba(0, 0, 0, 0.5);
+        //background: rgba(0, 0, 0, 0.5);
         padding: 15px 20px;
         border-radius: 10px;
+        color: #e5e3e3;
+        p{
+            color: white;
+            font-size: 20px;
+        }
     }
 
     .loading {

@@ -86,7 +86,7 @@ const FolgeIch = () => {
 	
 	return (
 		<div className="following-list-container">
-			<h2>📌 Meine Abonnements</h2>
+			<h2>Meine Abonnements</h2>
 			<div className="following-list">
 				{followings.length > 0 ? (
 					followings.map((follow) => (

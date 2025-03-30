@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import avatar from '../../images/png-transparent-default-avatar-thumbnail.png';
 import "./user.scss";
-import Weather from "../Weather/Weather";
 
 const User = () => {
 	const { token, username } = useSelector((state) => state.user);
@@ -115,12 +114,16 @@ const User = () => {
 							className={`follow-btn ${following.has(userItem.username) ? "following" : "delete"}`}
 							onClick={() => toggleFollow(userItem.username)}
 						>
-							{following.has(userItem.username) ? "Entfernen" : "Folgen"}
+							{following.has(userItem.username) ? "👥" : "＋"}
 						</button>
 					</div>
 				))}
 			</div>
-			
+			{window.innerWidth <= 1024 && (
+				<button className="back-btn-mobile" onClick={() => navigate(-1)}>
+					⬅ Zurück
+				</button>
+			)}
 		</div>
 	);
 };
