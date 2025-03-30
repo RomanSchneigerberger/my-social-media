@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import React, {useEffect, useState} from "react";
+import {useParams, useNavigate} from "react-router-dom";
+import {useSelector} from "react-redux";
 import avatar from "../../images/png-transparent-default-avatar-thumbnail.png";
 import "./userProfile.scss";
 import Nav from "../nav/Nav";
 import ScrollToTop from "../../../features/scrollToTop/ScrollToTop";
 
 const UserProfile = () => {
-	const { username: viewedUsername } = useParams();
-	const { token, username: myUsername, user } = useSelector((state) => state.user);
+	const {username: viewedUsername} = useParams();
+	const {token, username: myUsername, user} = useSelector((state) => state.user);
 	
 	const [userData, setUserData] = useState(null);
 	const [userPosts, setUserPosts] = useState([]);
@@ -37,7 +37,6 @@ const UserProfile = () => {
 				if (!response.ok) throw new Error(`Fehler: ${response.status}`);
 				const data = await response.json();
 				setUserData(data);
-				
 				if (data._id) {
 					fetchUserPosts(data._id);
 				}
@@ -73,7 +72,6 @@ const UserProfile = () => {
 					},
 				});
 				if (!response.ok) throw new Error("Fehler beim Laden der Abonnements");
-				
 				const data = await response.json();
 				if (Array.isArray(data.following)) {
 					const isUserFollowing = data.following.some((follow) => follow.username === viewedUsername);
@@ -85,14 +83,12 @@ const UserProfile = () => {
 				setLoading(false);
 			}
 		};
-		
 		fetchUserData();
 		fetchFollowing();
 	}, [token, viewedUsername, myUsername]);
 	
 	const toggleFollow = async () => {
 		const url = `http://49.13.31.246:9191/${isFollowing ? "unfollow" : "follow"}`;
-		
 		try {
 			const response = await fetch(url, {
 				method: "POST",
@@ -100,10 +96,9 @@ const UserProfile = () => {
 					"Content-Type": "application/json",
 					"x-access-token": token,
 				},
-				body: JSON.stringify({ username: viewedUsername }),
+				body: JSON.stringify({username: viewedUsername}),
 			});
 			if (!response.ok) throw new Error(`Fehler bei ${isFollowing ? "Entfernen" : "Folgen"}`);
-			
 			setIsFollowing(!isFollowing);
 		} catch (err) {
 			console.error(err.message);
@@ -118,14 +113,13 @@ const UserProfile = () => {
 					"Content-Type": "application/json",
 					"x-access-token": token,
 				},
-				body: JSON.stringify({ post_id: postId }),
+				body: JSON.stringify({post_id: postId}),
 			});
 			if (!response.ok) throw new Error("Fehler beim Liken");
-			
 			setUserPosts((prevPosts) =>
 				prevPosts.map((post) =>
 					post._id === postId
-						? { ...post, likes: [...post.likes, { fromUser: user }] }
+						? {...post, likes: [...post.likes, {fromUser: user}]}
 						: post
 				)
 			);
@@ -144,11 +138,10 @@ const UserProfile = () => {
 				},
 			});
 			if (!response.ok) throw new Error("Fehler beim Entfernen des Likes");
-			
 			setUserPosts((prevPosts) =>
 				prevPosts.map((post) =>
 					post._id === postId
-						? { ...post, likes: post.likes.filter((like) => like.fromUser !== user) }
+						? {...post, likes: post.likes.filter((like) => like.fromUser !== user)}
 						: post
 				)
 			);
@@ -156,37 +149,33 @@ const UserProfile = () => {
 			console.error("Fehler beim Entfernen des Likes:", error);
 		}
 	};
-	
 	if (loading) return <div className="one-user-loading">⏳ Laden...</div>;
 	if (error) return <div className="one-user-error">{error}</div>;
 	if (!userData) return <div className="one-user-error">❌ Benutzerprofil konnte nicht geladen werden</div>;
 	
 	return (
 		<div>
-			<Nav />
+			<Nav/>
 			<div className="one-user-container">
 				<div className="one-user-card">
-					<img src={userData.avatar || avatar} alt="Avatar" className="one-user-avatar" />
+					<img src={userData.avatar || avatar} alt="Avatar" className="one-user-avatar"/>
 					<h2 className="one-user-name">{userData.fullName}</h2>
-					<p><strong>Benutzername:</strong> <br />@{userData.username}</p>
+					<p><strong>Benutzername:</strong> <br/>@{userData.username}</p>
 					<p><strong>Alter:</strong> {userData.age}</p>
-					<p style={{ whiteSpace: "pre-wrap" }}><strong>Über mich:</strong> <br />{userData.bio}</p>
+					<p style={{whiteSpace: "pre-wrap"}}><strong>Über mich:</strong> <br/>{userData.bio}</p>
 					<p><strong>Beiträge:</strong> {userData.posts_count}</p>
 					<div className="one-user-btns">
-					
-					{viewedUsername !== myUsername && (
-						<button
-							className={`one-user-follow-btn ${isFollowing ? "one-user-unfollow" : "one-user-follow"}`}
-							onClick={toggleFollow}
-						>
-							{isFollowing ? "Entfernen" : "Folgen"}
-						</button>
-					)}
-					<button className="one-user-back-btn" onClick={() => navigate(-1)}>⬅ Zurück</button>
+						{viewedUsername !== myUsername && (
+							<button
+								className={`one-user-follow-btn ${isFollowing ? "one-user-unfollow" : "one-user-follow"}`}
+								onClick={toggleFollow}
+							>
+								{isFollowing ? "Entfernen" : "Folgen"}
+							</button>
+						)}
+						<button className="one-user-back-btn" onClick={() => navigate(-1)}>⬅ Zurück</button>
+					</div>
 				</div>
-			
-			</div>
-				
 				<div className="one-user-posts">
 					<h3>Beiträge des Benutzers</h3>
 					{userPosts.length > 0 ? (
@@ -218,8 +207,6 @@ const UserProfile = () => {
 										allowFullScreen
 									></iframe>
 								)}
-								
-								{/* 👍 Like-Button */}
 								<div className="post-actions">
 									<button
 										className="like-button"
@@ -238,14 +225,13 @@ const UserProfile = () => {
 						<p className="no-posts">❌ Dieser Benutzer hat noch keine Beiträge.</p>
 					)}
 				</div>
-				
 				{fullscreenImage && (
 					<div className="fullscreen-image" onClick={() => setFullscreenImage(null)}>
-						<img src={fullscreenImage} alt="Vollbild" />
+						<img src={fullscreenImage} alt="Vollbild"/>
 					</div>
 				)}
 			</div>
-			<ScrollToTop />
+			<ScrollToTop/>
 		</div>
 	);
 };

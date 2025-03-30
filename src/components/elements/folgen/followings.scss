@@ -1,9 +1,8 @@
 .followers-container {
   width: 70%;
-  margin: 20px auto;
-  padding: 20px;
+  margin-left: 50px;
   background: #fff;
-  border-radius: 8px;
+  border-radius: 10px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
 
@@ -71,15 +70,11 @@
   padding: 20px;
 }
 
-
-
-// 🔷 FOLLOWINGS (такие же карточки)
 .following-list-container {
   width: 70%;
-  margin: 20px auto;
-  padding: 20px;
+  margin-left: 50px;
   background: #fff;
-  border-radius: 8px;
+  border-radius: 10px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
 
@@ -145,8 +140,7 @@
 }
 
 
-
-// 📱 Адаптив
+// Адаптив
 @media (max-width: 768px) {
   .followers-container,
   .following-list-container {

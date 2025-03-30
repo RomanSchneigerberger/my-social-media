@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import React, {useEffect, useState} from "react";
+import {useSelector} from "react-redux";
+import {useNavigate} from "react-router-dom";
 import avatar from '../../images/png-transparent-default-avatar-thumbnail.png';
 
 import "./followings.scss";
 
 const FolgeIch = () => {
-	const { token, username } = useSelector((state) => state.user);
+	const {token, username} = useSelector((state) => state.user);
 	const [followings, setFollowings] = useState([]);
-	const [selectedUser, setSelectedUser] = useState(null); // Gewählter Benutzer
+	const [selectedUser, setSelectedUser] = useState(null);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
 	const navigate = useNavigate();
@@ -23,7 +23,6 @@ const FolgeIch = () => {
 		const fetchFollowings = async () => {
 			try {
 				console.log(`🔍 Abrufen von Abonnements für Benutzer: ${username}`);
-				
 				const response = await fetch(`http://49.13.31.246:9191/followings/${username}`, {
 					method: "GET",
 					headers: {
@@ -31,12 +30,9 @@ const FolgeIch = () => {
 						"x-access-token": token,
 					},
 				});
-				
 				if (!response.ok) new Error(`Fehler: ${response.status}`);
-				
 				let data = await response.json();
 				console.log("📥 SERVER ANTWORT (Followings):", data);
-				
 				if (data && Array.isArray(data.following)) {
 					console.log("✅ Gefundene Abonnements:", data.following);
 					setFollowings([...data.following]);
@@ -55,7 +51,6 @@ const FolgeIch = () => {
 		fetchFollowings();
 	}, [token, username]);
 	
-	// 📌 Benutzerinformationen abrufen
 	const fetchUserDetails = async (user) => {
 		try {
 			const response = await fetch(`http://49.13.31.246:9191/user/${user.username}`, {
@@ -67,7 +62,6 @@ const FolgeIch = () => {
 			});
 			if (!response.ok)
 				new Error("Fehler beim Laden des Profils");
-			
 			const data = await response.json();
 			setSelectedUser(data);
 		} catch (error) {
@@ -75,7 +69,6 @@ const FolgeIch = () => {
 		}
 	};
 	
-	// 📌 Zum Profil weiterleiten
 	const handleUserClick = (user) => {
 		navigate(`/user/${user.username}`);
 		fetchUserDetails(user);
@@ -91,7 +84,7 @@ const FolgeIch = () => {
 				{followings.length > 0 ? (
 					followings.map((follow) => (
 						<div key={follow._id} className="following-item" onClick={() => handleUserClick(follow)}>
-							<img src={follow.avatar || avatar} alt="Avatar" className="following-avatar" />
+							<img src={follow.avatar || avatar} alt="Avatar" className="following-avatar"/>
 							<div className="follower-info">
 								<h4>{follow.name}</h4>
 								<p>@{follow.username}</p>

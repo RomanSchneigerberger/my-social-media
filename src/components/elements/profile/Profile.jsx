@@ -44,7 +44,7 @@ const Profile = () => {
 		};
 		
 		fetchProfile();
-	}, [token]);
+	}, [token, dispatch, navigate]);
 	
 	const handleLogout = () => {
 		dispatch(logoutUser());
@@ -72,15 +72,15 @@ const Profile = () => {
 			<div className="profile-menu">
 				<button onClick={() => navigate("/myProfile")}>🤴 Profil</button>
 				<button onClick={() => navigate("/feed")}>🏠 Übersicht</button>
-				<button onClick={() => navigate("/followers")}>💙 {profileData.followers} Follower </button>
+				<button onClick={() => navigate("/followers")}>💙 {profileData.followers} Follower</button>
 				<button onClick={() => navigate("/followings")}>❤️ {profileData.following} Gefolgt</button>
 				<button onClick={() => navigate("/transaktionen")}>💸 Transaktionen</button>
 			</div>
 			<div className="profile-menu-buttom">
-			<button className="logout-btn" onClick={handleLogout}>Abmelden</button>
-			<p className="profile-footer">© {new Date().getFullYear()}. Alle Rechte vorbehalten</p>
+				<button className="logout-btn" onClick={handleLogout}>Abmelden</button>
+				<p className="profile-footer">© {new Date().getFullYear()}. Alle Rechte vorbehalten</p>
+			</div>
 		</div>
-</div>
 	);
 };
 

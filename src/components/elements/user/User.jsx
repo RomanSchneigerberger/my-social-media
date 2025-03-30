@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import React, {useEffect, useState} from "react";
+import {useSelector} from "react-redux";
+import {useNavigate} from "react-router-dom";
 import avatar from '../../images/png-transparent-default-avatar-thumbnail.png';
 import "./user.scss";
 
 const User = () => {
-	const { token, username } = useSelector((state) => state.user);
+	const {token, username} = useSelector((state) => state.user);
 	const [users, setUsers] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
@@ -28,7 +28,7 @@ const User = () => {
 						"x-access-token": token,
 					},
 				});
-				if (!response.ok) throw new Error(`Fehler: ${response.status}`);
+				if (!response.ok) new Error(`Fehler: ${response.status}`);
 				
 				const data = await response.json();
 				const filteredUsers = data.filter(user => user.username !== username);
@@ -47,7 +47,7 @@ const User = () => {
 						"x-access-token": token,
 					},
 				});
-				if (!response.ok) throw new Error("Fehler beim Laden der Abonnements");
+				if (!response.ok)new Error("Fehler beim Laden der Abonnements");
 				
 				const data = await response.json();
 				const myFollowing = new Set(data.following.map((u) => u.username));
@@ -74,9 +74,9 @@ const User = () => {
 					"Content-Type": "application/json",
 					"x-access-token": token,
 				},
-				body: JSON.stringify({ username: userToFollow }),
+				body: JSON.stringify({username: userToFollow}),
 			});
-			if (!response.ok) throw new Error(`Fehler bei ${isFollowing ? "Entfernen" : "Abonnieren"}`);
+			if (!response.ok) new Error(`Fehler bei ${isFollowing ? "Entfernen" : "Abonnieren"}`);
 			
 			setFollowing((prev) => {
 				const updatedSet = new Set(prev);
@@ -103,7 +103,7 @@ const User = () => {
 				{users.map((userItem) => (
 					<div key={userItem._id} className="user-item">
 						<div className="user-info" onClick={() => navigate(`/user/${userItem.username}`)}>
-							<img src={userItem.avatar || avatar} alt="Avatar" className="user-avatar" />
+							<img src={userItem.avatar || avatar} alt="Avatar" className="user-avatar"/>
 							<div className="user-text">
 								<h4>{userItem.fullName || "Ohne Name"}</h4>
 								<p>@{userItem.username}</p>

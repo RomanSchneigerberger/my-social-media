@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from "react-router-dom";
+import React, {useState} from 'react';
+import {Link, useNavigate} from "react-router-dom";
 import './nav.scss';
 
 const Nav = () => {
@@ -19,7 +19,8 @@ const Nav = () => {
 	return (
 		<div className="nav-wrapper">
 			<div className="nav-container">
-				<img className='logoStarta' src="https://static.tildacdn.net/tild3330-3030-4532-b139-376533356465/Group_2136.png" alt="logo"/>
+				<img className='logoStarta'
+				     src="https://static.tildacdn.net/tild3330-3030-4532-b139-376533356465/Group_2136.png" alt="logo"/>
 				
 				<nav className="nav">
 					<Link to="/feed" className="nav-link">🏠 Startseite</Link>
@@ -35,8 +36,6 @@ const Nav = () => {
 						/>
 					</form>
 				</nav>
-				
-				{/* Бургер меню для мобилки / планшета */}
 				<div className="burger-menu" onClick={() => setIsBurgerOpen(!isBurgerOpen)}>
 					<div className="burger-line"></div>
 					<div className="burger-line"></div>
@@ -58,8 +57,8 @@ const Nav = () => {
 					<Link to="/feed" onClick={() => setIsBurgerOpen(false)}>Startseite</Link>
 					<Link to="/MyProfile" onClick={() => setIsBurgerOpen(false)}>Profil</Link>
 					<Link to="/users" onClick={() => setIsBurgerOpen(false)}> Users</Link>
-					
-					
+				
+				
 				</div>
 			)}
 		</div>

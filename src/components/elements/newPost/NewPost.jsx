@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import React, {useState} from "react";
+import {useSelector} from "react-redux";
+import {useNavigate} from "react-router-dom";
 import "./newPost.scss";
 
 const NewPost = () => {
-	const { token } = useSelector((state) => state.user);
+	const {token} = useSelector((state) => state.user);
 	const navigate = useNavigate();
 	const [postData, setPostData] = useState({
 		title: "",
@@ -38,7 +38,7 @@ const NewPost = () => {
 				body: JSON.stringify(postData),
 			});
 			if (!response.ok) throw new Error(`Fehler: ${response.status}`);
-			setPostData({ title: "", description: "", image: "", video: "" });
+			setPostData({title: "", description: "", image: "", video: ""});
 		} catch (err) {
 			setError(err.message);
 		} finally {

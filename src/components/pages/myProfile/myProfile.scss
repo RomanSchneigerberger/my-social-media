@@ -19,7 +19,6 @@
   position: relative;
   overflow: hidden;
 
-  // 🌸 Sakura Background
   &::before {
     content: "";
     position: absolute;
@@ -213,7 +212,7 @@
 }
 
 
-/* 📱 Mobile & Tablet */
+/* Mobile & Tablet */
 @media (max-width: 768px) {
   .myprofile-container {
     padding: 1rem;

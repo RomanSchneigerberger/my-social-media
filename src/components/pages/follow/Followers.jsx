@@ -13,9 +13,6 @@ const Followers = () => {
 				<Profile/>
 				<FolgenMir/>
 			</section>
-			<footer>
-			
-			</footer>
 		</div>
 	);
 };

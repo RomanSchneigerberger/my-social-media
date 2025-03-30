@@ -1,4 +1,3 @@
-// 🌸 Sakura Style Profilkarte
 .one-user-card {
   width: 90%;
   max-width: 800px;
@@ -50,7 +49,6 @@
   }
 }
 
-// 📝 Beiträge zentriert + responsive
 .one-user-posts {
   width: 100%;
   max-width: 900px;
@@ -72,7 +70,57 @@
   }
 }
 
-/* 📱 Tablet */
+.one-user-back-btn {
+  margin-top: 1.5rem;
+  background-color: transparent;
+  border: 2px solid #1877f2;
+  color: #1877f2;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: #1877f2;
+    color: white;
+  }
+}
+
+.one-user-follow-btn {
+  padding: 8px 20px;
+  border: 2px solid #1877f2;
+  border-radius: 10px;
+  width: 150px;
+  background: #aec1fa;
+  color: #0e0e0e;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+
+  &:hover {
+    background-color: #748afc;;
+    color: #ffffff;
+    border: 2px solid #1877f2;
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+.one-user-btns {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+/* Tablet */
 @media (max-width: 768px) {
   .one-user-card,
   .one-user-posts {
@@ -90,7 +138,7 @@
   }
 }
 
-/* 📱 Smartphone */
+/* Smartphone */
 @media (max-width: 480px) {
   .one-user-card,
   .one-user-posts {
@@ -111,57 +159,5 @@
     padding: 12px;
   }
 }
-.one-user-back-btn{
-    display: inline-block;
-  width: 150px;
-  padding: 8px 16px;
-    background-color: #cfd2ee; // пастельный розовый
-    color: #6b4c5b; // приглушённый сливовый
-    border-radius: 10px;
-    font-size: 14px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 
-    &:hover {
-      background-color: #f0dce6;
-      color: #5a3f4a;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
 
-    &:active {
-      transform: translateY(0);
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    }
-}
-
-.one-user-follow-btn {
-  padding: 8px 20px;
-  border-radius: 10px;
-  width: 150px;
-  background: #aec1fa;
-  color: #0e0e0e;            // тёплый фиолетовый
-  font-size: 14px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-
-  &:hover {
-    background-color: #748afc;; // чуть темнее на ховере
-    color: #ffffff;
-    transform: translateY(-1px);
-  }
-
-  &:active {
-    transform: scale(0.98);
-  }
-}
-
-.one-user-btns{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 5px;
-}

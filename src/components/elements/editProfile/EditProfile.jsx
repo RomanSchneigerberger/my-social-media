@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import React, {useState, useEffect} from "react";
+import {useSelector} from "react-redux";
+import {useNavigate} from "react-router-dom";
 import "./editProfile.scss";
 import Nav from "../nav/Nav";
 
 const EditProfile = () => {
-	const { token } = useSelector((state) => state.user);
+	const {token} = useSelector((state) => state.user);
 	const navigate = useNavigate();
 	const [postData, setPostData] = useState({
 		username: "",
@@ -17,8 +17,6 @@ const EditProfile = () => {
 	});
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState(null);
-	const [photoInputType, setPhotoInputType] = useState("url");
-	
 	useEffect(() => {
 		const fetchProfileData = async () => {
 			try {
@@ -44,7 +42,6 @@ const EditProfile = () => {
 				setError(err.message);
 			}
 		};
-		
 		fetchProfileData();
 	}, [token]);
 	
@@ -83,7 +80,6 @@ const EditProfile = () => {
 		const isConfirmed = window.confirm("Sind Sie sicher, dass Sie Ihr Profil löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden!");
 		
 		if (!isConfirmed) return;
-		
 		try {
 			await fetch("http://49.13.31.246:9191/me", {
 				method: "DELETE",
@@ -92,7 +88,6 @@ const EditProfile = () => {
 					"x-access-token": token,
 				},
 			});
-			
 			navigate("/");
 		} catch (err) {
 			setError(err.message);
@@ -101,7 +96,7 @@ const EditProfile = () => {
 	
 	return (
 		<div>
-			<Nav />
+			<Nav/>
 			<div className="editProfile">
 				<button className="delete-profile-btn" onClick={deleteProfile}>
 					🗑 Profil löschen
@@ -183,7 +178,8 @@ const EditProfile = () => {
 					</button>
 				</form>
 				
-				<button className="back-to-profile-btn" onClick={() => navigate("/myProfile")}>🔙 Zurück zum Profil</button>
+				<button className="back-to-profile-btn" onClick={() => navigate("/myProfile")}>🔙 Zurück zum Profil
+				</button>
 				
 				{error && <div className="error-msg">❌ Fehler: {error}</div>}
 			</div>

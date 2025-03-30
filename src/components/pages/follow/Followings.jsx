@@ -13,9 +13,6 @@ const Followings = () => {
 				<Profile/>
 				<FolgeIch/>
 			</section>
-			<footer>
-			
-			</footer>
 		</div>
 	);
 };

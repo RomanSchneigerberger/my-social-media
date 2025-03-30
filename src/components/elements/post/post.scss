@@ -9,7 +9,6 @@
   position: relative;
 }
 
-/* 🖼 Контент (фото/видео) */
 .post-media, .post-video {
   width: 100%;
   max-height: 500px;
@@ -20,7 +19,6 @@
   transition: transform 0.3s ease-in-out;
 }
 
-/* 🔍 Полноэкранное фото */
 .fullscreen-image {
   position: fixed;
   top: 0;
@@ -40,7 +38,6 @@
   border-radius: 10px;
 }
 
-/* 🔹 Верхняя часть поста */
 .post-header {
   display: flex;
   align-items: center;
@@ -48,7 +45,6 @@
   margin-bottom: 10px;
 }
 
-/* 🏆 Фото автора */
 .author-avatar {
   object-fit: cover;
   width: 50px;
@@ -63,7 +59,6 @@
   transform: scale(1.1);
 }
 
-/* ℹ️ Информация об авторе */
 .author-info {
   display: flex;
   flex-direction: column;
@@ -72,35 +67,30 @@
   cursor: pointer;
 }
 
-/* 📌 Имя автора */
 .author-name {
   font-weight: bold;
   font-size: 16px;
   color: #333;
 }
 
-/* 📅 Дата публикации */
 .post-date {
   font-size: 16px;
   color: gray;
   margin-top: 2px;
 }
 
-/* 🏆 Заголовок поста */
 .post-title {
   font-size: 20px;
   font-weight: bold;
   margin-top: 10px;
 }
 
-/* 📝 Описание поста */
 .post-description {
   font-size: 16px;
   margin-top: 8px;
   white-space: pre-wrap;
 }
 
-/* 🏆 Действия с постом */
 .post-actions {
   display: flex;
   justify-content: space-between;
@@ -108,7 +98,6 @@
   margin-top: 10px;
 }
 
-/* 🔘 Кнопки */
 .like-button, .delete-button {
   background: none;
   border: none;
@@ -125,7 +114,6 @@
   color: #ff4d4d;
 }
 
-/* 🎥 YouTube контейнер */
 .post-video-container {
   width: 100%;
   display: flex;

@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { logoutUser, setUser } from "../../../features/features";
-import { useNavigate } from "react-router-dom";
+import React, {useEffect, useState} from "react";
+import {useSelector, useDispatch} from "react-redux";
+import {logoutUser, setUser} from "../../../features/features";
+import {useNavigate} from "react-router-dom";
 import "./myProfile.scss";
 import Nav from "../../elements/nav/Nav";
 import ScrollToTop from "../../../features/scrollToTop/ScrollToTop";
@@ -9,8 +9,7 @@ import ScrollToTop from "../../../features/scrollToTop/ScrollToTop";
 const MyProfile = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
-	const { token } = useSelector((state) => state.user);
-	
+	const {token} = useSelector((state) => state.user);
 	const [profileData, setProfileData] = useState(null);
 	const [userPosts, setUserPosts] = useState([]);
 	const [error, setError] = useState(null);
@@ -19,7 +18,6 @@ const MyProfile = () => {
 	
 	useEffect(() => {
 		if (!token) return;
-		
 		const fetchProfile = async () => {
 			setLoading(true);
 			try {
@@ -32,8 +30,7 @@ const MyProfile = () => {
 				if (!res.ok) throw new Error(`Fehler: ${res.status}`);
 				const data = await res.json();
 				setProfileData(data);
-				dispatch(setUser({ user: data._id }));
-				
+				dispatch(setUser({user: data._id}));
 				if (data._id) fetchUserPosts(data._id);
 			} catch (err) {
 				setError(err.message);
@@ -58,7 +55,6 @@ const MyProfile = () => {
 				console.error("Fehler beim Laden der Beiträge:", err.message);
 			}
 		};
-		
 		fetchProfile();
 	}, [token, dispatch, navigate]);
 	
@@ -98,11 +94,11 @@ const MyProfile = () => {
 	
 	return (
 		<div>
-			<Nav />
+			<Nav/>
 			<div className="myprofile-container">
 				<div className="myprofile-card">
 					<div className="myprofile-header">
-						<img src={profileData.avatar} alt="Avatar" className="myprofile-avatar" />
+						<img src={profileData.avatar} alt="Avatar" className="myprofile-avatar"/>
 						<h2>{profileData.fullName}</h2>
 						<p className="myprofile-username">@{profileData.username}</p>
 						<p className="myprofile-bio">{profileData.bio}</p>
@@ -116,12 +112,11 @@ const MyProfile = () => {
 					</div>
 					<div className="myprofile-buttons">
 						<button className="myprofile-logout-btn" onClick={handleLogout}>🚪 Abmelden</button>
-						<button className="myprofile-edit-btn" onClick={() => navigate("/editProfile")}>Bearbeiten</button>
+						<button className="myprofile-edit-btn" onClick={() => navigate("/editProfile")}>Bearbeiten
+						</button>
 					</div>
 					<button className="one-user-back-btn" onClick={() => navigate("/feed")}>⬅ Zurück</button>
-				
 				</div>
-				
 				<div className="myprofile-posts">
 					{userPosts.map((post) => (
 						<div key={post._id} className="post-card">
@@ -152,18 +147,16 @@ const MyProfile = () => {
 									🗑 Beitrag löschen
 								</button>
 							</div>
-						
 						</div>
 					))}
 				</div>
-				
 				{fullscreenImage && (
 					<div className="fullscreen-image" onClick={() => setFullscreenImage(null)}>
-						<img src={fullscreenImage} alt="Vollbild" />
+						<img src={fullscreenImage} alt="Vollbild"/>
 					</div>
 				)}
 			</div>
-			<ScrollToTop />
+			<ScrollToTop/>
 		</div>
 	);
 };

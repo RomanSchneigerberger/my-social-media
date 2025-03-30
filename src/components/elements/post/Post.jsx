@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import React, {useEffect, useState} from "react";
+import {useSelector} from "react-redux";
+import {useNavigate} from "react-router-dom";
 import avatar from '../../images/png-transparent-default-avatar-thumbnail.png';
 import NewPost from "../../elements/newPost/NewPost";
 import './post.scss';
 
 const Post = () => {
-	const { token, user } = useSelector((state) => state.user);
+	const {token, user} = useSelector((state) => state.user);
 	const [feedData, setFeedData] = useState([]);
-	const [error, setError] = useState(null);
+	const [ setError] = useState(null);
 	const [loading, setLoading] = useState(false);
 	const [fullscreenImage, setFullscreenImage] = useState(null);
 	const navigate = useNavigate();
@@ -47,14 +47,14 @@ const Post = () => {
 					"Content-Type": "application/json",
 					"x-access-token": token,
 				},
-				body: JSON.stringify({ post_id: postId }),
+				body: JSON.stringify({post_id: postId}),
 			});
 			if (!response.ok) throw new Error("Fehler beim Liken");
 			
 			setFeedData((prevFeedData) =>
 				prevFeedData.map((post) =>
 					post._id === postId
-						? { ...post, likes: [...post.likes, { fromUser: user }] }
+						? {...post, likes: [...post.likes, {fromUser: user}]}
 						: post
 				)
 			);
@@ -77,7 +77,7 @@ const Post = () => {
 			setFeedData((prevFeedData) =>
 				prevFeedData.map((post) =>
 					post._id === postId
-						? { ...post, likes: post.likes.filter((like) => like.fromUser !== user) }
+						? {...post, likes: post.likes.filter((like) => like.fromUser !== user)}
 						: post
 				)
 			);
@@ -87,7 +87,6 @@ const Post = () => {
 	};
 	
 	
-	// 🔥 Funktion zum Abrufen der YouTube-Einbettungs-URL
 	const getYouTubeEmbedUrl = (url) => {
 		const regExp = /^.*(youtu.be\/|youtube.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([^#&?]*).*/;
 		const match = url.match(regExp);
@@ -96,24 +95,26 @@ const Post = () => {
 	
 	return (
 		<div className="col-6">
-			<NewPost />
+			<NewPost/>
 			<div className="feed-container">
 				<div className="feed-posts">
 					{feedData.map((post) => (
 						<div key={post._id} className="feed-post">
-							{/* ✅ Autor-Bereich */}
 							<div className="post-header">
 								<div className="author-info" onClick={() => navigate(`/user/${post.user[0].username}`)}>
-									<img src={post.user[0].avatar || avatar} alt="Avatar des Autors" className="author-avatar" />
-									<span className="author-name">{post.user[0].fullName || post.user[0].username}</span>
+									<img src={post.user[0].avatar || avatar} alt="Avatar des Autors"
+									     className="author-avatar"/>
+									<span
+										className="author-name">{post.user[0].fullName || post.user[0].username}</span>
 								</div>
 							</div>
 							
-							{/* ✅ Post-Inhalt */}
+							{/* Post-Inhalt */}
 							{post.title && <h3 className="post-title">{post.title}</h3>}
-							{post.description && <p style={{whiteSpace: "pre-wrap"}} className="post-description">{post.description}</p>}
+							{post.description &&
+								<p style={{whiteSpace: "pre-wrap"}} className="post-description">{post.description}</p>}
 							
-							{/* ✅ Anzeige von Fotos und Videos */}
+							{/* Anzeige von Fotos und Videos */}
 							{post.image && (
 								<img
 									src={post.image}
@@ -123,7 +124,7 @@ const Post = () => {
 								/>
 							)}
 							
-							{/* ✅ YouTube-Video Einbettung */}
+							{/* YouTube-Video Einbettung */}
 							{post.video && getYouTubeEmbedUrl(post.video) ? (
 								<div className="post-video-container">
 									<iframe
@@ -141,7 +142,7 @@ const Post = () => {
 								</a>
 							) : null}
 							
-							{/* ✅ Likes + Aktionen */}
+							{/* Likes + Aktionen */}
 							<div className="post-actions">
 								<button
 									className="like-button"
@@ -162,7 +163,7 @@ const Post = () => {
 			{/* ✅ Vollbild-Bildanzeige */}
 			{fullscreenImage && (
 				<div className="fullscreen-image" onClick={() => setFullscreenImage(null)}>
-					<img src={fullscreenImage} alt="Vergrößertes Bild" />
+					<img src={fullscreenImage} alt="Vergrößertes Bild"/>
 				</div>
 			)}
 		</div>

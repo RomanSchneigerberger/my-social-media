@@ -59,7 +59,6 @@
   }
 }
 
-// 📱 Burger menu icon (hidden on desktop)
 .burger-menu {
   display: none;
   cursor: pointer;
@@ -77,7 +76,6 @@
   }
 }
 
-// ✅ Opened burger menu styles
 .burger-dropdown {
   display: flex;
   flex-direction: column;
@@ -119,7 +117,7 @@
   }
 }
 
-// 📱 Responsive for tablets and mobile
+// tablets and mobile
 @media (max-width: 1024px) {
   .nav {
     display: none;

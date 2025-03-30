@@ -1,8 +1,8 @@
 import React from "react";
-import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { setToken } from "../../../features/features";
+import {useForm} from "react-hook-form";
+import {useDispatch} from "react-redux";
+import {useNavigate} from "react-router-dom";
+import {setToken} from "../../../features/features";
 import "./signIn.scss";
 
 function SignIn() {
@@ -11,7 +11,7 @@ function SignIn() {
 	const {
 		register,
 		handleSubmit,
-		formState: { errors },
+		formState: {errors},
 	} = useForm();
 	
 	const onSubmit = async (data) => {
@@ -28,7 +28,7 @@ function SignIn() {
 			if (response.ok) {
 				console.log("✅ Erfolgreiche Anmeldung:", result);
 				localStorage.setItem("token", result.token);
-				dispatch(setToken({ token: result.token }));
+				dispatch(setToken({token: result.token}));
 				navigate("/feed");
 			} else {
 				console.error("❌ Anmeldefehler:", result);
@@ -47,27 +47,25 @@ function SignIn() {
 				<p>Sie haben noch keinen Account?</p>
 				<button className="signin-switch-button" onClick={() => navigate("/signUp")}>
 					Zur Registrierung
-				</button> <br/>
-				
+				</button>
+				<br/>
 				<label className="signin-label">
 					<span className="signin-label-text">Benutzername</span>
 					<input
 						className="signin-input"
-						{...register("username", { required: "Bitte geben Sie Ihren Benutzernamen ein", minLength: 4 })}
+						{...register("username", {required: "Bitte geben Sie Ihren Benutzernamen ein", minLength: 4})}
 					/>
 					{errors.username && <p className="signin-error">{errors.username.message}</p>}
 				</label>
-				
 				<label className="signin-label">
 					<span className="signin-label-text">Passwort</span>
 					<input
 						type="password"
 						className="signin-input"
-						{...register("password", { required: "Bitte geben Sie Ihr Passwort ein", minLength: 4 })}
+						{...register("password", {required: "Bitte geben Sie Ihr Passwort ein", minLength: 4})}
 					/>
 					{errors.password && <p className="signin-error">{errors.password.message}</p>}
 				</label>
-				
 				<button type="submit" className="signin-button">
 					Anmelden
 				</button>
