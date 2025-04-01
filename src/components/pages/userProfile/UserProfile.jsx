@@ -3,8 +3,9 @@ import {useParams, useNavigate} from "react-router-dom";
 import {useSelector} from "react-redux";
 import avatar from "../../images/png-transparent-default-avatar-thumbnail.png";
 import "./userProfile.scss";
-import Nav from "../nav/Nav";
+import Nav from "../../elements/nav/Nav";
 import ScrollToTop from "../../../features/scrollToTop/ScrollToTop";
+import {RiUserFollowLine, RiUserUnfollowLine} from "react-icons/ri";
 
 const UserProfile = () => {
 	const {username: viewedUsername} = useParams();
@@ -54,11 +55,11 @@ const UserProfile = () => {
 						"x-access-token": token,
 					},
 				});
-				if (!response.ok) throw new Error(`Fehler beim Laden der Beiträge: ${response.status}`);
+				if (!response.ok) ;
 				const data = await response.json();
 				setUserPosts(data.reverse());
 			} catch (err) {
-				console.error("❌ Fehler beim Laden der Beiträge:", err.message);
+				console.error("User hat keine Posts:");
 			}
 		};
 		
@@ -78,7 +79,7 @@ const UserProfile = () => {
 					setIsFollowing(isUserFollowing);
 				}
 			} catch (err) {
-				console.error("❌ Fehler beim Abrufen der Abonnements:", err.message);
+			
 			} finally {
 				setLoading(false);
 			}
@@ -170,7 +171,8 @@ const UserProfile = () => {
 								className={`one-user-follow-btn ${isFollowing ? "one-user-unfollow" : "one-user-follow"}`}
 								onClick={toggleFollow}
 							>
-								{isFollowing ? "Entfernen" : "Folgen"}
+								{isFollowing ? <RiUserUnfollowLine />
+									: <RiUserFollowLine />}
 							</button>
 						)}
 						<button className="one-user-back-btn" onClick={() => navigate(-1)}>⬅ Zurück</button>

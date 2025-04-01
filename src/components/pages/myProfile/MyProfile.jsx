@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {useSelector, useDispatch} from "react-redux";
-import {logoutUser, setUser} from "../../../features/features";
+import { setUser} from "../../../features/features";
 import {useNavigate} from "react-router-dom";
 import "./myProfile.scss";
 import Nav from "../../elements/nav/Nav";
@@ -58,10 +58,6 @@ const MyProfile = () => {
 		fetchProfile();
 	}, [token, dispatch, navigate]);
 	
-	const handleLogout = () => {
-		dispatch(logoutUser());
-		navigate("/");
-	};
 	
 	const getYouTubeEmbedUrl = (url) => {
 		const regExp = /^.*(youtu.be\/|youtube.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([^#&?]*).*/;
@@ -111,11 +107,11 @@ const MyProfile = () => {
 						<div><strong>{profileData.following}</strong> Abonniert</div>
 					</div>
 					<div className="myprofile-buttons">
-						<button className="myprofile-logout-btn" onClick={handleLogout}>🚪 Abmelden</button>
 						<button className="myprofile-edit-btn" onClick={() => navigate("/editProfile")}>Bearbeiten
 						</button>
+						<button className="myprofile-back-btn" onClick={() => navigate("/feed")}>⬅ Zurück</button>
+					
 					</div>
-					<button className="one-user-back-btn" onClick={() => navigate("/feed")}>⬅ Zurück</button>
 				</div>
 				<div className="myprofile-posts">
 					{userPosts.map((post) => (
@@ -144,7 +140,7 @@ const MyProfile = () => {
 									onClick={() => deletePost(post._id)}
 									title="Beitrag löschen"
 								>
-									🗑 Beitrag löschen
+									Beitrag löschen
 								</button>
 							</div>
 						</div>

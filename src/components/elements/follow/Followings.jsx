@@ -1,7 +1,7 @@
 import React from 'react';
-import Nav from "../../elements/nav/Nav";
-import Profile from "../../elements/profile/Profile";
-import FolgeIch from "../../elements/folgen/FolgeIch";
+import Nav from "../nav/Nav";
+import Profile from "../profile/Profile";
+import FolgeIch from "../folgen/FolgeIch";
 
 const Followings = () => {
 	return (

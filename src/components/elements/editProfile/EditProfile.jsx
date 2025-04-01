@@ -72,7 +72,7 @@ const EditProfile = () => {
 			setError(err.message);
 		} finally {
 			setLoading(false);
-			navigate("/feed");
+			navigate("/myProfile");
 		}
 	};
 	
@@ -98,12 +98,12 @@ const EditProfile = () => {
 		<div>
 			<Nav/>
 			<div className="editProfile">
-				<button className="delete-profile-btn" onClick={deleteProfile}>
-					🗑 Profil löschen
-				</button>
 				<h1>Profil bearbeiten</h1>
 				<form onSubmit={handleSubmit} className="edit-profile-form">
 					<div className="form-group">
+						<button className="delete-profile-btn" onClick={deleteProfile}>
+							🗑 Profil löschen
+						</button>
 						<label htmlFor="username">Benutzername:</label>
 						<input
 							required
@@ -176,10 +176,9 @@ const EditProfile = () => {
 					<button className='save_profile' type="submit" disabled={loading}>
 						{loading ? "Senden..." : "Änderungen speichern"}
 					</button>
+					<button className="back-to-profile-btn" onClick={() => navigate("/myProfile")}>Zurück zum Profil
+					</button>
 				</form>
-				
-				<button className="back-to-profile-btn" onClick={() => navigate("/myProfile")}>🔙 Zurück zum Profil
-				</button>
 				
 				{error && <div className="error-msg">❌ Fehler: {error}</div>}
 			</div>

@@ -3,6 +3,8 @@ import {useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import avatar from '../../images/png-transparent-default-avatar-thumbnail.png';
 import "./user.scss";
+import { RiUserUnfollowLine, RiUserFollowLine } from "react-icons/ri";
+
 
 const User = () => {
 	const {token, username} = useSelector((state) => state.user);
@@ -47,13 +49,13 @@ const User = () => {
 						"x-access-token": token,
 					},
 				});
-				if (!response.ok)new Error("Fehler beim Laden der Abonnements");
+				if (!response.ok);
 				
 				const data = await response.json();
 				const myFollowing = new Set(data.following.map((u) => u.username));
 				setFollowing(myFollowing);
 			} catch (err) {
-				console.error("❌ Fehler beim Laden der Abonnements:", err.message);
+			
 			} finally {
 				setLoading(false);
 			}
@@ -114,7 +116,8 @@ const User = () => {
 							className={`follow-btn ${following.has(userItem.username) ? "following" : "delete"}`}
 							onClick={() => toggleFollow(userItem.username)}
 						>
-							{following.has(userItem.username) ? "👥" : "＋"}
+							{following.has(userItem.username) ? <RiUserUnfollowLine />
+								: <RiUserFollowLine />}
 						</button>
 					</div>
 				))}

@@ -1,8 +1,10 @@
 import React, {useEffect, useState} from "react";
 import {useSelector, useDispatch} from "react-redux";
-import {logoutUser, setUser} from "../../../features/features";
-import {useNavigate} from "react-router-dom";
+import {setUser} from "../../../features/features";
+import {Link, useNavigate} from "react-router-dom";
+import { FcList, FcBusinessman, FcLike, FcCheckmark, FcMoneyTransfer  } from "react-icons/fc";
 import "./profile.scss";
+import avatar from "../../images/png-transparent-default-avatar-thumbnail.png";
 
 const Profile = () => {
 	const navigate = useNavigate();
@@ -46,10 +48,10 @@ const Profile = () => {
 		fetchProfile();
 	}, [token, dispatch, navigate]);
 	
-	const handleLogout = () => {
-		dispatch(logoutUser());
-		navigate("/");
-	};
+	// const handleLogout = () => {
+	// 	dispatch(logoutUser());
+	// 	navigate("/");
+	// };
 	
 	if (!token) return <div className="error-msg">Benutzer ist nicht autorisiert</div>;
 	if (loading) return <div className="loading">Laden...</div>;
@@ -59,25 +61,27 @@ const Profile = () => {
 	return (
 		<div className="profile-card col-3">
 			<div className="profile-header">
-				<img src={profileData.avatar} alt="Avatar" className="profile-avatar"/>
+				<Link to="/MyProfile" className="nav-link">
+				<img src={profileData.avatar || avatar} alt="Avatar" className="profile-avatar"/>
+			</Link>
 				<h2>{profileData.fullName}</h2>
 				<p className="profile-job">Alter: {profileData.age}</p>
 				<p style={{whiteSpace: "pre-wrap"}} className="profile-bio">{profileData.bio}</p>
 			</div>
 			<div className="profile-stats">
 				<div><strong>{profileData.posts_count}</strong> Beiträge</div>
-				<div><strong>{profileData.followers}</strong> Follower</div>
-				<div><strong>{profileData.following}</strong> Folgt</div>
+				<div><strong>{profileData.followers}</strong> Folgen</div>
+				<div><strong>{profileData.following}</strong> Folge</div>
 			</div>
 			<div className="profile-menu">
-				<button onClick={() => navigate("/myProfile")}>🤴 Profil</button>
-				<button onClick={() => navigate("/feed")}>🏠 Übersicht</button>
-				<button onClick={() => navigate("/followers")}>💙 {profileData.followers} Follower</button>
-				<button onClick={() => navigate("/followings")}>❤️ {profileData.following} Gefolgt</button>
-				<button onClick={() => navigate("/transaktionen")}>💸 Transaktionen</button>
+				<button onClick={() => navigate("/myProfile")}><FcBusinessman /> Profil</button>
+				<button onClick={() => navigate("/feed")}><FcList /> Übersicht</button>
+				<button onClick={() => navigate("/followers")}><FcCheckmark /> Folgen mir</button>
+				<button onClick={() => navigate("/followings")}><FcLike /> Folge ich</button>
+				<button onClick={() => navigate("/transaktionen")}><FcMoneyTransfer /> Transaktionen</button>
 			</div>
 			<div className="profile-menu-buttom">
-				<button className="logout-btn" onClick={handleLogout}>Abmelden</button>
+				{/*<button className="logout-btn" onClick={handleLogout}>Abmelden</button>*/}
 				<p className="profile-footer">© {new Date().getFullYear()}. Alle Rechte vorbehalten</p>
 			</div>
 		</div>

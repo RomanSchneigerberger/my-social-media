@@ -103,7 +103,6 @@
 .follow-btn {
   width: 50px;
   height: 50px;
-  color: #162f98;
   border: none;
   border-radius: 50%;
   cursor: pointer;
@@ -118,8 +117,9 @@
   }
 }
 
-.following {
-  background: #a5c5ef !important;
+.delete {
+  background: #0E86D4;
+  color: #fff;
 }
 
 .following::after {
@@ -127,8 +127,13 @@
   font-weight: bold;
 }
 
-.delete {
-  background: #6dd586 !important;
+.following {
+  background: #81B622;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 25px;
 }
 
 /* Мобиль и планшет*/

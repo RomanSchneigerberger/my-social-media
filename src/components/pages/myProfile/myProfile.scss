@@ -13,7 +13,7 @@
   border-radius: 10px;
   padding: 2rem;
   width: 100%;
-  max-width: 700px;
+  max-width: 800px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   text-align: center;
   position: relative;
@@ -36,8 +36,8 @@
   }
 
   .myprofile-avatar {
-    width: 200px;
-    height: 200px;
+    width: 300px;
+    height: 300px;
     object-fit: cover;
     border-radius: 10%;
     margin-bottom: 1rem;
@@ -83,49 +83,51 @@
   }
 
   .myprofile-buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     margin-top: 1.5rem;
     position: relative;
     z-index: 1;
+    gap: 10px;
 
-    .myprofile-logout-btn {
-      background-color: #1877f2;
-      color: white;
-      padding: 0.5rem 1rem;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 12px;
-      font-weight: bold;
-      gap: 35px;
-
-      &:hover {
-        background-color: #145ec4;
-      }
-    }
   }
 }
 
 .myprofile-edit-btn {
-  background-color: #818080;
-  color: white;
-  padding: 0.5rem 1rem;
+  background: #81B622;
   border: none;
+  color: #ffffff;
+  padding: 0.5rem 1rem;
   border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
   cursor: pointer;
-  font-size: 12px;
-  font-weight: bold;
-  gap: 35px;
-  margin-left: 15px;
-  margin-bottom: 15px;
+  transition: all 0.1s ease;
+
 
   &:hover {
-    background-color: #985252;
+    background-color: #6d981b;
+  }
+}
+.myprofile-back-btn{
+  background: #0E86D4;
+  border: none;
+  color: #ffffff;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.1s ease;
+  &:hover {
+    background-color: #0d73b2;
   }
 }
 
 .myprofile-posts {
   width: 100%;
-  max-width: 700px;
+  max-width: 800px;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
@@ -167,12 +169,12 @@
     .delete-button {
       background: none;
       border: none;
-      color: #f02849;
+      color: #d02b2b;;
       cursor: pointer;
       font-size: 16px;
 
       &:hover {
-        color: #d21a3c;
+        color: #b92323;
       }
     }
   }

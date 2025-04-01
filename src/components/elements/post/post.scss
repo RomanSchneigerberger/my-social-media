@@ -102,17 +102,10 @@
   background: none;
   border: none;
   cursor: pointer;
-  font-size: 18px;
+  font-size: 20px;
   transition: 0.2s;
 }
 
-.like-button:hover {
-  color: red;
-}
-
-.delete-button:hover {
-  color: #ff4d4d;
-}
 
 .post-video-container {
   width: 100%;

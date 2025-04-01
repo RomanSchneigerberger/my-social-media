@@ -55,7 +55,7 @@ const FolgenMir = () => {
 	
 	return (
 		<div className="followers-container">
-			<h2>Follower</h2>
+			<h2>Folgen mir</h2>
 			<div className="followers-list">
 				{followers.map((follower) => (
 					<div key={follower._id} className="follower-card"

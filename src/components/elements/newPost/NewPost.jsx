@@ -1,11 +1,12 @@
 import React, {useState} from "react";
 import {useSelector} from "react-redux";
-import {useNavigate} from "react-router-dom";
 import "./newPost.scss";
+import { RiVideoAddFill } from "react-icons/ri";
+import { MdAddPhotoAlternate } from "react-icons/md";
+
 
 const NewPost = () => {
 	const {token} = useSelector((state) => state.user);
-	const navigate = useNavigate();
 	const [postData, setPostData] = useState({
 		title: "",
 		description: "",
@@ -50,11 +51,12 @@ const NewPost = () => {
 	return (
 		<div className="new-post-container">
 			<div className="post-box">
+				<h2>Neuer Post</h2>
 				<div className="post-header">
 					<input
 						type="text"
 						name="title"
-						placeholder="Titel..."
+						placeholder="Post Titel..."
 						value={postData.title}
 						onChange={handleChange}
 						className="post-input title-input"
@@ -73,10 +75,10 @@ const NewPost = () => {
 				
 				<div className="post-actions">
 					<button className="post-action photo" onClick={() => setShowPhotoInput(!showPhotoInput)}>
-						📷 Foto
+						<MdAddPhotoAlternate />
 					</button>
 					<button className="post-action video" onClick={() => setShowVideoInput(!showVideoInput)}>
-						🎥 Video
+						<RiVideoAddFill />
 					</button>
 				</div>
 				

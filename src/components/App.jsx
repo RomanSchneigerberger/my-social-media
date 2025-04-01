@@ -1,6 +1,6 @@
 import React from "react";
 import {BrowserRouter, Routes, Route} from "react-router-dom";
-import UserProfile from "../components/elements/userProfile/UserProfile";
+import UserProfile from "./pages/userProfile/UserProfile";
 import Feed from "./pages/feed/Feed";
 import MyProfile from "./pages/myProfile/MyProfile";
 import SignIn from "./pages/signIn/SignIn";
@@ -8,8 +8,8 @@ import SignUp from "./pages/signUp/SignUp";
 import './app.scss';
 import Search from "./pages/search/Search";
 import EditProfile from "./elements/editProfile/EditProfile";
-import Followings from "./pages/follow/Followings";
-import Followers from "./pages/follow/Followers";
+import Followings from "./elements/follow/Followings";
+import Followers from "./elements/follow/Followers";
 import Users from '../components/elements/user/User'
 import Transaktionen from "./pages/transaktionen/Transaktionen";
 

@@ -8,7 +8,7 @@ import './post.scss';
 const Post = () => {
 	const {token, user} = useSelector((state) => state.user);
 	const [feedData, setFeedData] = useState([]);
-	const [ setError] = useState(null);
+	const [error, setError] = useState(null);
 	const [loading, setLoading] = useState(false);
 	const [fullscreenImage, setFullscreenImage] = useState(null);
 	const navigate = useNavigate();
@@ -26,7 +26,7 @@ const Post = () => {
 						"x-access-token": token,
 					},
 				});
-				if (!response.ok) throw new Error(`Fehler: ${response.status}`);
+				if (!response.ok) new Error(`Fehler: ${response.status}`);
 				const data = await response.json();
 				
 				setFeedData(data.reverse());
