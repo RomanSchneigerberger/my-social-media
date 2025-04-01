@@ -5,6 +5,7 @@ import {useNavigate} from "react-router-dom";
 import "./myProfile.scss";
 import Nav from "../../elements/nav/Nav";
 import ScrollToTop from "../../../features/scrollToTop/ScrollToTop";
+import avatar from "../../images/png-transparent-default-avatar-thumbnail.png";
 
 const MyProfile = () => {
 	const navigate = useNavigate();
@@ -94,7 +95,7 @@ const MyProfile = () => {
 			<div className="myprofile-container">
 				<div className="myprofile-card">
 					<div className="myprofile-header">
-						<img src={profileData.avatar} alt="Avatar" className="myprofile-avatar"/>
+						<img src={profileData.avatar || avatar} alt="Avatar" className="myprofile-avatar"/>
 						<h2>{profileData.fullName}</h2>
 						<p className="myprofile-username">@{profileData.username}</p>
 						<p className="myprofile-bio">{profileData.bio}</p>
